@@ -1,5 +1,6 @@
 .sidebar {
   width: 250px;
+  flex: none;
   background-color: var(--color-sidebar-bg);
   border-right: 1px solid var(--color-sidebar-border);
   padding: var(--spacing-md);

@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pottery Studio - Kanban Board</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
+        min-height: 100vh;
+        overflow-x: auto;
+        padding: 1rem;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 1.1rem;
+      }
+
+      .kanban-container {
+        background: white;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        min-height: 80vh;
+      }
+
+      .kanban-board {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(280px, 1fr));
+        gap: 1.5rem;
+        min-width: 1680px;
+      }
+
+      .column {
+        background: #fafafa;
+        border-radius: 12px;
+        padding: 1rem;
+        border-top: 4px solid;
+        min-height: 600px;
+      }
+
+      .column.ideas {
+        border-top-color: #9c88ff;
+      }
+      .column.throw {
+        border-top-color: #8b4513;
+      }
+      .column.trim {
+        border-top-color: #4682b4;
+      }
+      .column.bisque {
+        border-top-color: #cd853f;
+      }
+      .column.glaze {
+        border-top-color: #20b2aa;
+      }
+      .column.finished {
+        border-top-color: #6b8e23;
+      }
+
+      .column-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid #e0e0e0;
+      }
+
+      .column-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #5d4037;
+      }
+
+      .column-count {
+        background: #e0e0e0;
+        color: #666;
+        padding: 0.3rem 0.7rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .ideas .column-count {
+        background: #9c88ff;
+        color: white;
+      }
+      .throw .column-count {
+        background: #8b4513;
+        color: white;
+      }
+      .trim .column-count {
+        background: #4682b4;
+        color: white;
+      }
+      .bisque .column-count {
+        background: #cd853f;
+        color: white;
+      }
+      .glaze .column-count {
+        background: #20b2aa;
+        color: white;
+      }
+      .finished .column-count {
+        background: #6b8e23;
+        color: white;
+      }
+
+      .card-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .pottery-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1.2rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid;
+        cursor: grab;
+        transition: all 0.2s ease;
+      }
+
+      .pottery-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .pottery-card:active {
+        cursor: grabbing;
+      }
+
+      .ideas .pottery-card {
+        border-left-color: #9c88ff;
+      }
+      .throw .pottery-card {
+        border-left-color: #8b4513;
+      }
+      .trim .pottery-card {
+        border-left-color: #4682b4;
+      }
+      .bisque .pottery-card {
+        border-left-color: #cd853f;
+      }
+      .glaze .pottery-card {
+        border-left-color: #20b2aa;
+      }
+      .finished .pottery-card {
+        border-left-color: #6b8e23;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 0.8rem;
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.3rem;
+      }
+
+      .card-type {
+        font-size: 0.85rem;
+        color: #666;
+        background: #f0f0f0;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+      }
+
+      .card-details {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+      }
+
+      .card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        color: #777;
+      }
+
+      .card-date {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .priority-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .priority-high {
+        background: #e74c3c;
+      }
+      .priority-medium {
+        background: #f39c12;
+      }
+      .priority-low {
+        background: #27ae60;
+      }
+
+      .add-card-btn {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        background: transparent;
+        color: #888;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        margin-top: 1rem;
+      }
+
+      .add-card-btn:hover {
+        border-color: #999;
+        color: #666;
+        background: #f9f9f9;
+      }
+
+      .stage-icon {
+        font-size: 1.3rem;
+      }
+
+      @media (max-width: 1200px) {
+        .kanban-board {
+          grid-template-columns: repeat(3, minmax(280px, 1fr));
+          min-width: auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .kanban-board {
+          grid-template-columns: 1fr;
+          min-width: auto;
+        }
+
+        .header h1 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🏺 Pottery Studio Dashboard</h1>
+      <p>Track your ceramic pieces through every stage of creation</p>
+    </div>
+
+    <div class="kanban-container">
+      <div class="kanban-board">
+        <!-- Ideas Column -->
+        <div class="column ideas">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="stage-icon">💡</span>
+              Ideas
+            </div>
+            <div class="column-count">3</div>
+          </div>
+          <div class="card-list">
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Japanese Tea Set</div>
+                  <div class="card-type">Service Set</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Inspired by traditional Raku techniques. Planning 6 cups,
+                teapot, and serving tray with earthy glazes.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Started Jul 20</div>
+                <div><span class="priority-dot priority-high"></span> High</div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Garden Planters</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Large outdoor planters with drainage. Considering textured
+                surfaces and weatherproof glazes.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Started Jul 18</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Abstract Sculpture</div>
+                  <div class="card-type">Art Piece</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Exploring organic forms and negative space. Sketching concepts
+                for gallery submission.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Started Jul 15</div>
+                <div><span class="priority-dot priority-low"></span> Low</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn">+ Add new idea</button>
+        </div>
+
+        <!-- Throw Column -->
+        <div class="column throw">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="stage-icon">🏺</span>
+              Throw
+            </div>
+            <div class="column-count">4</div>
+          </div>
+          <div class="card-list">
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Large Serving Bowl</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                14" diameter bowl for salads. Using speckled stoneware clay.
+                Need to center 3lbs of clay.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Throwing today</div>
+                <div><span class="priority-dot priority-high"></span> High</div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Coffee Mugs (Set of 6)</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                12oz mugs with comfortable handles. Throwing in batches to
+                ensure consistency.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 In progress</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Decorative Vase</div>
+                  <div class="card-type">Art Piece</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Tall narrow form with flared rim. Experimenting with pulled
+                handles and texture.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Next session</div>
+                <div><span class="priority-dot priority-low"></span> Low</div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Chip & Dip Set</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Large plate with fitted bowl. Planning complementary glazes in
+                blues and whites.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Tomorrow</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn">+ Add piece to throw</button>
+        </div>
+
+        <!-- Trim Column -->
+        <div class="column trim">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="stage-icon">🔧</span>
+              Trim
+            </div>
+            <div class="column-count">2</div>
+          </div>
+          <div class="card-list">
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Pasta Bowls (Set of 4)</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Wide shallow bowls. Need to trim foot rings and refine rim. Clay
+                at perfect leather-hard stage.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Ready to trim</div>
+                <div><span class="priority-dot priority-high"></span> High</div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Ceramic Lamp Base</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Cylindrical form with cord hole. Need to clean up base and add
+                signature stamp.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Drying since Jul 22</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn">+ Add piece to trim</button>
+        </div>
+
+        <!-- Bisque Column -->
+        <div class="column bisque">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="stage-icon">🔥</span>
+              Bisque
+            </div>
+            <div class="column-count">5</div>
+          </div>
+          <div class="card-list">
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Dinner Plates (Set of 8)</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                10" plates with subtle rim detail. Scheduled for next bisque
+                firing on Friday.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Firing Jul 28</div>
+                <div><span class="priority-dot priority-high"></span> High</div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Teapot</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                32oz capacity with bamboo-style handle. Spout needs final
+                smoothing before firing.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Currently firing</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Wall Tiles (12 pieces)</div>
+                  <div class="card-type">Architectural</div>
+                </div>
+              </div>
+              <div class="card-details">
+                6"x6" decorative tiles with impressed patterns. Part of bathroom
+                renovation project.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Next load</div>
+                <div><span class="priority-dot priority-low"></span> Low</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn">+ Add to bisque queue</button>
+        </div>
+
+        <!-- Glaze Column -->
+        <div class="column glaze">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="stage-icon">🎨</span>
+              Glaze
+            </div>
+            <div class="column-count">3</div>
+          </div>
+          <div class="card-list">
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Salad Bowl & Servers</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Large bowl with wooden servers. Planning celadon green glaze
+                with clear interior.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Glazing today</div>
+                <div><span class="priority-dot priority-high"></span> High</div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Bud Vases (Set of 3)</div>
+                  <div class="card-type">Decorative</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Small vases in varying heights. Testing new copper red glaze
+                combination.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Test glazes</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Casserole Dish</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                2-quart covered dish with knob handle. Using food-safe matte
+                glaze in warm brown.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Glaze tomorrow</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Medium
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn">+ Add to glaze queue</button>
+        </div>
+
+        <!-- Finished Column -->
+        <div class="column finished">
+          <div class="column-header">
+            <div class="column-title">
+              <span class="stage-icon">✨</span>
+              Finished
+            </div>
+            <div class="column-count">6</div>
+          </div>
+          <div class="card-list">
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Espresso Cups (Set of 4)</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Perfect 3oz cups with matching saucers. Glossy black glaze with
+                gold rim accent.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Completed Jul 24</div>
+                <div>
+                  <span class="priority-dot priority-high"></span> Gift Set
+                </div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Fruit Bowl</div>
+                  <div class="card-type">Functional</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Large centerpiece bowl with fluted edges. Beautiful blue-green
+                gradient glaze.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Completed Jul 22</div>
+                <div>
+                  <span class="priority-dot priority-medium"></span> Personal
+                </div>
+              </div>
+            </div>
+
+            <div class="pottery-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Sculptural Vessel</div>
+                  <div class="card-type">Art Piece</div>
+                </div>
+              </div>
+              <div class="card-details">
+                Contemporary form with carved surface texture. Matte white glaze
+                highlights the details.
+              </div>
+              <div class="card-meta">
+                <div class="card-date">📅 Completed Jul 20</div>
+                <div>
+                  <span class="priority-dot priority-low"></span> Portfolio
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn">+ Archive completed piece</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

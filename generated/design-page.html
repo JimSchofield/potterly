@@ -1,340 +1,579 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pottery & Ceramics App Color Palette</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Georgia", serif;
-        background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
-        min-height: 100vh;
-        padding: 2rem;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
-
-      .header {
-        background: linear-gradient(135deg, #8b4513, #a0522d);
-        color: white;
-        padding: 2rem;
-        text-align: center;
-      }
-
-      .header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      }
-
-      .header p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-      }
-
-      .palette-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        padding: 2rem;
-      }
-
-      .color-section {
-        background: #fefefe;
-        border-radius: 15px;
-        padding: 1.5rem;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        border: 1px solid #f0f0f0;
-      }
-
-      .section-title {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-        color: #5d4037;
-        font-weight: 600;
-      }
-
-      .color-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-
-      .color-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.8rem;
-        border-radius: 10px;
-        background: #fafafa;
-        transition: transform 0.2s ease;
-      }
-
-      .color-item:hover {
-        transform: translateX(5px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .color-swatch {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        border: 3px solid white;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        flex-shrink: 0;
-      }
-
-      .color-info {
-        flex: 1;
-      }
-
-      .color-name {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 0.2rem;
-      }
-
-      .color-hex {
-        font-family: "Monaco", monospace;
-        color: #666;
-        font-size: 0.9rem;
-        background: #f0f0f0;
-        padding: 0.2rem 0.6rem;
-        border-radius: 6px;
-        display: inline-block;
-      }
-
-      .usage-note {
-        font-size: 0.85rem;
-        color: #777;
-        margin-top: 0.3rem;
-        font-style: italic;
-      }
-
-      .demo-section {
-        margin: 2rem;
-        padding: 2rem;
-        background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
-        border-radius: 15px;
-        text-align: center;
-      }
-
-      .demo-title {
-        color: #5d4037;
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .app-mockup {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .mockup-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .mockup-header {
-        background: #8b4513;
-        color: white;
-        padding: 0.8rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        font-weight: 600;
-      }
-
-      .mockup-item {
-        padding: 0.8rem;
-        margin: 0.5rem 0;
-        border-radius: 6px;
-        background: #f5f1eb;
-        border-left: 4px solid #d2691e;
-      }
-
-      .status-complete {
-        background: #e8f5e8;
-        border-left-color: #6b8e23;
-      }
-      .status-firing {
-        background: #fff3e0;
-        border-left-color: #d2691e;
-      }
-      .status-drying {
-        background: #f0f8ff;
-        border-left-color: #4682b4;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #8b4513, #a0522d);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        
+        .color-section {
+            background: #fefefe;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border: 1px solid #f0f0f0;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #5d4037;
+            font-weight: 600;
+        }
+        
+        .color-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            background: #fafafa;
+            transition: transform 0.2s ease;
+        }
+        
+        .color-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        
+        .color-info {
+            flex: 1;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.2rem;
+        }
+        
+        .color-hex {
+            font-family: 'Monaco', monospace;
+            color: #666;
+            font-size: 0.9rem;
+            background: #f0f0f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .usage-note {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        .demo-section {
+            margin: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .demo-title {
+            color: #5d4037;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .app-mockup {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .mockup-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .mockup-header {
+            background: #8b4513;
+            color: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .mockup-item {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            background: #f5f1eb;
+            border-left: 4px solid #d2691e;
+        }
+        
+        .status-ideas { background: #f0ebff; border-left-color: #9c88ff; }
+        .status-throw { background: #f5f1eb; border-left-color: #8b4513; }
+        .status-trim { background: #f0f8ff; border-left-color: #4682b4; }
+        .status-bisque { background: #fff3e0; border-left-color: #cd853f; }
+        .status-glaze { background: #e0f2f1; border-left-color: #20b2aa; }
+        .status-finished { background: #e8f5e8; border-left-color: #6b8e23; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div class="header">
-        <h1>🏺 Pottery & Ceramics</h1>
-        <p>
-          A warm, earthy color palette inspired by clay, glazes, and natural
-          materials
-        </p>
-      </div>
-
-      <div class="palette-grid">
-        <div class="color-section">
-          <h3 class="section-title">Primary Colors</h3>
-          <div class="color-group">
-            <div class="color-item">
-              <div class="color-swatch" style="background: #8b4513"></div>
-              <div class="color-info">
-                <div class="color-name">Clay Brown</div>
-                <div class="color-hex">#8b4513</div>
-                <div class="usage-note">
-                  Main brand color, headers, navigation
+        <div class="header">
+            <h1>🏺 Pottery & Ceramics</h1>
+            <p>A warm, earthy color palette inspired by clay, glazes, and natural materials</p>
+        </div>
+        
+        <div class="palette-grid">
+            <div class="color-section">
+                <h3 class="section-title">Primary Colors</h3>
+                <div class="color-group">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #8b4513;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Clay Brown</div>
+                            <div class="color-hex">#8b4513</div>
+                            <div class="usage-note">Main brand color, headers, navigation</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #d2691e;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Terracotta</div>
+                            <div class="color-hex">#d2691e</div>
+                            <div class="usage-note">Accent color, buttons, highlights</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #f5f1eb;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Cream</div>
+                            <div class="color-hex">#f5f1eb</div>
+                            <div class="usage-note">Background, cards, light sections</div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #d2691e"></div>
-              <div class="color-info">
-                <div class="color-name">Terracotta</div>
-                <div class="color-hex">#d2691e</div>
-                <div class="usage-note">Accent color, buttons, highlights</div>
-              </div>
+            
+            <div class="color-section">
+                <h3 class="section-title">Secondary Colors</h3>
+                <div class="color-group">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #a0522d;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Sienna</div>
+                            <div class="color-hex">#a0522d</div>
+                            <div class="usage-note">Secondary actions, borders</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #daa520;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Glaze Gold</div>
+                            <div class="color-hex">#daa520</div>
+                            <div class="usage-note">Special highlights, achievements</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #e8ddd4;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Bone</div>
+                            <div class="color-hex">#e8ddd4</div>
+                            <div class="usage-note">Subtle backgrounds, dividers</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #f5f1eb"></div>
-              <div class="color-info">
-                <div class="color-name">Cream</div>
-                <div class="color-hex">#f5f1eb</div>
-                <div class="usage-note">Background, cards, light sections</div>
-              </div>
+            
+            <div class="color-section">
+                <h3 class="section-title">Pottery Stage Colors</h3>
+                <div class="color-group">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #9c88ff;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Inspiration Purple</div>
+                            <div class="color-hex">#9c88ff</div>
+                            <div class="usage-note">Ideas stage - brainstorming</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #8b4513;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Wet Clay Brown</div>
+                            <div class="color-hex">#8b4513</div>
+                            <div class="usage-note">Throw stage - shaping on wheel</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #4682b4;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Tool Blue</div>
+                            <div class="color-hex">#4682b4</div>
+                            <div class="usage-note">Trim stage - refining shape</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #cd853f;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Bisque Fire</div>
+                            <div class="color-hex">#cd853f</div>
+                            <div class="usage-note">Bisque stage - first firing</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #20b2aa;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Glaze Teal</div>
+                            <div class="color-hex">#20b2aa</div>
+                            <div class="usage-note">Glaze stage - applying glaze</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #6b8e23;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Finished Green</div>
+                            <div class="color-hex">#6b8e23</div>
+                            <div class="usage-note">Finished stage - completed piece</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            
+            <div class="color-section">
+                <h3 class="section-title">Neutrals</h3>
+                <div class="color-group">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #5d4037;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Dark Clay</div>
+                            <div class="color-hex">#5d4037</div>
+                            <div class="usage-note">Text, dark elements</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #8d6e63;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Medium Clay</div>
+                            <div class="color-hex">#8d6e63</div>
+                            <div class="usage-note">Secondary text, icons</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #ffffff;"></div>
+                        <div class="color-info">
+                            <div class="color-name">Pure White</div>
+                            <div class="color-hex">#ffffff</div>
+                            <div class="usage-note">Cards, clean backgrounds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="color-section">
-          <h3 class="section-title">Secondary Colors</h3>
-          <div class="color-group">
-            <div class="color-item">
-              <div class="color-swatch" style="background: #a0522d"></div>
-              <div class="color-info">
-                <div class="color-name">Sienna</div>
-                <div class="color-hex">#a0522d</div>
-                <div class="usage-note">Secondary actions, borders</div>
-              </div>
+        
+        <div class="demo-section">
+            <h3 class="demo-title">App Interface Preview</h3>
+            <div class="app-mockup">
+                <div class="mockup-card">
+                    <div class="mockup-header">🏺 Current Projects</div>
+                    <div class="mockup-item status-ideas">💡 Vase Design - Ideas</div>
+                    <div class="mockup-item status-throw">🏺 Large Bowl - Throw</div>
+                    <div class="mockup-item status-trim">🔧 Mug Set - Trim</div>
+                </div>
+                <div class="mockup-card">
+                    <div class="mockup-header">📊 In Progress</div>
+                    <div class="mockup-item status-bisque">🔥 Teapot - Bisque</div>
+                    <div class="mockup-item status-glaze">🎨 Plates - Glaze</div>
+                    <div class="mockup-item status-finished">✨ Sculpture - Finished</div>
+                </div>
             </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #daa520"></div>
-              <div class="color-info">
-                <div class="color-name">Glaze Gold</div>
-                <div class="color-hex">#daa520</div>
-                <div class="usage-note">Special highlights, achievements</div>
-              </div>
+            
+            <div style="margin-top: 3rem; text-align: center;">
+                <a href="#" onclick="openKanbanBoard()" style="
+                    display: inline-block;
+                    background: linear-gradient(135deg, #8b4513, #a0522d);
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: 10px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                    transition: transform 0.2s ease;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    🗂️ View Full Kanban Board Interface
+                </a>
             </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #e8ddd4"></div>
-              <div class="color-info">
-                <div class="color-name">Bone</div>
-                <div class="color-hex">#e8ddd4</div>
-                <div class="usage-note">Subtle backgrounds, dividers</div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <div class="color-section">
-          <h3 class="section-title">Status Colors</h3>
-          <div class="color-group">
-            <div class="color-item">
-              <div class="color-swatch" style="background: #6b8e23"></div>
-              <div class="color-info">
-                <div class="color-name">Sage Green</div>
-                <div class="color-hex">#6b8e23</div>
-                <div class="usage-note">Success, completed pieces</div>
-              </div>
+        
+        <!-- Kanban Board Section (Initially Hidden) -->
+        <div id="kanban-section" style="display: none; margin-top: 2rem;">
+            <div style="background: white; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #8b4513, #a0522d); color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">🏺 Pottery Studio - Kanban Board</h3>
+                        <p style="opacity: 0.9;">Track your ceramic pieces through every stage of creation</p>
+                    </div>
+                    <button onclick="closeKanbanBoard()" style="
+                        background: rgba(255,255,255,0.2);
+                        border: none;
+                        color: white;
+                        padding: 0.5rem 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                    ">✕ Close</button>
+                </div>
+                
+                <div style="padding: 1.5rem; overflow-x: auto;">
+                    <div style="display: grid; grid-template-columns: repeat(6, minmax(280px, 1fr)); gap: 1.5rem; min-width: 1680px;">
+                        
+                        <!-- Ideas Column -->
+                        <div style="background: #fafafa; border-radius: 12px; padding: 1rem; border-top: 4px solid #9c88ff; min-height: 400px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #5d4037;">
+                                    <span>💡</span> Ideas
+                                </div>
+                                <div style="background: #9c88ff; color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">2</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #9c88ff;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Japanese Tea Set</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Service Set</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Inspired by traditional Raku techniques. Planning 6 cups, teapot, and serving tray with earthy glazes.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Started Jul 20</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span> High</div>
+                                    </div>
+                                </div>
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #9c88ff;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Garden Planters</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Large outdoor planters with drainage. Considering textured surfaces and weatherproof glazes.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Started Jul 18</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #f39c12; display: inline-block;"></span> Medium</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Throw Column -->
+                        <div style="background: #fafafa; border-radius: 12px; padding: 1rem; border-top: 4px solid #8b4513; min-height: 400px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #5d4037;">
+                                    <span>🏺</span> Throw
+                                </div>
+                                <div style="background: #8b4513; color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">2</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #8b4513;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Large Serving Bowl</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">14" diameter bowl for salads. Using speckled stoneware clay. Need to center 3lbs of clay.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Throwing today</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span> High</div>
+                                    </div>
+                                </div>
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #8b4513;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Coffee Mugs (Set of 6)</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">12oz mugs with comfortable handles. Throwing in batches to ensure consistency.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 In progress</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #f39c12; display: inline-block;"></span> Medium</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Trim Column -->
+                        <div style="background: #fafafa; border-radius: 12px; padding: 1rem; border-top: 4px solid #4682b4; min-height: 400px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #5d4037;">
+                                    <span>🔧</span> Trim
+                                </div>
+                                <div style="background: #4682b4; color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">1</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #4682b4;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Pasta Bowls (Set of 4)</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Wide shallow bowls. Need to trim foot rings and refine rim. Clay at perfect leather-hard stage.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Ready to trim</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span> High</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bisque Column -->
+                        <div style="background: #fafafa; border-radius: 12px; padding: 1rem; border-top: 4px solid #cd853f; min-height: 400px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #5d4037;">
+                                    <span>🔥</span> Bisque
+                                </div>
+                                <div style="background: #cd853f; color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">2</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #cd853f;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Dinner Plates (Set of 8)</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">10" plates with subtle rim detail. Scheduled for next bisque firing on Friday.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Firing Jul 28</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span> High</div>
+                                    </div>
+                                </div>
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #cd853f;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Teapot</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">32oz capacity with bamboo-style handle. Spout needs final smoothing before firing.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Currently firing</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #f39c12; display: inline-block;"></span> Medium</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Glaze Column -->
+                        <div style="background: #fafafa; border-radius: 12px; padding: 1rem; border-top: 4px solid #20b2aa; min-height: 400px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #5d4037;">
+                                    <span>🎨</span> Glaze
+                                </div>
+                                <div style="background: #20b2aa; color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">2</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #20b2aa;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Salad Bowl & Servers</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Large bowl with wooden servers. Planning celadon green glaze with clear interior.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Glazing today</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span> High</div>
+                                    </div>
+                                </div>
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #20b2aa;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Bud Vases (Set of 3)</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Decorative</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Small vases in varying heights. Testing new copper red glaze combination.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Test glazes</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #f39c12; display: inline-block;"></span> Medium</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Finished Column -->
+                        <div style="background: #fafafa; border-radius: 12px; padding: 1rem; border-top: 4px solid #6b8e23; min-height: 400px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #5d4037;">
+                                    <span>✨</span> Finished
+                                </div>
+                                <div style="background: #6b8e23; color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">3</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #6b8e23;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Espresso Cups (Set of 4)</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Perfect 3oz cups with matching saucers. Glossy black glaze with gold rim accent.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Completed Jul 24</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; display: inline-block;"></span> Gift Set</div>
+                                    </div>
+                                </div>
+                                <div style="background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-left: 4px solid #6b8e23;">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Fruit Bowl</div>
+                                    <div style="font-size: 0.85rem; color: #666; background: #f0f0f0; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; margin-bottom: 0.8rem;">Functional</div>
+                                    <div style="font-size: 0.9rem; color: #555; line-height: 1.4; margin-bottom: 1rem;">Large centerpiece bowl with fluted edges. Beautiful blue-green gradient glaze.</div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #777;">
+                                        <div>📅 Completed Jul 22</div>
+                                        <div><span style="width: 8px; height: 8px; border-radius: 50%; background: #f39c12; display: inline-block;"></span> Personal</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #cd853f"></div>
-              <div class="color-info">
-                <div class="color-name">Bisque</div>
-                <div class="color-hex">#cd853f</div>
-                <div class="usage-note">In progress, firing stage</div>
-              </div>
-            </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #4682b4"></div>
-              <div class="color-info">
-                <div class="color-name">Glaze Blue</div>
-                <div class="color-hex">#4682b4</div>
-                <div class="usage-note">Information, drying stage</div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <div class="color-section">
-          <h3 class="section-title">Neutrals</h3>
-          <div class="color-group">
-            <div class="color-item">
-              <div class="color-swatch" style="background: #5d4037"></div>
-              <div class="color-info">
-                <div class="color-name">Dark Clay</div>
-                <div class="color-hex">#5d4037</div>
-                <div class="usage-note">Text, dark elements</div>
-              </div>
-            </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #8d6e63"></div>
-              <div class="color-info">
-                <div class="color-name">Medium Clay</div>
-                <div class="color-hex">#8d6e63</div>
-                <div class="usage-note">Secondary text, icons</div>
-              </div>
-            </div>
-            <div class="color-item">
-              <div class="color-swatch" style="background: #ffffff"></div>
-              <div class="color-info">
-                <div class="color-name">Pure White</div>
-                <div class="color-hex">#ffffff</div>
-                <div class="usage-note">Cards, clean backgrounds</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="demo-section">
-        <h3 class="demo-title">App Interface Preview</h3>
-        <div class="app-mockup">
-          <div class="mockup-card">
-            <div class="mockup-header">🏺 My Pottery</div>
-            <div class="mockup-item status-complete">✓ Vase #1 - Completed</div>
-            <div class="mockup-item status-firing">🔥 Bowl Set - Firing</div>
-            <div class="mockup-item status-drying">💧 Mug #3 - Drying</div>
-          </div>
-          <div class="mockup-card">
-            <div class="mockup-header">📊 Progress</div>
-            <div class="mockup-item">15 pieces completed</div>
-            <div class="mockup-item">3 currently in progress</div>
-            <div class="mockup-item">Next firing: Tomorrow</div>
-          </div>
-        </div>
-      </div>
+        
+        <script>
+            function openKanbanBoard() {
+                document.getElementById('kanban-section').style.display = 'block';
+                document.getElementById('kanban-section').scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function closeKanbanBoard() {
+                document.getElementById('kanban-section').style.display = 'none';
+            }
+        </script>
     </div>
-  </body>
+</body>
 </html>

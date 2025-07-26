@@ -1,4 +1,4 @@
-import './Developer.css'
+import "./Developer.css";
 
 const Developer = () => {
   return (
@@ -17,7 +17,10 @@ const Developer = () => {
             <h3 className="section-title">Primary Colors</h3>
             <div className="color-group">
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#8b4513'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#8b4513" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Clay Brown</div>
                   <div className="color-hex">#8b4513</div>
@@ -27,19 +30,29 @@ const Developer = () => {
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#d2691e'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#d2691e" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Terracotta</div>
                   <div className="color-hex">#d2691e</div>
-                  <div className="usage-note">Accent color, buttons, highlights</div>
+                  <div className="usage-note">
+                    Accent color, buttons, highlights
+                  </div>
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#f5f1eb'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#f5f1eb" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Cream</div>
                   <div className="color-hex">#f5f1eb</div>
-                  <div className="usage-note">Background, cards, light sections</div>
+                  <div className="usage-note">
+                    Background, cards, light sections
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,7 +62,10 @@ const Developer = () => {
             <h3 className="section-title">Secondary Colors</h3>
             <div className="color-group">
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#a0522d'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#a0522d" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Sienna</div>
                   <div className="color-hex">#a0522d</div>
@@ -57,15 +73,23 @@ const Developer = () => {
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#daa520'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#daa520" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Glaze Gold</div>
                   <div className="color-hex">#daa520</div>
-                  <div className="usage-note">Special highlights, achievements</div>
+                  <div className="usage-note">
+                    Special highlights, achievements
+                  </div>
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#e8ddd4'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#e8ddd4" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Bone</div>
                   <div className="color-hex">#e8ddd4</div>
@@ -79,7 +103,10 @@ const Developer = () => {
             <h3 className="section-title">Status Colors</h3>
             <div className="color-group">
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#6b8e23'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#6b8e23" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Sage Green</div>
                   <div className="color-hex">#6b8e23</div>
@@ -87,7 +114,10 @@ const Developer = () => {
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#cd853f'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#cd853f" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Bisque</div>
                   <div className="color-hex">#cd853f</div>
@@ -95,7 +125,10 @@ const Developer = () => {
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#4682b4'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#4682b4" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Glaze Blue</div>
                   <div className="color-hex">#4682b4</div>
@@ -109,7 +142,10 @@ const Developer = () => {
             <h3 className="section-title">Neutrals</h3>
             <div className="color-group">
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#5d4037'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#5d4037" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Dark Clay</div>
                   <div className="color-hex">#5d4037</div>
@@ -117,7 +153,10 @@ const Developer = () => {
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#8d6e63'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#8d6e63" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Medium Clay</div>
                   <div className="color-hex">#8d6e63</div>
@@ -125,7 +164,10 @@ const Developer = () => {
                 </div>
               </div>
               <div className="color-item">
-                <div className="color-swatch" style={{background: '#ffffff'}}></div>
+                <div
+                  className="color-swatch"
+                  style={{ background: "#ffffff" }}
+                ></div>
                 <div className="color-info">
                   <div className="color-name">Pure White</div>
                   <div className="color-hex">#ffffff</div>
@@ -141,9 +183,15 @@ const Developer = () => {
           <div className="app-mockup">
             <div className="mockup-card">
               <div className="mockup-header">🏺 My Pottery</div>
-              <div className="mockup-item status-complete">✓ Vase #1 - Completed</div>
-              <div className="mockup-item status-firing">🔥 Bowl Set - Firing</div>
-              <div className="mockup-item status-drying">💧 Mug #3 - Drying</div>
+              <div className="mockup-item status-complete">
+                ✓ Vase #1 - Completed
+              </div>
+              <div className="mockup-item status-firing">
+                🔥 Bowl Set - Firing
+              </div>
+              <div className="mockup-item status-drying">
+                💧 Mug #3 - Drying
+              </div>
             </div>
             <div className="mockup-card">
               <div className="mockup-header">📊 Progress</div>
@@ -155,7 +203,8 @@ const Developer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Developer
+export default Developer;
+

@@ -1,0 +1,99 @@
+/* PotteryCard component styles */
+.pottery-card {
+  background: var(--color-pure-white);
+  border-radius: 10px;
+  padding: 1.2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid;
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.pottery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pottery-card:active {
+  cursor: grabbing;
+}
+
+/* Stage-specific border colors */
+.ideas .pottery-card {
+  border-left-color: var(--color-stage-ideas);
+}
+.throw .pottery-card {
+  border-left-color: var(--color-stage-throw);
+}
+.trim .pottery-card {
+  border-left-color: var(--color-stage-trim);
+}
+.bisque .pottery-card {
+  border-left-color: var(--color-stage-bisque);
+}
+.glaze .pottery-card {
+  border-left-color: var(--color-stage-glaze);
+}
+.finished .pottery-card {
+  border-left-color: var(--color-stage-finished);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 0.8rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.card-type {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  background: var(--color-border-light);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+}
+
+.card-details {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.card-date {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.priority-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.priority-high {
+  background: var(--color-priority-high);
+}
+.priority-medium {
+  background: var(--color-priority-medium);
+}
+.priority-low {
+  background: var(--color-priority-low);
+}

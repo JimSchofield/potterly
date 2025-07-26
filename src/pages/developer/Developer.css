@@ -7,7 +7,11 @@
 
 .developer-page {
   font-family: "Georgia", serif;
-  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-bone) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-cream) 0%,
+    var(--color-bone) 100%
+  );
   min-height: 100vh;
   padding: 2rem;
 }
@@ -22,7 +26,11 @@
 }
 
 .developer-page .header {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
+  background: linear-gradient(
+    135deg,
+    var(--color-clay-brown),
+    var(--color-sienna)
+  );
   color: var(--color-pure-white);
   padding: 2rem;
   text-align: center;
@@ -178,3 +186,4 @@
   background: var(--color-status-drying-bg);
   border-left-color: var(--color-glaze-blue);
 }
+

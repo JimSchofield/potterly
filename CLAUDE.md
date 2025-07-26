@@ -27,6 +27,8 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - `src/App.tsx` - Main app component with route definitions and sidebar layout
 - `src/components/` - Reusable UI components (currently contains Sidebar)
 - `src/pages/` - Route-specific page components (Home, Pieces, Profile)
+- `src/pages/developer/` - Developer/admin pages not shown in sidebar navigation
+- `src/variables.css` - Global CSS variables for pottery color design system
 - CSS files are co-located with their respective components
 
 ### Key Patterns
@@ -38,7 +40,15 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 
 ### Component Architecture
 The application follows a simple page-based architecture:
-- Sidebar provides navigation between three main sections
+- Sidebar provides navigation between three main sections (Home, Pieces, Profile)
 - Each page is a separate component in the pages directory
+- Developer pages are isolated in `src/pages/developer/` and not included in sidebar navigation
 - Shared styling through Page.css for consistent page layouts
 - Component-specific styling co-located with components
+
+### Developer Pages
+- **Developer Folder**: Contains pages for development/admin purposes not shown in main navigation
+- **Routes Available**:
+  - `/developer` - Color palette design guide showcasing pottery-themed colors
+  - `/design` - Kanban board interface for pottery studio workflow management
+- **Access**: These pages are accessible by direct URL but intentionally hidden from sidebar navigation

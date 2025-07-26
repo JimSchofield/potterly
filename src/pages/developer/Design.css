@@ -1,0 +1,51 @@
+/* Design page styles - matching kanban.html exactly */
+.design-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.design-page {
+  font-family: var(--font-family-primary);
+  background: linear-gradient(
+    135deg,
+    var(--color-cream) 0%,
+    var(--color-bone) 100%
+  );
+  min-height: 100vh;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.design-page .header {
+  background: linear-gradient(
+    135deg,
+    var(--color-clay-brown),
+    var(--color-sienna)
+  );
+  color: var(--color-pure-white);
+  padding: 1.5rem 2rem;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.design-page .header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.design-page .header p {
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .design-page .header h1 {
+    font-size: 1.5rem;
+  }
+}
+
