@@ -1,0 +1,13 @@
+.app {
+  display: flex;
+  height: 100vh;
+  font-family: var(--font-family-primary);
+  background-color: var(--color-background);
+}
+
+.container {
+  flex: 1;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+

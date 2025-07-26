@@ -1,0 +1,14 @@
+.page {
+  padding: var(--spacing-xl);
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--color-surface);
+}
+
+.page__title {
+  font-size: var(--font-size-3xl);
+  color: var(--color-dark-clay);
+  margin-bottom: var(--spacing-md);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-primary);
+}

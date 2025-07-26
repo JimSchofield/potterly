@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pottery & Ceramics App Color Palette</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .palette-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .color-section {
+        background: #fefefe;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: #5d4037;
+        font-weight: 600;
+      }
+
+      .color-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .color-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem;
+        border-radius: 10px;
+        background: #fafafa;
+        transition: transform 0.2s ease;
+      }
+
+      .color-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .color-swatch {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        border: 3px solid white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        flex-shrink: 0;
+      }
+
+      .color-info {
+        flex: 1;
+      }
+
+      .color-name {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.2rem;
+      }
+
+      .color-hex {
+        font-family: "Monaco", monospace;
+        color: #666;
+        font-size: 0.9rem;
+        background: #f0f0f0;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      .usage-note {
+        font-size: 0.85rem;
+        color: #777;
+        margin-top: 0.3rem;
+        font-style: italic;
+      }
+
+      .demo-section {
+        margin: 2rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      .demo-title {
+        color: #5d4037;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .app-mockup {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .mockup-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .mockup-header {
+        background: #8b4513;
+        color: white;
+        padding: 0.8rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .mockup-item {
+        padding: 0.8rem;
+        margin: 0.5rem 0;
+        border-radius: 6px;
+        background: #f5f1eb;
+        border-left: 4px solid #d2691e;
+      }
+
+      .status-complete {
+        background: #e8f5e8;
+        border-left-color: #6b8e23;
+      }
+      .status-firing {
+        background: #fff3e0;
+        border-left-color: #d2691e;
+      }
+      .status-drying {
+        background: #f0f8ff;
+        border-left-color: #4682b4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🏺 Pottery & Ceramics</h1>
+        <p>
+          A warm, earthy color palette inspired by clay, glazes, and natural
+          materials
+        </p>
+      </div>
+
+      <div class="palette-grid">
+        <div class="color-section">
+          <h3 class="section-title">Primary Colors</h3>
+          <div class="color-group">
+            <div class="color-item">
+              <div class="color-swatch" style="background: #8b4513"></div>
+              <div class="color-info">
+                <div class="color-name">Clay Brown</div>
+                <div class="color-hex">#8b4513</div>
+                <div class="usage-note">
+                  Main brand color, headers, navigation
+                </div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #d2691e"></div>
+              <div class="color-info">
+                <div class="color-name">Terracotta</div>
+                <div class="color-hex">#d2691e</div>
+                <div class="usage-note">Accent color, buttons, highlights</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #f5f1eb"></div>
+              <div class="color-info">
+                <div class="color-name">Cream</div>
+                <div class="color-hex">#f5f1eb</div>
+                <div class="usage-note">Background, cards, light sections</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-section">
+          <h3 class="section-title">Secondary Colors</h3>
+          <div class="color-group">
+            <div class="color-item">
+              <div class="color-swatch" style="background: #a0522d"></div>
+              <div class="color-info">
+                <div class="color-name">Sienna</div>
+                <div class="color-hex">#a0522d</div>
+                <div class="usage-note">Secondary actions, borders</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #daa520"></div>
+              <div class="color-info">
+                <div class="color-name">Glaze Gold</div>
+                <div class="color-hex">#daa520</div>
+                <div class="usage-note">Special highlights, achievements</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #e8ddd4"></div>
+              <div class="color-info">
+                <div class="color-name">Bone</div>
+                <div class="color-hex">#e8ddd4</div>
+                <div class="usage-note">Subtle backgrounds, dividers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-section">
+          <h3 class="section-title">Status Colors</h3>
+          <div class="color-group">
+            <div class="color-item">
+              <div class="color-swatch" style="background: #6b8e23"></div>
+              <div class="color-info">
+                <div class="color-name">Sage Green</div>
+                <div class="color-hex">#6b8e23</div>
+                <div class="usage-note">Success, completed pieces</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #cd853f"></div>
+              <div class="color-info">
+                <div class="color-name">Bisque</div>
+                <div class="color-hex">#cd853f</div>
+                <div class="usage-note">In progress, firing stage</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #4682b4"></div>
+              <div class="color-info">
+                <div class="color-name">Glaze Blue</div>
+                <div class="color-hex">#4682b4</div>
+                <div class="usage-note">Information, drying stage</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-section">
+          <h3 class="section-title">Neutrals</h3>
+          <div class="color-group">
+            <div class="color-item">
+              <div class="color-swatch" style="background: #5d4037"></div>
+              <div class="color-info">
+                <div class="color-name">Dark Clay</div>
+                <div class="color-hex">#5d4037</div>
+                <div class="usage-note">Text, dark elements</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #8d6e63"></div>
+              <div class="color-info">
+                <div class="color-name">Medium Clay</div>
+                <div class="color-hex">#8d6e63</div>
+                <div class="usage-note">Secondary text, icons</div>
+              </div>
+            </div>
+            <div class="color-item">
+              <div class="color-swatch" style="background: #ffffff"></div>
+              <div class="color-info">
+                <div class="color-name">Pure White</div>
+                <div class="color-hex">#ffffff</div>
+                <div class="usage-note">Cards, clean backgrounds</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h3 class="demo-title">App Interface Preview</h3>
+        <div class="app-mockup">
+          <div class="mockup-card">
+            <div class="mockup-header">🏺 My Pottery</div>
+            <div class="mockup-item status-complete">✓ Vase #1 - Completed</div>
+            <div class="mockup-item status-firing">🔥 Bowl Set - Firing</div>
+            <div class="mockup-item status-drying">💧 Mug #3 - Drying</div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-header">📊 Progress</div>
+            <div class="mockup-item">15 pieces completed</div>
+            <div class="mockup-item">3 currently in progress</div>
+            <div class="mockup-item">Next firing: Tomorrow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

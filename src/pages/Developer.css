@@ -1,0 +1,180 @@
+/* Developer page styles - matching design-page.html exactly */
+.developer-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.developer-page {
+  font-family: "Georgia", serif;
+  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-bone) 100%);
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.developer-page .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--color-pure-white);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.developer-page .header {
+  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
+  color: var(--color-pure-white);
+  padding: 2rem;
+  text-align: center;
+}
+
+.developer-page .header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.developer-page .header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.developer-page .palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.developer-page .color-section {
+  background: var(--color-card-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border-light);
+}
+
+.developer-page .section-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--color-dark-clay);
+  font-weight: 600;
+}
+
+.developer-page .color-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.developer-page .color-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+  background: var(--color-light-gray);
+  transition: transform 0.2s ease;
+}
+
+.developer-page .color-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.developer-page .color-swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 3px solid var(--color-pure-white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.developer-page .color-info {
+  flex: 1;
+}
+
+.developer-page .color-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.developer-page .color-hex {
+  font-family: "Monaco", monospace;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  background: var(--color-border-light);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.developer-page .usage-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+.developer-page .demo-section {
+  margin: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--color-cream), var(--color-bone));
+  border-radius: 15px;
+  text-align: center;
+}
+
+.developer-page .demo-title {
+  color: var(--color-dark-clay);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.developer-page .app-mockup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.developer-page .mockup-card {
+  background: var(--color-pure-white);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.developer-page .mockup-header {
+  background: var(--color-clay-brown);
+  color: var(--color-pure-white);
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.developer-page .mockup-item {
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  background: var(--color-cream);
+  border-left: 4px solid var(--color-terracotta);
+}
+
+.developer-page .status-complete {
+  background: var(--color-status-complete-bg);
+  border-left-color: var(--color-sage-green);
+}
+
+.developer-page .status-firing {
+  background: var(--color-status-firing-bg);
+  border-left-color: var(--color-terracotta);
+}
+
+.developer-page .status-drying {
+  background: var(--color-status-drying-bg);
+  border-left-color: var(--color-glaze-blue);
+}
