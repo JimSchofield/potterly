@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { addPiece } from '../stores/pieces'
 import { PotteryPiece, Stages, Priorities } from '../types/Piece'
+import { getAllStages, getStageIcon, getStageLabel } from '../utils/labels-and-icons'
 import './CreatePiece.css'
 
 const CreatePiece = () => {
   const navigate = useNavigate()
+  const stages = getAllStages()
   
   const [formData, setFormData] = useState({
     title: '',
@@ -120,12 +122,11 @@ const CreatePiece = () => {
                 onChange={handleInputChange}
                 className="form-select"
               >
-                <option value="ideas">💡 Ideas</option>
-                <option value="throw">🏺 Throw</option>
-                <option value="trim">🔧 Trim</option>
-                <option value="bisque">🔥 Bisque</option>
-                <option value="glaze">🎨 Glaze</option>
-                <option value="finished">✨ Finished</option>
+                {stages.map(stage => (
+                  <option key={stage} value={stage}>
+                    {getStageIcon(stage)} {getStageLabel(stage)}
+                  </option>
+                ))}
               </select>
             </div>
 

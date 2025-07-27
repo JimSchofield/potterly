@@ -6,7 +6,6 @@ import Profile from "./pages/Profile";
 import CreatePiece from "./pages/CreatePiece";
 import Developer from "./pages/developer/Developer";
 import Design from "./pages/developer/Design";
-import TableDesign from "./pages/developer/TableDesign";
 import "./App.css";
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
           <Route path="/create-piece" element={<CreatePiece />} />
           <Route path="/developer" element={<Developer />} />
           <Route path="/design" element={<Design />} />
-          <Route path="/table-design" element={<TableDesign />} />
         </Routes>
       </div>
     </div>

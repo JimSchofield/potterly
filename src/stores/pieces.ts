@@ -1,9 +1,24 @@
-import { atom } from 'nanostores'
-import { PotteryPiece } from '../types/Piece'
+import { atom, computed } from 'nanostores'
+import { PotteryPiece, Stages, Priorities } from '../types/Piece'
 import potteryData from '../../dogfood.json'
 
 // Initialize the store with dogfood data
 export const piecesStore = atom<PotteryPiece[]>(potteryData as PotteryPiece[])
+
+// Filter state
+interface FilterState {
+  stage: string;
+  type: string;
+  priority: string;
+  search: string;
+}
+
+export const filtersStore = atom<FilterState>({
+  stage: '',
+  type: '',
+  priority: '',
+  search: ''
+})
 
 // Actions
 export const addPiece = (piece: PotteryPiece) => {
@@ -37,4 +52,77 @@ export const getPiecesByStage = (stage: string) => {
 export const getPieceById = (id: string) => {
   const pieces = piecesStore.get()
   return pieces.find(piece => piece.id === id)
+}
+
+// Filter actions
+export const setStageFilter = (stage: string) => {
+  const currentFilters = filtersStore.get()
+  filtersStore.set({ ...currentFilters, stage })
+}
+
+export const setTypeFilter = (type: string) => {
+  const currentFilters = filtersStore.get()
+  filtersStore.set({ ...currentFilters, type })
+}
+
+export const setPriorityFilter = (priority: string) => {
+  const currentFilters = filtersStore.get()
+  filtersStore.set({ ...currentFilters, priority })
+}
+
+export const setSearchFilter = (search: string) => {
+  const currentFilters = filtersStore.get()
+  filtersStore.set({ ...currentFilters, search })
+}
+
+export const clearFilters = () => {
+  filtersStore.set({
+    stage: '',
+    type: '',
+    priority: '',
+    search: ''
+  })
+}
+
+// Computed store for filtered pieces
+export const filteredPiecesStore = computed([piecesStore, filtersStore], (pieces, filters) => {
+  let filtered = [...pieces]
+
+  // Filter by stage
+  if (filters.stage) {
+    filtered = filtered.filter(piece => piece.stage === filters.stage)
+  }
+
+  // Filter by type (case insensitive)
+  if (filters.type) {
+    filtered = filtered.filter(piece => 
+      piece.type.toLowerCase().includes(filters.type.toLowerCase())
+    )
+  }
+
+  // Filter by priority
+  if (filters.priority) {
+    filtered = filtered.filter(piece => piece.priority === filters.priority)
+  }
+
+  // Filter by search (searches title and details)
+  if (filters.search) {
+    const searchLower = filters.search.toLowerCase()
+    filtered = filtered.filter(piece => 
+      piece.title.toLowerCase().includes(searchLower) ||
+      piece.details.toLowerCase().includes(searchLower)
+    )
+  }
+
+  return filtered
+})
+
+// Enhanced getPiecesByStage that respects filters
+export const getFilteredPiecesByStage = (stage: string) => {
+  const filteredPieces = filteredPiecesStore.get()
+  const priorityOrder = { high: 3, medium: 2, low: 1 }
+  
+  return filteredPieces
+    .filter(piece => piece.stage === stage)
+    .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority])
 }

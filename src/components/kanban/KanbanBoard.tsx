@@ -1,8 +1,10 @@
 import "./KanbanBoard.css";
 import KanbanColumn from "./KanbanColumn";
+import Filters from "../Filters";
 import { useStore } from "@nanostores/react";
-import { piecesStore } from "../../stores/pieces";
+import { filteredPiecesStore } from "../../stores/pieces";
 import { Stages } from "../../types/Piece";
+import { getAllStages, getStageIcon, getStageLabel } from "../../utils/labels-and-icons";
 
 interface StageConfig {
   key: Stages;
@@ -12,7 +14,7 @@ interface StageConfig {
 }
 
 const KanbanBoard = () => {
-  const pieces = useStore(piecesStore);
+  const pieces = useStore(filteredPiecesStore);
 
   const getPiecesByStage = (stage: string) => {
     const priorityOrder = { high: 3, medium: 2, low: 1 };
@@ -21,16 +23,17 @@ const KanbanBoard = () => {
       .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
   };
 
-  const stages: StageConfig[] = [
-    { key: "ideas", icon: "💡", title: "Ideas", addButtonText: "+ Add new idea" },
-    { key: "throw", icon: "🏺", title: "Throw", addButtonText: "+ Add piece to throw" },
-    { key: "trim", icon: "🔧", title: "Trim", addButtonText: "+ Add piece to trim" },
-    { key: "bisque", icon: "🔥", title: "Bisque", addButtonText: "+ Add to bisque queue" },
-    { key: "glaze", icon: "🎨", title: "Glaze", addButtonText: "+ Add to glaze queue" },
-    { key: "finished", icon: "✨", title: "Finished", addButtonText: "+ Archive completed piece" },
-  ];
+  const stages: StageConfig[] = getAllStages().map(stage => ({
+    key: stage,
+    icon: getStageIcon(stage),
+    title: getStageLabel(stage),
+    addButtonText: `+ Add ${stage === 'ideas' ? 'new idea' : 
+                          stage === 'finished' ? 'Archive completed piece' : 
+                          `piece to ${stage}`}`
+  }));
   return (
     <div className="kanban-container">
+      <Filters />
       <div className="kanban-board">
         {stages.map((stage) => (
           <KanbanColumn
