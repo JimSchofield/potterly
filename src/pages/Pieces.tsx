@@ -1,5 +1,5 @@
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
-import KanbanBoard from "../components/KanbanBoard";
+import KanbanBoard from "../components/kanban/KanbanBoard";
 import TableDesign from "./developer/TableDesign";
 import "./Page.css";
 import "./Pieces.css";

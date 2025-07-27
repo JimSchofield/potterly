@@ -1,5 +1,5 @@
 import "./Design.css";
-import KanbanBoard from "../../components/KanbanBoard";
+import KanbanBoard from "../../components/kanban/KanbanBoard";
 
 const Design = () => {
   return (

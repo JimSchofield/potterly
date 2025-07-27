@@ -1,0 +1,47 @@
+/* KanbanBoard component styles */
+.kanban-container {
+  background: var(--color-pure-white);
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  min-height: 80vh;
+}
+
+.kanban-board {
+  display: grid;
+  gap: var(--spacing-lg);
+  grid-auto-rows: min-content;
+}
+
+/* Large screens: all 6 columns in one row */
+@media (min-width: 1920px) {
+  .kanban-board {
+    grid-template-columns: repeat(6, minmax(300px, 1fr));
+  }
+}
+
+/* Medium-large screens: 3 columns per row (balanced 3+3) */
+@media (min-width: 1200px) and (max-width: 1919px) {
+  .kanban-board {
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+  }
+}
+
+/* Medium screens: 2 columns per row (balanced 2+2+2) */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .kanban-board {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+}
+
+/* Mobile screens: 1 column per row */
+@media (max-width: 768px) {
+  .kanban-container {
+    padding: var(--spacing-md);
+  }
+  
+  .kanban-board {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}

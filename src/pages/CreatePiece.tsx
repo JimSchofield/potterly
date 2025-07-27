@@ -185,7 +185,7 @@ const CreatePiece = () => {
               onClick={handleReset}
               className="btn btn--secondary"
             >
-              Reset Form
+              Form
             </button>
             <button
               type="submit"

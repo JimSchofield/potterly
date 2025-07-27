@@ -14,7 +14,11 @@ export const addPiece = (piece: PotteryPiece) => {
 export const updatePiece = (id: string, updates: Partial<Omit<PotteryPiece, 'id'>>) => {
   const currentPieces = piecesStore.get()
   const updatedPieces = currentPieces.map(piece =>
-    piece.id === id ? { ...piece, ...updates } : piece
+    piece.id === id ? { 
+      ...piece, 
+      ...updates,
+      lastUpdated: new Date().toISOString()
+    } : piece
   )
   piecesStore.set(updatedPieces)
 }

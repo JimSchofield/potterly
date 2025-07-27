@@ -1,0 +1,24 @@
+.add-card-btn {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: transparent;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: var(--spacing-sm);
+}
+
+.add-card-btn:hover {
+  background: var(--color-light-gray);
+  border-color: var(--color-clay-brown);
+  color: var(--color-clay-brown);
+  transform: translateY(-1px);
+}
+
+.add-card-btn:active {
+  transform: translateY(0);
+}
