@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 import KanbanBoard from "../components/kanban/KanbanBoard";
-import TableDesign from "../components/table/TableDesign";
+import TableView from "../components/table/TableView";
 import "./Page.css";
 import "./Pieces.css";
 
@@ -28,7 +28,7 @@ const Pieces = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/pieces/table" replace />} />
           <Route path="/kanban" element={<KanbanBoard />} />
-          <Route path="/table" element={<TableDesign />} />
+          <Route path="/table" element={<TableView />} />
         </Routes>
       </div>
     </div>

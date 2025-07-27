@@ -1,9 +1,11 @@
 /* KanbanBoard component styles */
 .kanban-container {
-  background: var(--color-pure-white);
-  border-radius: 0 0 15px 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-large);
+  overflow: hidden;
   min-height: 80vh;
 }
 
@@ -11,6 +13,7 @@
   display: grid;
   gap: var(--spacing-lg);
   grid-auto-rows: min-content;
+  padding: 1.5rem;
 }
 
 /* Large screens: all 6 columns in one row */

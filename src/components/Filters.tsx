@@ -7,6 +7,7 @@ import {
   setPriorityFilter, 
   setSearchFilter 
 } from "../stores/pieces";
+import "./Filters.css";
 
 interface FiltersProps {
   onAddNew?: () => void;
@@ -17,7 +18,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
   const filters = useStore(filtersStore);
 
   return (
-    <div className="table-controls">
+    <div className="filter-controls">
       <div className="filters">
         <div className="filter-group">
           <label htmlFor="stage-filter">Stage:</label>

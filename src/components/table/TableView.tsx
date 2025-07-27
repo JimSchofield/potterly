@@ -1,11 +1,11 @@
-import "./TableDesign.css";
+import "./TableView.css";
 import { useStore } from "@nanostores/react";
 import { filteredPiecesStore, piecesStore } from "../../stores/pieces";
 import Filters from "../Filters";
 import PotteryTable from "./PotteryTable";
 import TableStats from "./TableStats";
 
-const TableDesign = () => {
+const TableView = () => {
   const filteredPieces = useStore(filteredPiecesStore);
   const allPieces = useStore(piecesStore);
 
@@ -18,7 +18,7 @@ const TableDesign = () => {
   };
 
   return (
-    <div className="table-container">
+    <div className="table-view-container">
       <Filters />
 
       <PotteryTable pieces={filteredPieces} />
@@ -33,5 +33,5 @@ const TableDesign = () => {
   );
 };
 
-export default TableDesign;
+export default TableView;
 
