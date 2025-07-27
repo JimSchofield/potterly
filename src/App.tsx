@@ -5,6 +5,7 @@ import Pieces from "./pages/Pieces";
 import Profile from "./pages/Profile";
 import Developer from "./pages/developer/Developer";
 import Design from "./pages/developer/Design";
+import TableDesign from "./pages/developer/TableDesign";
 import "./App.css";
 
 function App() {
@@ -14,10 +15,11 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pieces" element={<Pieces />} />
+          <Route path="/pieces/*" element={<Pieces />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/developer" element={<Developer />} />
           <Route path="/design" element={<Design />} />
+          <Route path="/table-design" element={<TableDesign />} />
         </Routes>
       </div>
     </div>
