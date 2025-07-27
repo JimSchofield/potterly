@@ -6,7 +6,10 @@
     "details": "Inspired by traditional Raku techniques. Planning 6 cups, teapot, and serving tray with earthy glazes.",
     "date": "Started Jul 20",
     "priority": "high",
-    "stage": "ideas"
+    "stage": "ideas",
+    "createdAt": "2024-07-20T09:30:00Z",
+    "lastUpdated": "2024-07-25T14:20:00Z",
+    "dueDate": "2024-08-15T23:59:59Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440002",
@@ -15,7 +18,9 @@
     "details": "Large outdoor planters with drainage. Considering textured surfaces and weatherproof glazes.",
     "date": "Started Jul 18",
     "priority": "medium",
-    "stage": "ideas"
+    "stage": "ideas",
+    "createdAt": "2024-07-18T16:45:00Z",
+    "lastUpdated": "2024-07-22T10:15:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440003",
@@ -24,7 +29,10 @@
     "details": "Exploring organic forms and negative space. Sketching concepts for gallery submission.",
     "date": "Started Jul 15",
     "priority": "low",
-    "stage": "ideas"
+    "stage": "ideas",
+    "createdAt": "2024-07-15T11:00:00Z",
+    "lastUpdated": "2024-07-15T11:00:00Z",
+    "dueDate": "2024-09-01T23:59:59Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440004",
@@ -33,7 +41,10 @@
     "details": "14″ diameter bowl for salads. Using speckled stoneware clay. Need to center 3lbs of clay.",
     "date": "Throwing today",
     "priority": "high",
-    "stage": "throw"
+    "stage": "throw",
+    "createdAt": "2024-07-25T08:00:00Z",
+    "lastUpdated": "2024-07-27T13:30:00Z",
+    "dueDate": "2024-07-28T18:00:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440005",
@@ -42,7 +53,9 @@
     "details": "12oz mugs with comfortable handles. Throwing in batches to ensure consistency.",
     "date": "In progress",
     "priority": "medium",
-    "stage": "throw"
+    "stage": "throw",
+    "createdAt": "2024-07-23T14:15:00Z",
+    "lastUpdated": "2024-07-26T16:45:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440006",
@@ -51,7 +64,9 @@
     "details": "Tall narrow form with flared rim. Experimenting with pulled handles and texture.",
     "date": "Next session",
     "priority": "low",
-    "stage": "throw"
+    "stage": "throw",
+    "createdAt": "2024-07-20T12:30:00Z",
+    "lastUpdated": "2024-07-24T09:20:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440007",
@@ -60,7 +75,10 @@
     "details": "Large plate with fitted bowl. Planning complementary glazes in blues and whites.",
     "date": "Tomorrow",
     "priority": "medium",
-    "stage": "throw"
+    "stage": "throw",
+    "createdAt": "2024-07-26T10:00:00Z",
+    "lastUpdated": "2024-07-27T11:15:00Z",
+    "dueDate": "2024-08-05T23:59:59Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440008",
@@ -69,7 +87,10 @@
     "details": "Wide shallow bowls. Need to trim foot rings and refine rim. Clay at perfect leather-hard stage.",
     "date": "Ready to trim",
     "priority": "high",
-    "stage": "trim"
+    "stage": "trim",
+    "createdAt": "2024-07-24T15:30:00Z",
+    "lastUpdated": "2024-07-27T08:45:00Z",
+    "dueDate": "2024-07-29T12:00:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440009",
@@ -78,7 +99,9 @@
     "details": "Cylindrical form with cord hole. Need to clean up base and add signature stamp.",
     "date": "Drying since Jul 22",
     "priority": "medium",
-    "stage": "trim"
+    "stage": "trim",
+    "createdAt": "2024-07-22T13:20:00Z",
+    "lastUpdated": "2024-07-25T17:10:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440010",
@@ -87,7 +110,10 @@
     "details": "10″ plates with subtle rim detail. Scheduled for next bisque firing on Friday.",
     "date": "Firing Jul 28",
     "priority": "high",
-    "stage": "bisque"
+    "stage": "bisque",
+    "createdAt": "2024-07-19T10:15:00Z",
+    "lastUpdated": "2024-07-27T14:00:00Z",
+    "dueDate": "2024-07-28T16:00:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440011",
@@ -96,7 +122,9 @@
     "details": "32oz capacity with bamboo-style handle. Spout needs final smoothing before firing.",
     "date": "Currently firing",
     "priority": "medium",
-    "stage": "bisque"
+    "stage": "bisque",
+    "createdAt": "2024-07-21T09:45:00Z",
+    "lastUpdated": "2024-07-27T12:30:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440012",
@@ -105,7 +133,10 @@
     "details": "6″x6″ decorative tiles with impressed patterns. Part of bathroom renovation project.",
     "date": "Next load",
     "priority": "low",
-    "stage": "bisque"
+    "stage": "bisque",
+    "createdAt": "2024-07-16T14:30:00Z",
+    "lastUpdated": "2024-07-23T11:20:00Z",
+    "dueDate": "2024-08-10T23:59:59Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440013",
@@ -114,7 +145,10 @@
     "details": "Large bowl with wooden servers. Planning celadon green glaze with clear interior.",
     "date": "Glazing today",
     "priority": "high",
-    "stage": "glaze"
+    "stage": "glaze",
+    "createdAt": "2024-07-18T08:30:00Z",
+    "lastUpdated": "2024-07-27T09:15:00Z",
+    "dueDate": "2024-07-30T18:00:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440014",
@@ -123,7 +157,9 @@
     "details": "Small vases in varying heights. Testing new copper red glaze combination.",
     "date": "Test glazes",
     "priority": "medium",
-    "stage": "glaze"
+    "stage": "glaze",
+    "createdAt": "2024-07-22T15:45:00Z",
+    "lastUpdated": "2024-07-26T13:20:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440015",
@@ -132,7 +168,10 @@
     "details": "2-quart covered dish with knob handle. Using food-safe matte glaze in warm brown.",
     "date": "Glaze tomorrow",
     "priority": "medium",
-    "stage": "glaze"
+    "stage": "glaze",
+    "createdAt": "2024-07-24T11:00:00Z",
+    "lastUpdated": "2024-07-27T15:45:00Z",
+    "dueDate": "2024-08-02T23:59:59Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440016",
@@ -141,7 +180,9 @@
     "details": "Perfect 3oz cups with matching saucers. Glossy black glaze with gold rim accent.",
     "date": "Completed Jul 24",
     "priority": "high",
-    "stage": "finished"
+    "stage": "finished",
+    "createdAt": "2024-07-10T12:00:00Z",
+    "lastUpdated": "2024-07-24T16:30:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440017",
@@ -150,7 +191,9 @@
     "details": "Large centerpiece bowl with fluted edges. Beautiful blue-green gradient glaze.",
     "date": "Completed Jul 22",
     "priority": "medium",
-    "stage": "finished"
+    "stage": "finished",
+    "createdAt": "2024-07-12T14:15:00Z",
+    "lastUpdated": "2024-07-22T18:45:00Z"
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440018",
@@ -159,6 +202,8 @@
     "details": "Contemporary form with carved surface texture. Matte white glaze highlights the details.",
     "date": "Completed Jul 20",
     "priority": "low",
-    "stage": "finished"
+    "stage": "finished",
+    "createdAt": "2024-07-08T10:30:00Z",
+    "lastUpdated": "2024-07-20T15:20:00Z"
   }
 ]

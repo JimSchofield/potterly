@@ -39,6 +39,17 @@ const Sidebar = () => {
             <span className="sidebar__text">Profile</span>
           </NavLink>
         </li>
+        <li className="sidebar__item">
+          <NavLink
+            to="/create-piece"
+            className={({ isActive }) =>
+              `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
+            }
+          >
+            <span className="sidebar__icon">➕</span>
+            <span className="sidebar__text">Create Piece</span>
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

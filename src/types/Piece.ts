@@ -12,7 +12,10 @@ export interface PotteryPiece {
   title: string;
   type: string;
   details: string;
-  date: string;
+  date: string; // Legacy field for display purposes
   priority: Priorities;
   stage: Stages;
+  createdAt: string; // ISO date string
+  lastUpdated: string; // ISO date string
+  dueDate?: string; // Optional ISO date string
 }

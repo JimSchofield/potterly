@@ -70,12 +70,34 @@
 .card-meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   font-size: 0.8rem;
   color: var(--color-text-muted);
 }
 
-.card-date {
+.card-dates {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex: 1;
+}
+
+.card-date,
+.card-due-date,
+.card-created,
+.card-updated {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--font-size-xs);
+}
+
+.card-due-date {
+  color: var(--color-priority-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+.card-priority {
   display: flex;
   align-items: center;
   gap: 0.3rem;

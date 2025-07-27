@@ -7,7 +7,10 @@ const KanbanBoard = () => {
   const pieces = useStore(piecesStore);
 
   const getPiecesByStage = (stage: string) => {
-    return pieces.filter((piece) => piece.stage === stage);
+    const priorityOrder = { high: 3, medium: 2, low: 1 };
+    return pieces
+      .filter((piece) => piece.stage === stage)
+      .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
   };
   return (
     <div className="kanban-container">
@@ -32,6 +35,9 @@ const KanbanBoard = () => {
                 details={piece.details}
                 date={piece.date}
                 priority={piece.priority}
+                createdAt={piece.createdAt}
+                lastUpdated={piece.lastUpdated}
+                dueDate={piece.dueDate}
               />
             ))}
           </div>
@@ -58,6 +64,9 @@ const KanbanBoard = () => {
                 details={piece.details}
                 date={piece.date}
                 priority={piece.priority}
+                createdAt={piece.createdAt}
+                lastUpdated={piece.lastUpdated}
+                dueDate={piece.dueDate}
               />
             ))}
           </div>
@@ -84,6 +93,9 @@ const KanbanBoard = () => {
                 details={piece.details}
                 date={piece.date}
                 priority={piece.priority}
+                createdAt={piece.createdAt}
+                lastUpdated={piece.lastUpdated}
+                dueDate={piece.dueDate}
               />
             ))}
           </div>
@@ -110,6 +122,9 @@ const KanbanBoard = () => {
                 details={piece.details}
                 date={piece.date}
                 priority={piece.priority}
+                createdAt={piece.createdAt}
+                lastUpdated={piece.lastUpdated}
+                dueDate={piece.dueDate}
               />
             ))}
           </div>
@@ -136,6 +151,9 @@ const KanbanBoard = () => {
                 details={piece.details}
                 date={piece.date}
                 priority={piece.priority}
+                createdAt={piece.createdAt}
+                lastUpdated={piece.lastUpdated}
+                dueDate={piece.dueDate}
               />
             ))}
           </div>
@@ -162,6 +180,9 @@ const KanbanBoard = () => {
                 details={piece.details}
                 date={piece.date}
                 priority={piece.priority}
+                createdAt={piece.createdAt}
+                lastUpdated={piece.lastUpdated}
+                dueDate={piece.dueDate}
               />
             ))}
           </div>
