@@ -6,7 +6,6 @@ interface PotteryCardProps {
   details: string;
   date: string;
   priority: "high" | "medium" | "low";
-  priorityLabel?: string;
 }
 
 const PotteryCard = ({
@@ -15,7 +14,6 @@ const PotteryCard = ({
   details,
   date,
   priority,
-  priorityLabel,
 }: PotteryCardProps) => {
   return (
     <div className="pottery-card">
@@ -30,8 +28,7 @@ const PotteryCard = ({
         <div className="card-date">📅 {date}</div>
         <div>
           <span className={`priority-dot priority-${priority}`}></span>{" "}
-          {priorityLabel ||
-            priority.charAt(0).toUpperCase() + priority.slice(1)}
+          {priority.charAt(0).toUpperCase() + priority.slice(1)}
         </div>
       </div>
     </div>

@@ -1,13 +1,12 @@
 import './TableDesign.css'
 
 interface PotteryPiece {
-  id: number
+  id: string
   name: string
   type: string
   stage: 'ideas' | 'throw' | 'trim' | 'bisque' | 'glaze' | 'finished'
   description: string
   priority: 'high' | 'medium' | 'low'
-  priorityLabel?: string
   date: string
 }
 
@@ -110,7 +109,6 @@ const TableDesign = () => {
       stage: "finished",
       description: "Perfect 3oz cups with matching saucers. Glossy black glaze with gold rim accent.",
       priority: "high",
-      priorityLabel: "Gift Set",
       date: "Completed Jul 24"
     },
     {
@@ -120,7 +118,6 @@ const TableDesign = () => {
       stage: "finished",
       description: "Large centerpiece bowl with fluted edges. Beautiful blue-green gradient glaze.",
       priority: "medium",
-      priorityLabel: "Personal",
       date: "Completed Jul 22"
     }
   ]
@@ -241,7 +238,7 @@ const TableDesign = () => {
                 <td>
                   <div className="priority-indicator">
                     <div className={`priority-dot priority-${piece.priority}`}></div>
-                    <span>{piece.priorityLabel || piece.priority}</span>
+                    <span>{piece.priority.charAt(0).toUpperCase() + piece.priority.slice(1)}</span>
                   </div>
                 </td>
                 <td>

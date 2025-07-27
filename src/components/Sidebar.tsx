@@ -13,7 +13,8 @@ const Sidebar = () => {
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
           >
-            Home
+            <span className="sidebar__icon">🏠</span>
+            <span className="sidebar__text">Home</span>
           </NavLink>
         </li>
         <li className="sidebar__item">
@@ -23,7 +24,8 @@ const Sidebar = () => {
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
           >
-            Pieces
+            <span className="sidebar__icon">🏺</span>
+            <span className="sidebar__text">Pieces</span>
           </NavLink>
         </li>
         <li className="sidebar__item">
@@ -33,7 +35,8 @@ const Sidebar = () => {
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
           >
-            Profile
+            <span className="sidebar__icon">👤</span>
+            <span className="sidebar__text">Profile</span>
           </NavLink>
         </li>
       </ul>

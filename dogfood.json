@@ -1,0 +1,164 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "title": "Japanese Tea Set",
+    "type": "Service Set",
+    "details": "Inspired by traditional Raku techniques. Planning 6 cups, teapot, and serving tray with earthy glazes.",
+    "date": "Started Jul 20",
+    "priority": "high",
+    "stage": "ideas"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440002",
+    "title": "Garden Planters",
+    "type": "Functional",
+    "details": "Large outdoor planters with drainage. Considering textured surfaces and weatherproof glazes.",
+    "date": "Started Jul 18",
+    "priority": "medium",
+    "stage": "ideas"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440003",
+    "title": "Abstract Sculpture",
+    "type": "Art Piece",
+    "details": "Exploring organic forms and negative space. Sketching concepts for gallery submission.",
+    "date": "Started Jul 15",
+    "priority": "low",
+    "stage": "ideas"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440004",
+    "title": "Large Serving Bowl",
+    "type": "Functional",
+    "details": "14″ diameter bowl for salads. Using speckled stoneware clay. Need to center 3lbs of clay.",
+    "date": "Throwing today",
+    "priority": "high",
+    "stage": "throw"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440005",
+    "title": "Coffee Mugs (Set of 6)",
+    "type": "Functional",
+    "details": "12oz mugs with comfortable handles. Throwing in batches to ensure consistency.",
+    "date": "In progress",
+    "priority": "medium",
+    "stage": "throw"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440006",
+    "title": "Decorative Vase",
+    "type": "Art Piece",
+    "details": "Tall narrow form with flared rim. Experimenting with pulled handles and texture.",
+    "date": "Next session",
+    "priority": "low",
+    "stage": "throw"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440007",
+    "title": "Chip & Dip Set",
+    "type": "Functional",
+    "details": "Large plate with fitted bowl. Planning complementary glazes in blues and whites.",
+    "date": "Tomorrow",
+    "priority": "medium",
+    "stage": "throw"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440008",
+    "title": "Pasta Bowls (Set of 4)",
+    "type": "Functional",
+    "details": "Wide shallow bowls. Need to trim foot rings and refine rim. Clay at perfect leather-hard stage.",
+    "date": "Ready to trim",
+    "priority": "high",
+    "stage": "trim"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440009",
+    "title": "Ceramic Lamp Base",
+    "type": "Functional",
+    "details": "Cylindrical form with cord hole. Need to clean up base and add signature stamp.",
+    "date": "Drying since Jul 22",
+    "priority": "medium",
+    "stage": "trim"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440010",
+    "title": "Dinner Plates (Set of 8)",
+    "type": "Functional",
+    "details": "10″ plates with subtle rim detail. Scheduled for next bisque firing on Friday.",
+    "date": "Firing Jul 28",
+    "priority": "high",
+    "stage": "bisque"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440011",
+    "title": "Teapot",
+    "type": "Functional",
+    "details": "32oz capacity with bamboo-style handle. Spout needs final smoothing before firing.",
+    "date": "Currently firing",
+    "priority": "medium",
+    "stage": "bisque"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440012",
+    "title": "Wall Tiles (12 pieces)",
+    "type": "Architectural",
+    "details": "6″x6″ decorative tiles with impressed patterns. Part of bathroom renovation project.",
+    "date": "Next load",
+    "priority": "low",
+    "stage": "bisque"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440013",
+    "title": "Salad Bowl & Servers",
+    "type": "Functional",
+    "details": "Large bowl with wooden servers. Planning celadon green glaze with clear interior.",
+    "date": "Glazing today",
+    "priority": "high",
+    "stage": "glaze"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440014",
+    "title": "Bud Vases (Set of 3)",
+    "type": "Decorative",
+    "details": "Small vases in varying heights. Testing new copper red glaze combination.",
+    "date": "Test glazes",
+    "priority": "medium",
+    "stage": "glaze"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440015",
+    "title": "Casserole Dish",
+    "type": "Functional",
+    "details": "2-quart covered dish with knob handle. Using food-safe matte glaze in warm brown.",
+    "date": "Glaze tomorrow",
+    "priority": "medium",
+    "stage": "glaze"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440016",
+    "title": "Espresso Cups (Set of 4)",
+    "type": "Functional",
+    "details": "Perfect 3oz cups with matching saucers. Glossy black glaze with gold rim accent.",
+    "date": "Completed Jul 24",
+    "priority": "high",
+    "stage": "finished"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440017",
+    "title": "Fruit Bowl",
+    "type": "Functional",
+    "details": "Large centerpiece bowl with fluted edges. Beautiful blue-green gradient glaze.",
+    "date": "Completed Jul 22",
+    "priority": "medium",
+    "stage": "finished"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440018",
+    "title": "Sculptural Vessel",
+    "type": "Art Piece",
+    "details": "Contemporary form with carved surface texture. Matte white glaze highlights the details.",
+    "date": "Completed Jul 20",
+    "priority": "low",
+    "stage": "finished"
+  }
+]
