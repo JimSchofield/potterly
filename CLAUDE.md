@@ -49,9 +49,11 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 The application follows a component-based architecture with centralized state:
 
 **Core Components:**
-- **Sidebar**: Navigation with animated icons and pottery-themed styling
-- **PotteryCard**: Reusable card component displaying pottery piece details with date tracking
+- **Sidebar**: Navigation with animated icons and pottery-themed styling, mobile hamburger menu
+- **PotteryCard**: Reusable card component displaying pottery piece details with date tracking, archive status, and starred indicators
 - **KanbanBoard**: Stage-based workflow visualization using PotteryCard components
+- **Filters**: Advanced filtering by stage, type, priority, search, archived status, and starred pieces
+- **HamburgerMenu**: Mobile navigation toggle with animated hamburger icon
 
 **Pages:**
 - **Home, Profile**: Basic page components
@@ -60,9 +62,11 @@ The application follows a component-based architecture with centralized state:
 - **Developer pages**: Isolated in `src/pages/developer/` (not in sidebar navigation)
 
 **State Management:**
-- Centralized pieces store using Nanostores
-- Reactive updates across all components
-- CRUD operations: addPiece, updatePiece, removePiece, getPiecesByStage
+- Centralized pieces store using Nanostores with reactive filtering
+- Filter state management with computed stores for real-time filtering
+- CRUD operations: addPiece, updatePiece, removePiece, archivePiece, starPiece
+- Advanced filtering: stage, type, priority, search, archived status, starred pieces
+- Computed filteredPiecesStore for reactive UI updates
 
 ### Routes
 **Main Application Routes:**
@@ -85,11 +89,13 @@ The application follows a component-based architecture with centralized state:
 interface PotteryPiece {
   id: string;              // UUID
   title: string;           // Piece name
-  type: string;            // Functional, Decorative, Art Piece, etc.
+  type: Types;             // Uses Types enum: FUNCTIONAL, DECORATIVE, ART_PIECE, SERVICE_SET, SCULPTURE
   details: string;         // Description and notes
   date: string;            // Legacy display field
   priority: "high" | "medium" | "low";
   stage: "ideas" | "throw" | "trim" | "bisque" | "glaze" | "finished";
+  archived: boolean;       // Whether piece is archived
+  starred: boolean;        // Whether piece is starred/favorited
   createdAt: string;       // ISO date string
   lastUpdated: string;     // ISO date string  
   dueDate?: string;        // Optional ISO date string
@@ -99,5 +105,14 @@ interface PotteryPiece {
 ### Design System
 - **CSS Variables**: Comprehensive pottery-themed color palette in `variables.css`
 - **Animations**: Smooth transitions, hover effects, and micro-interactions
-- **Responsive Design**: Mobile-first approach with grid layouts
+- **Responsive Design**: Mobile-first approach with grid layouts and hamburger menu
 - **Icons**: Emoji-based iconography for pottery workflow stages
+- **Mobile Features**: Hamburger menu with slide-in sidebar, optimized touch targets
+- **Visual Indicators**: Star icons for favorited pieces, archive badges, priority dots
+
+### Recent Features Added
+- **Mobile Hamburger Menu**: Slide-in navigation for mobile devices with animated hamburger icon
+- **Archive System**: Complete archive functionality with filtering and visual indicators
+- **Starred System**: Star/favorite pieces with filtering and visual indicators across table and kanban views
+- **Enhanced Filtering**: Comprehensive filter system with search, archived status, and starred-only views
+- **Mobile Optimizations**: Improved mobile layout with wider content area and better spacing
