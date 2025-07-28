@@ -6,7 +6,13 @@ interface TableStatsProps {
   archived: number;
 }
 
-const TableStats = ({ total, inProgress, highPriority, completed, archived }: TableStatsProps) => {
+const TableStats = ({
+  total,
+  inProgress,
+  highPriority,
+  completed,
+  archived,
+}: TableStatsProps) => {
   return (
     <div className="stats-bar">
       <div className="stat-item">
@@ -34,3 +40,4 @@ const TableStats = ({ total, inProgress, highPriority, completed, archived }: Ta
 };
 
 export default TableStats;
+

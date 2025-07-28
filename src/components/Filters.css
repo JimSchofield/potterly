@@ -84,7 +84,11 @@
 }
 
 .add-btn {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-saddle-brown));
+  background: linear-gradient(
+    135deg,
+    var(--color-clay-brown),
+    var(--color-saddle-brown)
+  );
   color: white;
   border: none;
   padding: var(--spacing-sm) var(--spacing-lg);
@@ -106,13 +110,14 @@
     align-items: stretch;
     padding: var(--spacing-lg) var(--spacing-sm);
   }
-  
+
   .filters {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .search-box {
     width: 100%;
   }
 }
+

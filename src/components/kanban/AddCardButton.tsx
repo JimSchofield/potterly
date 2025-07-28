@@ -1,8 +1,8 @@
-import './AddCardButton.css'
+import "./AddCardButton.css";
 
 interface AddCardButtonProps {
-  text: string
-  onClick?: () => void
+  text: string;
+  onClick?: () => void;
 }
 
 const AddCardButton = ({ text, onClick }: AddCardButtonProps) => {
@@ -10,7 +10,8 @@ const AddCardButton = ({ text, onClick }: AddCardButtonProps) => {
     <button className="add-card-btn" onClick={onClick}>
       {text}
     </button>
-  )
-}
+  );
+};
 
-export default AddCardButton
+export default AddCardButton;
+

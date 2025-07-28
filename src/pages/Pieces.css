@@ -49,8 +49,9 @@
     gap: var(--spacing-md);
     align-items: stretch;
   }
-  
+
   .view-tabs {
     justify-content: center;
   }
 }
+

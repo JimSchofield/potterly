@@ -92,13 +92,21 @@
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
+  background: linear-gradient(
+    135deg,
+    var(--color-clay-brown),
+    var(--color-sienna)
+  );
   color: white;
   border: 2px solid var(--color-clay-brown);
 }
 
 .btn--primary:hover {
-  background: linear-gradient(135deg, var(--color-sienna), var(--color-clay-brown));
+  background: linear-gradient(
+    135deg,
+    var(--color-sienna),
+    var(--color-clay-brown)
+  );
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -136,21 +144,22 @@
   .create-piece {
     margin: 0 var(--spacing-sm);
   }
-  
+
   .create-piece__form {
     padding: var(--spacing-lg) var(--spacing-md);
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
   }
-  
+
   .form-actions {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .btn {
     width: 100%;
   }
 }
+

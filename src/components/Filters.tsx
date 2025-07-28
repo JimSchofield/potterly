@@ -52,7 +52,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             <option value="">All Types</option>
-            {pieceTypes.map(type => (
+            {pieceTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
               </option>

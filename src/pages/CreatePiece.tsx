@@ -1,71 +1,83 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
-import { addPiece } from '../stores/pieces'
-import { PotteryPiece, Stages, Priorities, Types } from '../types/Piece'
-import { getAllStages, getStageIcon, getStageLabel } from '../utils/labels-and-icons'
-import { pieceTypes } from '../utils/piece-types'
-import './CreatePiece.css'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { addPiece } from "../stores/pieces";
+import { PotteryPiece, Stages, Priorities, Types } from "../types/Piece";
+import {
+  getAllStages,
+  getStageIcon,
+  getStageLabel,
+} from "../utils/labels-and-icons";
+import { pieceTypes } from "../utils/piece-types";
+import "./CreatePiece.css";
 
 const CreatePiece = () => {
-  const navigate = useNavigate()
-  const stages = getAllStages()
-  
-  const [formData, setFormData] = useState({
-    title: '',
-    type: 'Functional' as Types,
-    details: '',
-    date: '',
-    priority: 'medium' as Priorities,
-    stage: 'ideas' as Stages,
-    starred: false,
-    dueDate: ''
-  })
+  const navigate = useNavigate();
+  const stages = getAllStages();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target
-    setFormData(prev => ({
+  const [formData, setFormData] = useState({
+    title: "",
+    type: "Functional" as Types,
+    details: "",
+    date: "",
+    priority: "medium" as Priorities,
+    stage: "ideas" as Stages,
+    starred: false,
+    dueDate: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-  }
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    const now = new Date().toISOString()
+    e.preventDefault();
+
+    const now = new Date().toISOString();
     const newPiece: PotteryPiece = {
       id: uuidv4(),
       ...formData,
       archived: false,
       createdAt: now,
       lastUpdated: now,
-      dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : undefined
-    }
-    
-    addPiece(newPiece)
-    navigate('/pieces')
-  }
+      dueDate: formData.dueDate
+        ? new Date(formData.dueDate).toISOString()
+        : undefined,
+    };
+
+    addPiece(newPiece);
+    navigate("/pieces");
+  };
 
   const handleReset = () => {
     setFormData({
-      title: '',
-      type: 'Functional',
-      details: '',
-      date: '',
-      priority: 'medium',
-      stage: 'ideas',
+      title: "",
+      type: "Functional",
+      details: "",
+      date: "",
+      priority: "medium",
+      stage: "ideas",
       starred: false,
-      dueDate: ''
-    })
-  }
+      dueDate: "",
+    });
+  };
 
   return (
     <div className="page">
       <div className="create-piece">
         <h1 className="page__title">🏺 Create New Piece</h1>
-        <p className="create-piece__subtitle">Add a new pottery piece to your collection</p>
-        
+        <p className="create-piece__subtitle">
+          Add a new pottery piece to your collection
+        </p>
+
         <form className="create-piece__form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="title" className="form-label">
@@ -95,7 +107,7 @@ const CreatePiece = () => {
               className="form-select"
               required
             >
-              {pieceTypes.map(type => (
+              {pieceTypes.map((type) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
@@ -130,7 +142,7 @@ const CreatePiece = () => {
                 onChange={handleInputChange}
                 className="form-select"
               >
-                {stages.map(stage => (
+                {stages.map((stage) => (
                   <option key={stage} value={stage}>
                     {getStageIcon(stage)} {getStageLabel(stage)}
                   </option>
@@ -208,17 +220,14 @@ const CreatePiece = () => {
             >
               Form
             </button>
-            <button
-              type="submit"
-              className="btn btn--primary"
-            >
+            <button type="submit" className="btn btn--primary">
               Create Piece
             </button>
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreatePiece
+export default CreatePiece;

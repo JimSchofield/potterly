@@ -1,4 +1,4 @@
-import './PotteryCard.css'
+import "./PotteryCard.css";
 
 interface PotteryCardProps {
   title: string;
@@ -27,14 +27,14 @@ const PotteryCard = ({
 }: PotteryCardProps) => {
   // Helper function to format dates
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit'
-    })
-  }
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  };
   return (
     <div className="pottery-card">
       <div className="card-header">
@@ -55,10 +55,14 @@ const PotteryCard = ({
             <div className="card-due-date">🎯 Due: {formatDate(dueDate)}</div>
           )}
           {createdAt && (
-            <div className="card-created">📝 Created: {formatDate(createdAt)}</div>
+            <div className="card-created">
+              📝 Created: {formatDate(createdAt)}
+            </div>
           )}
           {lastUpdated && lastUpdated !== createdAt && (
-            <div className="card-updated">🔄 Updated: {formatDate(lastUpdated)}</div>
+            <div className="card-updated">
+              🔄 Updated: {formatDate(lastUpdated)}
+            </div>
           )}
         </div>
         <div className="card-priority">
@@ -71,4 +75,3 @@ const PotteryCard = ({
 };
 
 export default PotteryCard;
-

@@ -4,7 +4,11 @@ import Filters from "../Filters";
 import { useStore } from "@nanostores/react";
 import { filteredPiecesStore } from "../../stores/pieces";
 import { Stages } from "../../types/Piece";
-import { getAllStages, getStageIcon, getStageLabel } from "../../utils/labels-and-icons";
+import {
+  getAllStages,
+  getStageIcon,
+  getStageLabel,
+} from "../../utils/labels-and-icons";
 
 interface StageConfig {
   key: Stages;
@@ -23,13 +27,17 @@ const KanbanBoard = () => {
       .sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
   };
 
-  const stages: StageConfig[] = getAllStages().map(stage => ({
+  const stages: StageConfig[] = getAllStages().map((stage) => ({
     key: stage,
     icon: getStageIcon(stage),
     title: getStageLabel(stage),
-    addButtonText: `+ Add ${stage === 'ideas' ? 'new idea' : 
-                          stage === 'finished' ? 'Archive completed piece' : 
-                          `piece to ${stage}`}`
+    addButtonText: `+ Add ${
+      stage === "ideas"
+        ? "new idea"
+        : stage === "finished"
+          ? "Archive completed piece"
+          : `piece to ${stage}`
+    }`,
   }));
   return (
     <div className="kanban-container">

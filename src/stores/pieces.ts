@@ -1,5 +1,5 @@
 import { atom, computed } from "nanostores";
-import { PotteryPiece, } from "../types/Piece";
+import { PotteryPiece } from "../types/Piece";
 import potteryData from "../../dogfood.json";
 
 // Initialize the store with dogfood data

@@ -8,8 +8,12 @@ interface PotteryTableProps {
   onArchive?: (piece: PotteryPiece) => void;
 }
 
-const PotteryTable = ({ pieces, onEdit, onMove, onArchive }: PotteryTableProps) => {
-
+const PotteryTable = ({
+  pieces,
+  onEdit,
+  onMove,
+  onArchive,
+}: PotteryTableProps) => {
   return (
     <div className="table-content">
       <table className="pottery-table">
@@ -31,7 +35,9 @@ const PotteryTable = ({ pieces, onEdit, onMove, onArchive }: PotteryTableProps) 
                   <div className="piece-name">
                     {piece.starred && <span className="star-icon">⭐</span>}
                     {piece.title}
-                    {piece.archived && <span className="archived-badge">Archived</span>}
+                    {piece.archived && (
+                      <span className="archived-badge">Archived</span>
+                    )}
                   </div>
                   <div className="piece-type">{piece.type}</div>
                 </div>
@@ -46,8 +52,13 @@ const PotteryTable = ({ pieces, onEdit, onMove, onArchive }: PotteryTableProps) 
               </td>
               <td>
                 <div className="priority-indicator">
-                  <div className={`priority-dot priority-${piece.priority}`}></div>
-                  <span>{piece.priority.charAt(0).toUpperCase() + piece.priority.slice(1)}</span>
+                  <div
+                    className={`priority-dot priority-${piece.priority}`}
+                  ></div>
+                  <span>
+                    {piece.priority.charAt(0).toUpperCase() +
+                      piece.priority.slice(1)}
+                  </span>
                 </div>
               </td>
               <td>
@@ -55,14 +66,21 @@ const PotteryTable = ({ pieces, onEdit, onMove, onArchive }: PotteryTableProps) 
               </td>
               <td>
                 <div className="actions">
-                  <button className="action-btn" onClick={() => onEdit?.(piece)}>
+                  <button
+                    className="action-btn"
+                    onClick={() => onEdit?.(piece)}
+                  >
                     Edit
                   </button>
-                  <button 
+                  <button
                     className="action-btn"
-                    onClick={() => piece.stage === 'finished' ? onArchive?.(piece) : onMove?.(piece)}
+                    onClick={() =>
+                      piece.stage === "finished"
+                        ? onArchive?.(piece)
+                        : onMove?.(piece)
+                    }
                   >
-                    {piece.stage === 'finished' ? 'Archive' : 'Move'}
+                    {piece.stage === "finished" ? "Archive" : "Move"}
                   </button>
                 </div>
               </td>
@@ -75,3 +93,4 @@ const PotteryTable = ({ pieces, onEdit, onMove, onArchive }: PotteryTableProps) 
 };
 
 export default PotteryTable;
+

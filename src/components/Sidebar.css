@@ -45,14 +45,22 @@
 
 .sidebar__link--active {
   color: var(--color-sidebar-active-text);
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
+  background: linear-gradient(
+    135deg,
+    var(--color-clay-brown),
+    var(--color-sienna)
+  );
   transform: translateX(4px);
   box-shadow: var(--shadow-lg);
   border-color: var(--color-sienna);
 }
 
 .sidebar__link--active:hover {
-  background: linear-gradient(135deg, var(--color-sienna), var(--color-clay-brown));
+  background: linear-gradient(
+    135deg,
+    var(--color-sienna),
+    var(--color-clay-brown)
+  );
   color: var(--color-sidebar-active-text);
   transform: translateX(6px);
   box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
@@ -74,7 +82,7 @@
 
 .sidebar__link--active .sidebar__icon {
   transform: scale(1.1);
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .sidebar__text {
@@ -113,11 +121,11 @@
     transition: transform 0.3s ease;
     box-shadow: var(--shadow-large);
   }
-  
+
   .sidebar--open {
     transform: translateX(0);
   }
-  
+
   .sidebar__title {
     margin-top: 3rem; /* Account for hamburger menu */
   }

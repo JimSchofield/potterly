@@ -7,8 +7,8 @@ interface HamburgerMenuProps {
 
 const HamburgerMenu = ({ isOpen, onClick }: HamburgerMenuProps) => {
   return (
-    <button 
-      className={`hamburger ${isOpen ? 'hamburger--open' : ''}`}
+    <button
+      className={`hamburger ${isOpen ? "hamburger--open" : ""}`}
       onClick={onClick}
       aria-label="Toggle menu"
     >
@@ -20,3 +20,4 @@ const HamburgerMenu = ({ isOpen, onClick }: HamburgerMenuProps) => {
 };
 
 export default HamburgerMenu;
+
