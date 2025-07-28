@@ -50,15 +50,16 @@ The application follows a component-based architecture with centralized state:
 
 **Core Components:**
 - **Sidebar**: Navigation with animated icons and pottery-themed styling, mobile hamburger menu
-- **PotteryCard**: Reusable card component displaying pottery piece details with date tracking, archive status, and starred indicators
+- **PotteryCard**: Reusable card component displaying pottery piece details with status tracking, archive status, and starred indicators
 - **KanbanBoard**: Stage-based workflow visualization using PotteryCard components
 - **Filters**: Advanced filtering by stage, type, priority, search, archived status, and starred pieces
 - **HamburgerMenu**: Mobile navigation toggle with animated hamburger icon
 
 **Pages:**
-- **Home, Profile**: Basic page components
+- **Home**: Dashboard with live statistics from piece store, time-based greetings, and navigation buttons to main app sections
+- **Profile**: Basic page component
 - **Pieces**: Tabbed interface with nested routing (Kanban/Table views)
-- **CreatePiece**: Form for adding new pottery pieces with date tracking
+- **CreatePiece**: Form for adding new pottery pieces with status tracking
 - **Developer pages**: Isolated in `src/pages/developer/` (not in sidebar navigation)
 
 **State Management:**
@@ -70,7 +71,7 @@ The application follows a component-based architecture with centralized state:
 
 ### Routes
 **Main Application Routes:**
-- `/` - Home page
+- `/` - Home dashboard with live statistics and quick navigation
 - `/pieces` - Pottery pieces with nested routing:
   - `/pieces/kanban` - Kanban board view (default)
   - `/pieces/table` - Table view
@@ -91,7 +92,7 @@ interface PotteryPiece {
   title: string;           // Piece name
   type: Types;             // Uses Types enum: FUNCTIONAL, DECORATIVE, ART_PIECE, SERVICE_SET, SCULPTURE
   details: string;         // Description and notes
-  date: string;            // Legacy display field
+  status?: string;         // Optional status/notes field for display purposes
   priority: "high" | "medium" | "low";
   stage: "ideas" | "throw" | "trim" | "bisque" | "glaze" | "finished";
   archived: boolean;       // Whether piece is archived
@@ -111,6 +112,8 @@ interface PotteryPiece {
 - **Visual Indicators**: Star icons for favorited pieces, archive badges, priority dots
 
 ### Recent Features Added
+- **Dynamic Home Dashboard**: Interactive home page with live statistics calculated from piece store, time-based greetings, and navigation buttons to main app sections
+- **Optional Status Field**: Status field on pottery pieces is now optional with graceful UI handling
 - **Mobile Hamburger Menu**: Slide-in navigation for mobile devices with animated hamburger icon
 - **Archive System**: Complete archive functionality with filtering and visual indicators
 - **Starred System**: Star/favorite pieces with filtering and visual indicators across table and kanban views

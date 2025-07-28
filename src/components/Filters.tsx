@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/react";
+import { useNavigate } from "react-router-dom";
 import {
   getAllStages,
   getStageIcon,
@@ -23,6 +24,7 @@ interface FiltersProps {
 const Filters = ({ onAddNew }: FiltersProps) => {
   const stages = getAllStages();
   const filters = useStore(filtersStore);
+  const navigate = useNavigate();
 
   return (
     <div className="filter-controls">
@@ -104,7 +106,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
           value={filters.search}
           onChange={(e) => setSearchFilter(e.target.value)}
         />
-        <button className="add-btn" onClick={onAddNew}>
+        <button className="add-btn" onClick={() => navigate('/create-piece')}>
           + Add New Piece
         </button>
       </div>

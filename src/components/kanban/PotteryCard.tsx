@@ -4,7 +4,7 @@ interface PotteryCardProps {
   title: string;
   type: string;
   details: string;
-  date: string;
+  status?: string;
   priority: "high" | "medium" | "low";
   archived?: boolean;
   starred?: boolean;
@@ -17,7 +17,7 @@ const PotteryCard = ({
   title,
   type,
   details,
-  date,
+  status,
   priority,
   archived = false,
   starred = false,
@@ -50,7 +50,7 @@ const PotteryCard = ({
       <div className="card-details">{details}</div>
       <div className="card-meta">
         <div className="card-dates">
-          <div className="card-date">📅 {date}</div>
+          {status && <div className="card-status">📋 {status}</div>}
           {dueDate && (
             <div className="card-due-date">🎯 Due: {formatDate(dueDate)}</div>
           )}

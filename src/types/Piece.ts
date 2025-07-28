@@ -16,7 +16,7 @@ export interface PotteryPiece {
   title: string;
   type: Types;
   details: string;
-  date: string; // Legacy field for display purposes
+  status?: string; // Optional status/notes field for display purposes
   priority: Priorities;
   stage: Stages;
   archived: boolean;

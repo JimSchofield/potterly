@@ -185,7 +185,7 @@
   max-width: 300px;
 }
 
-.date-info {
+.status-info {
   color: var(--color-text-muted);
   font-size: var(--font-size-xs);
 }

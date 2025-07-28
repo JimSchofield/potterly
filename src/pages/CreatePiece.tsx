@@ -19,7 +19,7 @@ const CreatePiece = () => {
     title: "",
     type: "Functional" as Types,
     details: "",
-    date: "",
+    status: "",
     priority: "medium" as Priorities,
     stage: "ideas" as Stages,
     starred: false,
@@ -62,7 +62,7 @@ const CreatePiece = () => {
       title: "",
       type: "Functional",
       details: "",
-      date: "",
+      status: "",
       priority: "medium",
       stage: "ideas",
       starred: false,
@@ -166,34 +166,19 @@ const CreatePiece = () => {
                 <option value="high">High</option>
               </select>
             </div>
-            <div className="form-group">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  name="starred"
-                  checked={formData.starred}
-                  onChange={handleInputChange}
-                  className="form-checkbox"
-                />
-                <span>⭐ Star this piece</span>
-              </label>
-            </div>
-          </div>
 
-          <div className="form-row">
             <div className="form-group">
-              <label htmlFor="date" className="form-label">
-                Date/Status <span className="required">*</span>
+              <label htmlFor="status" className="form-label">
+                Status
               </label>
               <input
                 type="text"
-                id="date"
-                name="date"
-                value={formData.date}
+                id="status"
+                name="status"
+                value={formData.status}
                 onChange={handleInputChange}
                 className="form-input"
                 placeholder="e.g., Started today, In progress..."
-                required
               />
             </div>
 
@@ -212,13 +197,26 @@ const CreatePiece = () => {
             </div>
           </div>
 
+          <div className="form-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="starred"
+                checked={formData.starred}
+                onChange={handleInputChange}
+                className="form-checkbox"
+              />
+              <span>⭐ Star this piece</span>
+            </label>
+          </div>
+
           <div className="form-actions">
             <button
               type="button"
               onClick={handleReset}
               className="btn btn--secondary"
             >
-              Form
+              Reset
             </button>
             <button type="submit" className="btn btn--primary">
               Create Piece

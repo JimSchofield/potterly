@@ -23,7 +23,7 @@ const PotteryTable = ({
             <th>Stage</th>
             <th>Description</th>
             <th>Priority</th>
-            <th>Date</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -62,7 +62,7 @@ const PotteryTable = ({
                 </div>
               </td>
               <td>
-                <div className="date-info">{piece.date}</div>
+                <div className="status-info">{piece.status || '—'}</div>
               </td>
               <td>
                 <div className="actions">
