@@ -39,12 +39,9 @@
 
 /* Mobile screens: 1 column per row */
 @media (max-width: 768px) {
-  .kanban-container {
-    padding: var(--spacing-md);
-  }
-  
   .kanban-board {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-sm);
   }
 }

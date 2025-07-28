@@ -15,6 +15,7 @@ const TableView = () => {
     inProgress: allPieces.filter((p) => p.stage !== "finished").length,
     highPriority: allPieces.filter((p) => p.priority === "high").length,
     completed: allPieces.filter((p) => p.stage === "finished").length,
+    archived: allPieces.filter((p) => p.archived).length,
   };
 
   return (
@@ -28,6 +29,7 @@ const TableView = () => {
         inProgress={stats.inProgress}
         highPriority={stats.highPriority}
         completed={stats.completed}
+        archived={stats.archived}
       />
     </div>
   );

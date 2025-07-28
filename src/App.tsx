@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import HamburgerMenu from "./components/HamburgerMenu";
 import Home from "./pages/Home";
 import Pieces from "./pages/Pieces";
 import Profile from "./pages/Profile";
@@ -9,9 +11,20 @@ import Design from "./pages/developer/Design";
 import "./App.css";
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <div className="app">
-      <Sidebar />
+      <HamburgerMenu isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
+      <Sidebar isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />

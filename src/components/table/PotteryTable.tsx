@@ -28,7 +28,11 @@ const PotteryTable = ({ pieces, onEdit, onMove, onArchive }: PotteryTableProps) 
             <tr key={piece.id}>
               <td>
                 <div className="piece-info">
-                  <div className="piece-name">{piece.title}</div>
+                  <div className="piece-name">
+                    {piece.starred && <span className="star-icon">⭐</span>}
+                    {piece.title}
+                    {piece.archived && <span className="archived-badge">Archived</span>}
+                  </div>
                   <div className="piece-type">{piece.type}</div>
                 </div>
               </td>

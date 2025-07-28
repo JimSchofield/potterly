@@ -6,6 +6,8 @@ interface PotteryCardProps {
   details: string;
   date: string;
   priority: "high" | "medium" | "low";
+  archived?: boolean;
+  starred?: boolean;
   createdAt?: string;
   lastUpdated?: string;
   dueDate?: string;
@@ -17,6 +19,8 @@ const PotteryCard = ({
   details,
   date,
   priority,
+  archived = false,
+  starred = false,
   createdAt,
   lastUpdated,
   dueDate,
@@ -35,7 +39,11 @@ const PotteryCard = ({
     <div className="pottery-card">
       <div className="card-header">
         <div>
-          <div className="card-title">{title}</div>
+          <div className="card-title">
+            {starred && <span className="star-icon">⭐</span>}
+            {title}
+            {archived && <span className="archived-badge">Archived</span>}
+          </div>
           <div className="card-type">{type}</div>
         </div>
       </div>

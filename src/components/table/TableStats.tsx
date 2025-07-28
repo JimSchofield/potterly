@@ -3,9 +3,10 @@ interface TableStatsProps {
   inProgress: number;
   highPriority: number;
   completed: number;
+  archived: number;
 }
 
-const TableStats = ({ total, inProgress, highPriority, completed }: TableStatsProps) => {
+const TableStats = ({ total, inProgress, highPriority, completed, archived }: TableStatsProps) => {
   return (
     <div className="stats-bar">
       <div className="stat-item">
@@ -21,19 +22,12 @@ const TableStats = ({ total, inProgress, highPriority, completed }: TableStatsPr
         <div className="stat-label">High Priority</div>
       </div>
       <div className="stat-item">
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${Math.round((completed / total) * 100)}%` }}
-          ></div>
-        </div>
-        <div className="stat-label">
-          {Math.round((completed / total) * 100)}% Complete
-        </div>
-      </div>
-      <div className="stat-item">
         <div className="stat-number">{completed}</div>
         <div className="stat-label">Finished This Week</div>
+      </div>
+      <div className="stat-item">
+        <div className="stat-number">{archived}</div>
+        <div className="stat-label">Archived</div>
       </div>
     </div>
   );

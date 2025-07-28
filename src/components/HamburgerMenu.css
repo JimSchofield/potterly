@@ -1,0 +1,43 @@
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
+
+.hamburger__line {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-brown-dark);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Hamburger animation when open */
+.hamburger--open .hamburger__line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger--open .hamburger__line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger--open .hamburger__line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Show hamburger menu on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+}

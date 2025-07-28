@@ -1,9 +1,31 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
-const Sidebar = () => {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
+  const handleLinkClick = () => {
+    // Close mobile menu when a link is clicked
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <nav className="sidebar">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="sidebar-overlay" 
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+      
+      <nav className={`sidebar ${isOpen ? 'sidebar--open' : ''}`}>
       <h2 className="sidebar__title">Potterly</h2>
       <ul className="sidebar__nav">
         <li className="sidebar__item">
@@ -12,6 +34,7 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
+            onClick={handleLinkClick}
           >
             <span className="sidebar__icon">🏠</span>
             <span className="sidebar__text">Home</span>
@@ -23,6 +46,7 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
+            onClick={handleLinkClick}
           >
             <span className="sidebar__icon">🏺</span>
             <span className="sidebar__text">Pieces</span>
@@ -34,6 +58,7 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
+            onClick={handleLinkClick}
           >
             <span className="sidebar__icon">👤</span>
             <span className="sidebar__text">Profile</span>
@@ -45,6 +70,7 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
             }
+            onClick={handleLinkClick}
           >
             <span className="sidebar__icon">➕</span>
             <span className="sidebar__text">Create Piece</span>
@@ -52,6 +78,7 @@ const Sidebar = () => {
         </li>
       </ul>
     </nav>
+    </>
   );
 };
 

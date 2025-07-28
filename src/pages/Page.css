@@ -5,6 +5,13 @@
   background-color: var(--color-surface);
 }
 
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .page {
+    padding: 4rem var(--spacing-sm) var(--spacing-lg) var(--spacing-sm);
+  }
+}
+
 .page__title {
   font-size: var(--font-size-3xl);
   color: var(--color-dark-clay);

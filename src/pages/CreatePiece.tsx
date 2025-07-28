@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { addPiece } from '../stores/pieces'
-import { PotteryPiece, Stages, Priorities } from '../types/Piece'
+import { PotteryPiece, Stages, Priorities, Types } from '../types/Piece'
 import { getAllStages, getStageIcon, getStageLabel } from '../utils/labels-and-icons'
+import { pieceTypes } from '../utils/piece-types'
 import './CreatePiece.css'
 
 const CreatePiece = () => {
@@ -12,19 +13,20 @@ const CreatePiece = () => {
   
   const [formData, setFormData] = useState({
     title: '',
-    type: '',
+    type: 'Functional' as Types,
     details: '',
     date: '',
     priority: 'medium' as Priorities,
     stage: 'ideas' as Stages,
+    starred: false,
     dueDate: ''
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }))
   }
 
@@ -35,6 +37,7 @@ const CreatePiece = () => {
     const newPiece: PotteryPiece = {
       id: uuidv4(),
       ...formData,
+      archived: false,
       createdAt: now,
       lastUpdated: now,
       dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : undefined
@@ -47,11 +50,12 @@ const CreatePiece = () => {
   const handleReset = () => {
     setFormData({
       title: '',
-      type: '',
+      type: 'Functional',
       details: '',
       date: '',
       priority: 'medium',
       stage: 'ideas',
+      starred: false,
       dueDate: ''
     })
   }
@@ -83,16 +87,20 @@ const CreatePiece = () => {
             <label htmlFor="type" className="form-label">
               Type <span className="required">*</span>
             </label>
-            <input
-              type="text"
+            <select
               id="type"
               name="type"
               value={formData.type}
               onChange={handleInputChange}
-              className="form-input"
-              placeholder="e.g., Functional, Decorative, Art Piece..."
+              className="form-select"
               required
-            />
+            >
+              {pieceTypes.map(type => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group">
@@ -145,6 +153,18 @@ const CreatePiece = () => {
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
               </select>
+            </div>
+            <div className="form-group">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="starred"
+                  checked={formData.starred}
+                  onChange={handleInputChange}
+                  className="form-checkbox"
+                />
+                <span>⭐ Star this piece</span>
+              </label>
             </div>
           </div>
 

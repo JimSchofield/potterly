@@ -45,6 +45,23 @@
   border-color: var(--color-clay-brown);
 }
 
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-brown-dark);
+}
+
+.filter-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-clay-brown);
+}
+
 .search-and-add {
   display: flex;
   gap: var(--spacing-md);
@@ -87,6 +104,7 @@
   .filter-controls {
     flex-direction: column;
     align-items: stretch;
+    padding: var(--spacing-lg) var(--spacing-sm);
   }
   
   .filters {

@@ -52,6 +52,22 @@
   margin-bottom: 0.3rem;
 }
 
+.archived-badge {
+  display: inline-block;
+  background: var(--color-text-secondary);
+  color: white;
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  border-radius: var(--border-radius-sm);
+  margin-left: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.star-icon {
+  margin-right: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+}
+
 .card-type {
   font-size: 0.85rem;
   color: var(--color-text-secondary);
