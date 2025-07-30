@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { PotteryPiece } from "../../types/Piece";
 import { getStageIcon, getStageLabel } from "../../utils/labels-and-icons";
 
@@ -34,7 +35,9 @@ const PotteryTable = ({
                 <div className="piece-info">
                   <div className="piece-name">
                     {piece.starred && <span className="star-icon">⭐</span>}
-                    {piece.title}
+                    <Link to={`/piece/${piece.id}`} className="piece-title-link">
+                      {piece.title}
+                    </Link>
                     {piece.archived && (
                       <span className="archived-badge">Archived</span>
                     )}

@@ -7,7 +7,7 @@
 .home-header {
   background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
   color: white;
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-xl);
   border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
   box-shadow: var(--shadow-large);
   text-align: center;

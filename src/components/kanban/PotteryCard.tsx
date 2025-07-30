@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import "./PotteryCard.css";
 
 interface PotteryCardProps {
+  id: string;
   title: string;
   type: string;
   details: string;
@@ -14,6 +16,7 @@ interface PotteryCardProps {
 }
 
 const PotteryCard = ({
+  id,
   title,
   type,
   details,
@@ -41,7 +44,9 @@ const PotteryCard = ({
         <div>
           <div className="card-title">
             {starred && <span className="star-icon">⭐</span>}
-            {title}
+            <Link to={`/piece/${id}`} className="card-title-link">
+              {title}
+            </Link>
             {archived && <span className="archived-badge">Archived</span>}
           </div>
           <div className="card-type">{type}</div>

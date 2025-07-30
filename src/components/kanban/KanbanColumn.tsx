@@ -33,6 +33,7 @@ const KanbanColumn = ({
         {pieces.map((piece) => (
           <PotteryCard
             key={piece.id}
+            id={piece.id}
             title={piece.title}
             type={piece.type}
             details={piece.details}

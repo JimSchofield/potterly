@@ -9,9 +9,16 @@
   transition: all 0.2s ease;
 }
 
-.pottery-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+.card-title-link {
+  color: var(--color-clay-brown);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  transition: color 0.2s ease;
+}
+
+.card-title-link:hover {
+  color: var(--color-dark-clay);
+  text-decoration: underline;
 }
 
 .pottery-card:active {
