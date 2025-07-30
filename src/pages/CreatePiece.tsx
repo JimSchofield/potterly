@@ -216,11 +216,11 @@ const CreatePiece = () => {
             <button
               type="button"
               onClick={handleReset}
-              className="btn btn--secondary"
+              className="btn btn-secondary"
             >
               Reset
             </button>
-            <button type="submit" className="btn btn--primary">
+            <button type="submit" className="btn btn-primary">
               Create Piece
             </button>
           </div>

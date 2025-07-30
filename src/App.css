@@ -11,6 +11,8 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Global styles are imported in main.tsx */
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .container {

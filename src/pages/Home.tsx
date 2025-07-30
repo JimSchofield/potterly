@@ -59,21 +59,21 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="home-navigation">
+        <div className="home-navigation btn-group btn-group-center">
           <button 
-            className="home-nav-btn" 
+            className="btn btn-primary btn-lg" 
             onClick={() => navigate('/pieces/kanban')}
           >
             📋 View Kanban Board
           </button>
           <button 
-            className="home-nav-btn secondary" 
+            className="btn btn-secondary btn-lg" 
             onClick={() => navigate('/pieces/table')}
           >
             📊 View Table
           </button>
           <button 
-            className="home-nav-btn secondary" 
+            className="btn btn-secondary btn-lg" 
             onClick={() => navigate('/create-piece')}
           >
             + Add New Piece

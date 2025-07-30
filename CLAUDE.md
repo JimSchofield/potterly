@@ -25,13 +25,14 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - **UUID Generation**: uuid library for unique identifiers
 
 ### Project Structure
-- `src/main.tsx` - Application entry point with React Router setup
+- `src/main.tsx` - Application entry point with React Router setup and global styles import
 - `src/App.tsx` - Main app component with route definitions and sidebar layout
 - `src/components/` - Reusable UI components (Sidebar, PotteryCard, KanbanBoard)
 - `src/pages/` - Route-specific page components (Home, Pieces, Profile, CreatePiece)
 - `src/pages/developer/` - Developer/admin pages not shown in sidebar navigation
 - `src/stores/` - Nanostores state management (pieces store with CRUD actions)
 - `src/types/` - TypeScript type definitions (PotteryPiece interface)
+- `src/styles/` - Global CSS modules (button system, future: forms, cards, layout)
 - `src/variables.css` - Global CSS variables for pottery color design system
 - `dogfood.json` - Sample pottery data with realistic examples
 - CSS files are co-located with their respective components
@@ -131,6 +132,8 @@ interface StageDetails {
 
 ### Design System
 - **CSS Variables**: Comprehensive pottery-themed color palette in `variables.css`
+- **Modular Styles**: Global CSS modules in `src/styles/` directory imported via `main.tsx` with button system and future utilities
+- **Button System**: Comprehensive button variants (primary, secondary, danger, success, outline) with sizes (sm, lg, xl) and layout utilities (block, group)
 - **Animations**: Smooth transitions, hover effects, and micro-interactions
 - **Responsive Design**: Mobile-first approach with grid layouts and hamburger menu
 - **Icons**: Emoji-based iconography for pottery workflow stages
@@ -151,3 +154,7 @@ interface StageDetails {
 - **Starred System**: Star/favorite pieces with filtering and visual indicators across table and kanban views
 - **Enhanced Filtering**: Comprehensive filter system with search, archived status, and starred-only views
 - **Mobile Optimizations**: Improved mobile layout with wider content area and better spacing
+- **Modular CSS System**: Reorganized styles into `src/styles/` directory with modular CSS architecture. Created comprehensive button system with variants, sizes, and layout utilities. Removed duplicate styles across components for better maintainability
+- **Modal System**: Native HTML dialog-based modal system with context provider for confirmation dialogs and forms
+- **Stage Update Dialog**: Modal interface for updating pottery piece stages from table view with confirmation workflow
+- **Archive Functionality**: Complete archive system with confirmation dialogs and proper UI state management

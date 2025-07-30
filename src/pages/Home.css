@@ -101,39 +101,6 @@
   background: var(--color-warm-beige);
   padding: var(--spacing-xl) var(--spacing-2xl);
   border-top: 1px solid var(--color-warm-cream);
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-2xl);
-}
-
-.home-nav-btn {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
-  color: white;
-  border: none;
-  padding: var(--spacing-md) var(--spacing-xl);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.home-nav-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.home-nav-btn.secondary {
-  background: transparent;
-  border: 2px solid var(--color-clay-brown);
-  color: var(--color-clay-brown);
-}
-
-.home-nav-btn.secondary:hover {
-  background: var(--color-clay-brown);
-  color: white;
 }
 
 /* Mobile responsive design */
@@ -166,14 +133,7 @@
   }
 
   .home-navigation {
-    flex-direction: column;
-    gap: var(--spacing-lg);
     padding: var(--spacing-lg);
-  }
-
-  .home-nav-btn {
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--font-size-sm);
   }
 }
 

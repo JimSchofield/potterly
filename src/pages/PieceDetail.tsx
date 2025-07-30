@@ -145,15 +145,15 @@ const PieceDetail = () => {
         <div className="header-actions">
           {isEditMode ? (
             <>
-              <button onClick={handleSave} className="save-btn">
+              <button onClick={handleSave} className="btn btn-success">
                 💾 Save
               </button>
-              <button onClick={handleCancel} className="cancel-btn">
+              <button onClick={handleCancel} className="btn btn-danger">
                 ❌ Cancel
               </button>
             </>
           ) : (
-            <button onClick={handleEditToggle} className="edit-btn">
+            <button onClick={handleEditToggle} className="btn btn-outline">
               ✏️ Edit
             </button>
           )}
@@ -415,7 +415,7 @@ const PieceDetail = () => {
               <p>Permanently delete this pottery piece. This action cannot be undone.</p>
               <button 
                 onClick={handleRemovePiece} 
-                className="remove-btn"
+                className="btn btn-danger"
               >
                 🗑️ Delete Piece
               </button>
