@@ -1,7 +1,7 @@
 /* KanbanColumn component styles */
 .column {
   background: var(--color-pure-white);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-md);
   padding: var(--spacing-lg);
   min-height: 500px;
   display: flex;

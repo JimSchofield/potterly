@@ -25,7 +25,7 @@
 .filter-group label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-brown-dark);
+  color: var(--color-dark-clay);
   white-space: nowrap;
 }
 
@@ -35,7 +35,7 @@
   border-radius: var(--border-radius-md);
   font-size: var(--font-size-sm);
   background: white;
-  color: var(--color-brown-dark);
+  color: var(--color-dark-clay);
   cursor: pointer;
   transition: border-color 0.2s ease;
 }
@@ -52,7 +52,7 @@
   cursor: pointer;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-brown-dark);
+  color: var(--color-dark-clay);
 }
 
 .filter-checkbox {
@@ -87,7 +87,7 @@
   background: linear-gradient(
     135deg,
     var(--color-clay-brown),
-    var(--color-saddle-brown)
+    var(--color-sienna)
   );
   color: white;
   border: none;

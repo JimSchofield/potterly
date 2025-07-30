@@ -17,7 +17,7 @@
 .hamburger__line {
   width: 100%;
   height: 2px;
-  background-color: var(--color-brown-dark);
+  background-color: var(--color-dark-clay);
   transition: all 0.3s ease;
   transform-origin: center;
 }

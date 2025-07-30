@@ -28,10 +28,8 @@
   --color-text-primary: #333;
   --color-text-secondary: #666;
   --color-text-muted: #777;
-  --color-brown-dark: #5d4037;
   --color-warm-beige: #f8f6f3;
   --color-warm-cream: #e0ddd4;
-  --color-saddle-brown: #a0522d;
 
   /* Status Backgrounds */
   --color-status-complete-bg: #e8f5e8;
@@ -76,8 +74,8 @@
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
   --font-size-xxl: 2rem;
+  --font-size-xxxl: 2.5rem;
   --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
 
   /* Font weights */
   --font-weight-normal: 400;
@@ -97,7 +95,6 @@
   --border-radius-sm: 0.25rem;
   --border-radius: 0.375rem;
   --border-radius-md: 0.5rem;
-  --border-radius-lg: 0.5rem;
   --border-radius-xl: 0.75rem;
   --border-radius-large: 1.25rem;
   --border-radius-pill: 1rem;

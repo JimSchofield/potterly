@@ -8,10 +8,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   // Calculate statistics
-  const totalPieces = pieces.filter(piece => !piece.archived).length;
+  const totalPieces = pieces.length; // All pieces including archived
   const bisquePieces = pieces.filter(piece => piece.stage === 'bisque' && !piece.archived).length;
   const starredPieces = pieces.filter(piece => piece.starred && !piece.archived).length;
-  const totalCreated = pieces.length; // Including archived pieces
+  const ideasPieces = pieces.filter(piece => piece.stage === 'ideas' && !piece.archived).length;
 
   // Time-based greeting
   const getGreeting = () => {
@@ -52,10 +52,10 @@ const Home = () => {
             <div className="home-stat-number">{starredPieces}</div>
             <div className="home-stat-label">Pieces Starred</div>
           </div>
-          <div className="home-stat-card total-created">
-            <div className="home-stat-icon">✨</div>
-            <div className="home-stat-number">{totalCreated}</div>
-            <div className="home-stat-label">Total Pieces Created</div>
+          <div className="home-stat-card ideas-stage">
+            <div className="home-stat-icon">💡</div>
+            <div className="home-stat-number">{ideasPieces}</div>
+            <div className="home-stat-label">Ideas Stage</div>
           </div>
         </div>
 

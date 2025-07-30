@@ -130,7 +130,7 @@
   cursor: pointer;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-brown-dark);
+  color: var(--color-dark-clay);
 }
 
 .form-checkbox {

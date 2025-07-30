@@ -13,7 +13,7 @@
 }
 
 .page__title {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-xxl);
   color: var(--color-dark-clay);
   margin-bottom: var(--spacing-md);
   font-weight: var(--font-weight-bold);

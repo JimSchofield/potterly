@@ -5,7 +5,7 @@
 }
 
 .home-header {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-saddle-brown));
+  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
   color: white;
   padding: var(--spacing-2xl);
   border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
@@ -55,7 +55,7 @@
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-md);
   text-align: center;
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-md);
   border-left: 4px solid;
   transition: transform 0.2s ease;
 }
@@ -73,17 +73,17 @@
 }
 
 .home-stat-card.starred {
-  border-left-color: var(--color-accent-gold);
+  border-left-color: var(--color-glaze-gold);
 }
 
-.home-stat-card.total-created {
-  border-left-color: var(--color-stage-finished);
+.home-stat-card.ideas-stage {
+  border-left-color: var(--color-stage-ideas);
 }
 
 .home-stat-number {
   font-size: var(--font-size-xxxl);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-brown-dark);
+  color: var(--color-dark-clay);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -108,7 +108,7 @@
 }
 
 .home-nav-btn {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-saddle-brown));
+  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
   color: white;
   border: none;
   padding: var(--spacing-lg) var(--spacing-2xl);
@@ -123,7 +123,7 @@
 
 .home-nav-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-md);
 }
 
 .home-nav-btn.secondary {

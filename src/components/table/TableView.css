@@ -11,7 +11,7 @@
   background: linear-gradient(
     135deg,
     var(--color-clay-brown),
-    var(--color-saddle-brown)
+    var(--color-sienna)
   );
   color: white;
   padding: var(--spacing-xl);
@@ -73,7 +73,7 @@
   padding: var(--spacing-md) var(--spacing-sm);
   text-align: left;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-brown-dark);
+  color: var(--color-dark-clay);
   border-bottom: 2px solid var(--color-warm-cream);
   position: sticky;
   top: 0;
@@ -250,7 +250,7 @@
   background: linear-gradient(
     135deg,
     var(--color-clay-brown),
-    var(--color-saddle-brown)
+    var(--color-sienna)
   );
   border-radius: var(--border-radius-sm);
   transition: width 0.3s ease;
