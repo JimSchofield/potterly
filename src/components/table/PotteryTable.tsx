@@ -1,6 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { PotteryPiece } from "../../types/Piece";
 import { getStageIcon, getStageLabel } from "../../utils/labels-and-icons";
+import { useModal } from "../../contexts/ModalContext";
+import { showStageUpdateDialog } from "../StageUpdateDialog";
+import { showConfirmDialog } from "../ConfirmDialog";
+import { archivePiece } from "../../stores/pieces";
 
 interface PotteryTableProps {
   pieces: PotteryPiece[];
@@ -16,9 +20,27 @@ const PotteryTable = ({
   onArchive,
 }: PotteryTableProps) => {
   const navigate = useNavigate();
+  const { openModal } = useModal();
 
   const handleEdit = (piece: PotteryPiece) => {
     navigate(`/piece/${piece.id}?edit=true`);
+  };
+
+  const handleMove = (piece: PotteryPiece) => {
+    showStageUpdateDialog(openModal, piece);
+  };
+
+  const handleArchive = (piece: PotteryPiece) => {
+    showConfirmDialog(openModal, {
+      title: 'Archive Pottery Piece',
+      message: `Are you sure you want to archive "${piece.title}"? This will remove it from the active workflow but keep it in your collection.`,
+      confirmText: 'Archive',
+      cancelText: 'Cancel',
+      type: 'warning',
+      onConfirm: () => {
+        archivePiece(piece.id);
+      }
+    });
   };
 
   return (
@@ -81,16 +103,18 @@ const PotteryTable = ({
                   >
                     Edit
                   </button>
-                  <button
-                    className="action-btn"
-                    onClick={() =>
-                      piece.stage === "finished"
-                        ? onArchive?.(piece)
-                        : onMove?.(piece)
-                    }
-                  >
-                    {piece.stage === "finished" ? "Archive" : "Move"}
-                  </button>
+                  {!piece.archived && (
+                    <button
+                      className="action-btn"
+                      onClick={() =>
+                        piece.stage === "finished"
+                          ? handleArchive(piece)
+                          : handleMove(piece)
+                      }
+                    >
+                      {piece.stage === "finished" ? "Archive" : "Move"}
+                    </button>
+                  )}
                 </div>
               </td>
             </tr>

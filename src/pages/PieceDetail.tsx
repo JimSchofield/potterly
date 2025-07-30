@@ -3,12 +3,15 @@ import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useStore } from "@nanostores/react";
 import { piecesStore, updatePiece, removePiece } from "../stores/pieces";
 import { PotteryPiece } from "../types/Piece";
+import { useModal } from "../contexts/ModalContext";
+import { showConfirmDialog } from "../components/ConfirmDialog";
 import "./PieceDetail.css";
 
 const PieceDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { openModal } = useModal();
   const pieces = useStore(piecesStore);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPiece, setEditedPiece] = useState<PotteryPiece | null>(null);
@@ -71,10 +74,19 @@ const PieceDetail = () => {
   };
 
   const handleRemovePiece = () => {
-    if (piece && window.confirm(`Are you sure you want to permanently delete "${piece.title}"? This action cannot be undone.`)) {
-      removePiece(piece.id);
-      navigate('/pieces');
-    }
+    if (!piece) return;
+    
+    showConfirmDialog(openModal, {
+      title: 'Delete Pottery Piece',
+      message: `Are you sure you want to permanently delete "${piece.title}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      type: 'danger',
+      onConfirm: () => {
+        removePiece(piece.id);
+        navigate('/pieces');
+      }
+    });
   };
 
   const currentPiece = isEditMode ? editedPiece! : piece!;

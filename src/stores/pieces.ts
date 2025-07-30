@@ -53,6 +53,34 @@ export const removePiece = (id: string) => {
   piecesStore.set(filteredPieces);
 };
 
+export const archivePiece = (id: string) => {
+  const currentPieces = piecesStore.get();
+  const updatedPieces = currentPieces.map((piece) =>
+    piece.id === id
+      ? {
+          ...piece,
+          archived: true,
+          lastUpdated: new Date().toISOString(),
+        }
+      : piece,
+  );
+  piecesStore.set(updatedPieces);
+};
+
+export const unarchivePiece = (id: string) => {
+  const currentPieces = piecesStore.get();
+  const updatedPieces = currentPieces.map((piece) =>
+    piece.id === id
+      ? {
+          ...piece,
+          archived: false,
+          lastUpdated: new Date().toISOString(),
+        }
+      : piece,
+  );
+  piecesStore.set(updatedPieces);
+};
+
 export const getPiecesByStage = (stage: string) => {
   const pieces = piecesStore.get();
   return pieces.filter((piece) => piece.stage === stage);
