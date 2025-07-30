@@ -32,7 +32,7 @@ const StageUpdateDialog: React.FC<StageUpdateDialogProps> = ({ piece }) => {
         <p className="piece-type">{piece.type}</p>
         <div className="current-stage">
           <span className="stage-label">Current Stage:</span>
-          <span className={`stage-badge stage-${piece.stage}`}>
+          <span className={`badge stage-badge stage-${piece.stage}`}>
             {getStageIcon(piece.stage)} {getStageLabel(piece.stage)}
           </span>
         </div>

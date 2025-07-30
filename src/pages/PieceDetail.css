@@ -40,44 +40,7 @@
   align-items: center;
 }
 
-.priority-indicator,
-.stage-indicator,
-.starred-indicator,
-.archived-indicator {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-pill);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  text-transform: capitalize;
-}
-
-.priority-indicator {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.priority-high {
-  background: var(--color-priority-high);
-}
-
-.priority-medium {
-  background: var(--color-priority-medium);
-}
-
-.priority-low {
-  background: var(--color-priority-low);
-}
-
-.stage-indicator {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.starred-indicator,
-.archived-indicator {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
+/* Badge styles are now in styles/badge.css */
 
 .piece-detail-content {
   display: grid;

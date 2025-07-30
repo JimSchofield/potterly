@@ -59,16 +59,7 @@
   margin-bottom: 0.3rem;
 }
 
-.archived-badge {
-  display: inline-block;
-  background: var(--color-text-secondary);
-  color: white;
-  font-size: var(--font-size-xs);
-  padding: 2px 6px;
-  border-radius: var(--border-radius-sm);
-  margin-left: var(--spacing-xs);
-  font-weight: var(--font-weight-medium);
-}
+/* Archived badge styles are now in styles/badge.css */
 
 .star-icon {
   margin-right: var(--spacing-xs);
@@ -126,20 +117,10 @@
   gap: 0.3rem;
 }
 
-.priority-dot {
+/* Priority dot styles are now in styles/badge.css */
+/* Note: PotteryCard uses smaller dots (8px vs 10px) - custom size override */
+.pottery-card .priority-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.priority-high {
-  background: var(--color-priority-high);
-}
-.priority-medium {
-  background: var(--color-priority-medium);
-}
-.priority-low {
-  background: var(--color-priority-low);
 }
 

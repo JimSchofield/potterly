@@ -3,6 +3,9 @@
 /* Button System */
 @import './button.css';
 
+/* Badge System */
+@import './badge.css';
+
 /* Future style modules can be added here:
  * @import './forms.css';
  * @import './cards.css';

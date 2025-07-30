@@ -9,6 +9,7 @@
     - [x] bisque (picture, notes)
     - [x] Glaze (picture, notes)
     - [x] Finished (picture, notes)
+- [ ]
 - [ ] Create buttons on kan ban should go to specific create form with the stage
 - [ ] Clean up styles and try to standardize/modularize
 - [ ] Create toasts system?

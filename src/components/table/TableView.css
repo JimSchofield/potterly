@@ -124,50 +124,14 @@
   width: fit-content;
 }
 
-.archived-badge {
-  display: inline-block;
-  background: var(--color-text-secondary);
-  color: white;
-  font-size: var(--font-size-xs);
-  padding: 2px 6px;
-  border-radius: var(--border-radius-sm);
-  margin-left: var(--spacing-xs);
-  font-weight: var(--font-weight-medium);
-}
+/* Archived badge styles are now in styles/badge.css */
 
 .star-icon {
   margin-right: var(--spacing-xs);
   font-size: var(--font-size-sm);
 }
 
-.stage-badge {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-pill);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: white;
-  display: inline-block;
-  width: fit-content;
-}
-
-.stage-ideas {
-  background: var(--color-stage-ideas);
-}
-.stage-throw {
-  background: var(--color-clay-brown);
-}
-.stage-trim {
-  background: var(--color-stage-trim);
-}
-.stage-bisque {
-  background: var(--color-stage-bisque);
-}
-.stage-glaze {
-  background: var(--color-stage-glaze);
-}
-.stage-finished {
-  background: var(--color-stage-finished);
-}
+/* Stage badge styles are now in styles/badge.css */
 
 .priority-indicator {
   display: flex;
@@ -175,21 +139,7 @@
   gap: var(--spacing-xs);
 }
 
-.priority-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.priority-high {
-  background: var(--color-priority-high);
-}
-.priority-medium {
-  background: var(--color-priority-medium);
-}
-.priority-low {
-  background: var(--color-priority-low);
-}
+/* Priority dot styles are now in styles/badge.css */
 
 .description {
   color: var(--color-text-secondary);

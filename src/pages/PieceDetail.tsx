@@ -126,19 +126,17 @@ const PieceDetail = () => {
             )}
           </h1>
           <div className="piece-meta">
-            <span
-              className={`priority-indicator priority-${currentPiece.priority}`}
-            >
+            <span className={`badge priority-${currentPiece.priority}`}>
               {currentPiece.priority} priority
             </span>
-            <span className={`stage-indicator stage-${currentPiece.stage}`}>
+            <span className={`stage-badge stage-${currentPiece.stage}`}>
               {currentPiece.stage}
             </span>
             {currentPiece.starred && (
-              <span className="starred-indicator">⭐ Starred</span>
+              <span className="badge starred-indicator">⭐ Starred</span>
             )}
             {currentPiece.archived && (
-              <span className="archived-indicator">📦 Archived</span>
+              <span className="badge archived-indicator">📦 Archived</span>
             )}
           </div>
         </div>
