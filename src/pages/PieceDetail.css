@@ -105,6 +105,8 @@
 }
 
 .stage-card.current-stage {
+  flex-direction: column;
+  align-items: stretch;
   background: var(--color-cream);
   box-shadow: var(--shadow-md);
   transform: scale(1.02);
@@ -112,29 +114,35 @@
   border-style: solid;
 }
 
-/* Stage-specific border colors */
+/* Stage-specific border colors - override global badge styles */
 .stage-card.stage-ideas {
   border-color: var(--color-stage-ideas);
+  background: var(--color-warm-beige); /* Override badge background */
 }
 
 .stage-card.stage-throw {
   border-color: var(--color-stage-throw);
+  background: var(--color-warm-beige); /* Override badge background */
 }
 
 .stage-card.stage-trim {
   border-color: var(--color-stage-trim);
+  background: var(--color-warm-beige); /* Override badge background */
 }
 
 .stage-card.stage-bisque {
   border-color: var(--color-stage-bisque);
+  background: var(--color-warm-beige); /* Override badge background */
 }
 
 .stage-card.stage-glaze {
   border-color: var(--color-stage-glaze);
+  background: var(--color-warm-beige); /* Override badge background */
 }
 
 .stage-card.stage-finished {
   border-color: var(--color-stage-finished);
+  background: var(--color-warm-beige); /* Override badge background */
 }
 
 .stage-card h4 {
@@ -206,6 +214,7 @@
 @media (max-width: 768px) {
   .piece-detail-container {
     padding: var(--spacing-md);
+    padding-top: calc(var(--spacing-md) + 50px); /* Extra space for hamburger menu */
   }
 
   .piece-detail-header {
@@ -236,51 +245,9 @@
   }
 }
 
-/* Edit mode styles */
-.title-input {
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--border-radius);
-  color: white;
-  font-size: var(--font-size-xxxl);
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-bold);
-  padding: var(--spacing-xs);
-  width: 100%;
-}
+/* Form styles are now in styles/form.css */
 
-.title-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Form styles */
-.edit-input,
-.edit-textarea {
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-sm);
-  font-size: var(--font-size-sm);
-  font-family: var(--font-family-secondary);
-  background: white;
-  color: var(--color-text-primary);
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: var(--spacing-xs);
-  transition: border-color 0.2s ease;
-}
-
-.edit-input:focus,
-.edit-textarea:focus {
-  outline: none;
-  border-color: var(--color-clay-brown);
-}
-
-.edit-textarea {
-  resize: vertical;
-  font-family: var(--font-family-secondary);
-  line-height: var(--line-height-relaxed);
-}
-
+/* PieceDetail-specific form overrides */
 .weight-input {
   width: 120px;
 }
@@ -323,9 +290,7 @@
     flex-direction: column;
   }
 
-  .title-input {
-    font-size: var(--font-size-xxl);
-  }
+  /* Title input mobile styles handled in styles/form.css */
 
   .danger-zone {
     padding: var(--spacing-lg);

@@ -21,6 +21,7 @@
   text-transform: capitalize;
   display: inline-block;
   width: fit-content;
+  white-space: nowrap;
 }
 
 .stage-ideas {

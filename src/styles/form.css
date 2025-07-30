@@ -1,0 +1,178 @@
+/* Global Form System */
+
+/* Form Container */
+.form {
+  background: var(--color-surface);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+}
+
+/* Form Groups and Layout */
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+/* Form Labels */
+.form-label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+}
+
+.form-label .required {
+  color: var(--color-priority-high);
+}
+
+/* Base Form Input Styles */
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background: white;
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* Focus States */
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-clay-brown);
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+/* Textarea Specific */
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Select Specific */
+.form-select {
+  cursor: pointer;
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+}
+
+/* Edit Mode Variants (simplified styling for edit mode) */
+.form-input.edit-mode {
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.form-input.edit-mode:focus {
+  box-shadow: none; /* Simpler focus for edit mode */
+}
+
+/* Title Input (for headers) */
+.form-input.title-input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius);
+  color: white;
+  font-size: var(--font-size-xxxl);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  padding: var(--spacing-xs);
+  width: 100%;
+}
+
+.form-input.title-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Specialized Input Sizes */
+.form-input.weight-input {
+  width: 120px;
+}
+
+.form-input.search-box {
+  width: 250px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Checkbox Styles */
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.form-checkbox label {
+  margin: 0;
+  font-weight: var(--font-weight-normal);
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .form-input.title-input {
+    font-size: var(--font-size-xxl);
+  }
+
+  .form {
+    padding: var(--spacing-lg);
+  }
+
+  .form-input.search-box {
+    width: 100%;
+  }
+}
+
+/* Form States */
+.form-input:disabled {
+  background: var(--color-light-gray);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.form-input.error {
+  border-color: var(--color-priority-high);
+}
+
+.form-input.error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 127, 0.1);
+}

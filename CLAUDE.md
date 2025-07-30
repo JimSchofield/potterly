@@ -132,13 +132,18 @@ interface StageDetails {
 
 ### Design System
 - **CSS Variables**: Comprehensive pottery-themed color palette in `variables.css`
-- **Modular Styles**: Global CSS modules in `src/styles/` directory imported via `main.tsx` with button system and future utilities
-- **Button System**: Comprehensive button variants (primary, secondary, danger, success, outline) with sizes (sm, lg, xl) and layout utilities (block, group)
+- **Modular CSS Architecture**: Global CSS modules in `src/styles/` directory imported via `main.tsx`
+  - `styles/button.css`: Comprehensive button system with variants (primary, secondary, danger, success, outline), sizes (sm, lg, xl), and layout utilities (block, group)
+  - `styles/badge.css`: Badge system with stage badges, priority badges, status indicators, and archive badges
+  - `styles/form.css`: Unified form system with consolidated selectors (form-input, form-textarea, form-select) and modifier classes (edit-mode, title-input, weight-input, search-box)
+  - `styles/index.css`: Central import hub for all global styles
+- **Form System**: Consolidated form elements using single selectors with modifier classes for consistent styling across all inputs, textareas, and selects
+- **Badge System**: Comprehensive badge variants for stages, priorities, and status indicators with consistent styling
 - **Animations**: Smooth transitions, hover effects, and micro-interactions
-- **Responsive Design**: Mobile-first approach with grid layouts and hamburger menu
+- **Responsive Design**: Mobile-first approach with grid layouts, hamburger menu, and proper mobile spacing to avoid menu overlap
 - **Icons**: Emoji-based iconography for pottery workflow stages
-- **Mobile Features**: Hamburger menu with slide-in sidebar, optimized touch targets
-- **Visual Indicators**: Star icons for favorited pieces, archive badges, priority dots
+- **Mobile Features**: Hamburger menu with slide-in sidebar, optimized touch targets, mobile-specific padding adjustments
+- **Visual Indicators**: Star icons for favorited pieces, archive badges, priority dots with no-wrap text
 
 ### Recent Features Added
 - **Piece Detail Page with Edit Mode**: Complete detail view for individual pottery pieces with toggleable edit mode. Users can view all piece information and stage details, then switch to edit mode to modify any field including stage-specific notes, images, weights, and glazes. Features responsive design and pottery-themed styling
@@ -154,7 +159,13 @@ interface StageDetails {
 - **Starred System**: Star/favorite pieces with filtering and visual indicators across table and kanban views
 - **Enhanced Filtering**: Comprehensive filter system with search, archived status, and starred-only views
 - **Mobile Optimizations**: Improved mobile layout with wider content area and better spacing
-- **Modular CSS System**: Reorganized styles into `src/styles/` directory with modular CSS architecture. Created comprehensive button system with variants, sizes, and layout utilities. Removed duplicate styles across components for better maintainability
+- **Modular CSS Architecture**: Extracted duplicate styles into global systems:
+  - Button system with consistent variants and sizing across all components
+  - Badge system with unified stage, priority, and status indicators
+  - Form system with consolidated selectors and modifier classes
+  - Eliminated 200+ lines of duplicate CSS code
+- **Form System Consolidation**: Unified form elements under single selectors (form-input, form-textarea, form-select) with modifier classes for variations, improving maintainability and consistency
+- **Mobile Spacing Improvements**: Added proper top padding on mobile pages to avoid hamburger menu overlap
 - **Modal System**: Native HTML dialog-based modal system with context provider for confirmation dialogs and forms
 - **Stage Update Dialog**: Modal interface for updating pottery piece stages from table view with confirmation workflow
 - **Archive Functionality**: Complete archive system with confirmation dialogs and proper UI state management

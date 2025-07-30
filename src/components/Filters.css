@@ -29,20 +29,9 @@
   white-space: nowrap;
 }
 
-.filter-select {
-  padding: var(--spacing-xs) var(--spacing-md);
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-sm);
-  background: white;
+/* Form styles are now in styles/form.css */
+.form-select {
   color: var(--color-dark-clay);
-  cursor: pointer;
-  transition: border-color 0.2s ease;
-}
-
-.filter-select:focus {
-  outline: none;
-  border-color: var(--color-clay-brown);
 }
 
 .checkbox-label {
@@ -55,10 +44,8 @@
   color: var(--color-dark-clay);
 }
 
+/* Checkbox styles are now in styles/form.css */
 .filter-checkbox {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
   accent-color: var(--color-clay-brown);
 }
 
@@ -69,18 +56,7 @@
 }
 
 .search-box {
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-sm);
   width: 250px;
-  background: white;
-  transition: border-color 0.2s ease;
-}
-
-.search-box:focus {
-  outline: none;
-  border-color: var(--color-clay-brown);
 }
 
 .add-btn {

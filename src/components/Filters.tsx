@@ -33,7 +33,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
           <label htmlFor="stage-filter">Stage:</label>
           <select
             id="stage-filter"
-            className="filter-select"
+            className="form-select"
             value={filters.stage}
             onChange={(e) => setStageFilter(e.target.value)}
           >
@@ -49,7 +49,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
           <label htmlFor="type-filter">Type:</label>
           <select
             id="type-filter"
-            className="filter-select"
+            className="form-select"
             value={filters.type}
             onChange={(e) => setTypeFilter(e.target.value)}
           >
@@ -65,7 +65,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
           <label htmlFor="priority-filter">Priority:</label>
           <select
             id="priority-filter"
-            className="filter-select"
+            className="form-select"
             value={filters.priority}
             onChange={(e) => setPriorityFilter(e.target.value)}
           >
@@ -101,7 +101,7 @@ const Filters = ({ onAddNew }: FiltersProps) => {
       <div className="search-and-add">
         <input
           type="text"
-          className="search-box"
+          className="form-input search-box"
           placeholder="Search pieces..."
           value={filters.search}
           onChange={(e) => setSearchFilter(e.target.value)}

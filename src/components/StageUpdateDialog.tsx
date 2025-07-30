@@ -38,15 +38,15 @@ const StageUpdateDialog: React.FC<StageUpdateDialogProps> = ({ piece }) => {
         </div>
       </div>
 
-      <div className="stage-selection">
-        <label htmlFor="stage-select" className="stage-select-label">
+      <div className="form-selection">
+        <label htmlFor="form-select" className="form-select-label">
           <strong>Move to Stage:</strong>
         </label>
         <select
-          id="stage-select"
+          id="form-select"
           value={selectedStage}
           onChange={(e) => setSelectedStage(e.target.value as Stages)}
-          className="stage-select"
+          className="form-select"
         >
           {stages.map((stage) => (
             <option key={stage} value={stage}>

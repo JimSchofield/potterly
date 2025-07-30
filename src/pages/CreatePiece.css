@@ -1,3 +1,4 @@
+/* CreatePiece Page Styles */
 .create-piece {
   max-width: 600px;
   margin: 0 auto;
@@ -18,70 +19,10 @@
   border: 1px solid var(--color-border);
 }
 
-.form-group {
-  margin-bottom: var(--spacing-lg);
-}
+/* Form styles are now in styles/form.css */
 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
-}
-
-.form-label {
-  display: block;
-  margin-bottom: var(--spacing-xs);
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-}
-
-.required {
-  color: var(--color-priority-high);
-}
-
-.form-input,
-.form-textarea,
-.form-select {
-  width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-base);
-  font-family: inherit;
-  background: white;
-  transition: all 0.2s ease;
-}
-
-.form-input:focus,
-.form-textarea:focus,
-.form-select:focus {
-  outline: none;
-  border-color: var(--color-clay-brown);
-  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-  line-height: var(--line-height-relaxed);
-}
-
-.form-select {
-  cursor: pointer;
-}
-
-.form-actions {
-  display: flex;
-  gap: var(--spacing-md);
-  justify-content: flex-end;
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--color-border);
-}
-
-/* Button styles moved to App.css - only form-specific overrides needed */
-.btn {
+/* CreatePiece-specific form overrides */
+.create-piece .btn {
   min-width: 120px;
   font-size: var(--font-size-base);
   padding: var(--spacing-sm) var(--spacing-xl);
@@ -97,13 +38,14 @@
   color: var(--color-dark-clay);
 }
 
-.form-checkbox {
+.create-piece .form-checkbox input[type="checkbox"] {
   width: 16px;
   height: 16px;
   cursor: pointer;
   accent-color: var(--color-clay-brown);
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .create-piece {
     margin: 0 var(--spacing-sm);
@@ -113,17 +55,7 @@
     padding: var(--spacing-lg) var(--spacing-md);
   }
 
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn {
+  .create-piece .btn {
     width: 100%;
   }
 }
-

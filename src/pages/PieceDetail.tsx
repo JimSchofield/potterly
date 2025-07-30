@@ -119,7 +119,7 @@ const PieceDetail = () => {
                     prev ? { ...prev, title: e.target.value } : null,
                   )
                 }
-                className="title-input"
+                className="form-input title-input"
               />
             ) : (
               currentPiece.title
@@ -172,7 +172,7 @@ const PieceDetail = () => {
                       prev ? { ...prev, type: e.target.value as any } : null,
                     )
                   }
-                  className="edit-input"
+                  className="form-select edit-mode"
                 >
                   <option value="Functional">Functional</option>
                   <option value="Decorative">Decorative</option>
@@ -194,7 +194,7 @@ const PieceDetail = () => {
                       prev ? { ...prev, details: e.target.value } : null,
                     )
                   }
-                  className="edit-textarea"
+                  className="form-textarea edit-mode"
                   rows={3}
                 />
               ) : (
@@ -212,7 +212,7 @@ const PieceDetail = () => {
                       prev ? { ...prev, status: e.target.value } : null,
                     )
                   }
-                  className="edit-input"
+                  className="form-input edit-mode"
                   placeholder="Optional status"
                 />
               ) : (
@@ -231,7 +231,7 @@ const PieceDetail = () => {
                         : null,
                     )
                   }
-                  className="edit-input"
+                  className="form-select edit-mode"
                 >
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
@@ -251,7 +251,7 @@ const PieceDetail = () => {
                       prev ? { ...prev, stage: e.target.value as any } : null,
                     )
                   }
-                  className="edit-input"
+                  className="form-select edit-mode"
                 >
                   <option value="ideas">Ideas</option>
                   <option value="throw">Throw</option>
@@ -296,7 +296,7 @@ const PieceDetail = () => {
                         : null,
                     )
                   }
-                  className="edit-input"
+                  className="form-input edit-mode"
                 />
               ) : currentPiece.dueDate ? (
                 new Date(currentPiece.dueDate).toLocaleDateString()
@@ -334,7 +334,7 @@ const PieceDetail = () => {
                                 e.target.value ? Number(e.target.value) : undefined
                               )
                             }
-                            className="edit-input weight-input"
+                            className="form-input edit-mode weight-input"
                             placeholder="Weight in grams"
                             min="0"
                           />
@@ -354,7 +354,7 @@ const PieceDetail = () => {
                             onChange={(e) =>
                               handleStageFieldUpdate(stageName, 'glazes', e.target.value)
                             }
-                            className="edit-textarea"
+                            className="form-textarea edit-mode"
                             placeholder="Glazes used"
                             rows={2}
                           />
@@ -371,7 +371,7 @@ const PieceDetail = () => {
                           onChange={(e) =>
                             handleStageFieldUpdate(stageName, 'notes', e.target.value)
                           }
-                          className="edit-textarea"
+                          className="form-textarea edit-mode"
                           placeholder="Stage notes"
                           rows={3}
                         />
@@ -388,7 +388,7 @@ const PieceDetail = () => {
                           onChange={(e) =>
                             handleStageFieldUpdate(stageName, 'imageUrl', e.target.value)
                           }
-                          className="edit-input"
+                          className="form-input edit-mode"
                           placeholder="Image URL"
                         />
                       ) : stageData.imageUrl ? (

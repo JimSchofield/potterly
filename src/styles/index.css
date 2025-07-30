@@ -6,8 +6,10 @@
 /* Badge System */
 @import './badge.css';
 
+/* Form System */
+@import './form.css';
+
 /* Future style modules can be added here:
- * @import './forms.css';
  * @import './cards.css';
  * @import './layout.css';
  */
