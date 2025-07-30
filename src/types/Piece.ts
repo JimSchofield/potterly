@@ -11,6 +11,29 @@ export type Priorities = "high" | "medium" | "low";
 
 export type Types = (typeof pieceTypes)[number];
 
+// Stage-specific data interfaces
+export interface StageData {
+  notes?: string;
+  imageUrl?: string;
+}
+
+export interface ThrowStageData extends StageData {
+  weight?: number; // Weight in grams or ounces
+}
+
+export interface GlazeStageData extends StageData {
+  glazes?: string; // Description of glazes used
+}
+
+export interface StageDetails {
+  ideas: StageData;
+  throw: ThrowStageData;
+  trim: StageData;
+  bisque: StageData;
+  glaze: GlazeStageData;
+  finished: StageData;
+}
+
 export interface PotteryPiece {
   id: string;
   title: string;
@@ -24,4 +47,5 @@ export interface PotteryPiece {
   createdAt: string; // ISO date string
   lastUpdated: string; // ISO date string
   dueDate?: string; // Optional ISO date string
+  stageDetails: StageDetails; // Stage-specific information
 }

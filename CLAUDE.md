@@ -100,6 +100,30 @@ interface PotteryPiece {
   createdAt: string;       // ISO date string
   lastUpdated: string;     // ISO date string  
   dueDate?: string;        // Optional ISO date string
+  stageDetails: StageDetails; // Stage-specific information with notes, images, and specialized data
+}
+
+// Stage-specific data interfaces
+interface StageData {
+  notes: string;           // Stage-specific notes
+  imageUrl: string;        // Image URL for this stage
+}
+
+interface ThrowStageData extends StageData {
+  weight?: number;         // Clay weight in grams
+}
+
+interface GlazeStageData extends StageData {
+  glazes: string;          // Glaze descriptions and techniques
+}
+
+interface StageDetails {
+  ideas: StageData;        // Initial concepts and design sketches
+  throw: ThrowStageData;   // Throwing process with clay weight
+  trim: StageData;         // Trimming and refining details
+  bisque: StageData;       // First firing process notes
+  glaze: GlazeStageData;   // Glazing with specific glaze information
+  finished: StageData;     // Final results and completion notes
 }
 ```
 
@@ -112,7 +136,11 @@ interface PotteryPiece {
 - **Visual Indicators**: Star icons for favorited pieces, archive badges, priority dots
 
 ### Recent Features Added
+- **Stage-Specific Data Model**: Added comprehensive stageDetails system with stage-specific information including notes, images, clay weights for throwing, and glaze descriptions. All pottery pieces now track detailed information for each stage of the pottery workflow
+- **Enhanced Data Structure**: Expanded PotteryPiece interface with StageDetails containing specialized data for ideas, throw, trim, bisque, glaze, and finished stages. Includes realistic example data in dogfood.json following sequential pottery workflow
 - **Dynamic Home Dashboard**: Interactive home page with live statistics calculated from piece store, time-based greetings, and navigation buttons to main app sections
+- **Updated Home Statistics**: Home page now shows total pieces (including archived), bisque stage count, starred pieces, and ideas stage count - removed duplicate "total pieces created" card
+- **CSS Variables Cleanup**: Removed duplicate CSS variables and consolidated similar colors/styles for better maintainability
 - **Optional Status Field**: Status field on pottery pieces is now optional with graceful UI handling
 - **Mobile Hamburger Menu**: Slide-in navigation for mobile devices with animated hamburger icon
 - **Archive System**: Complete archive functionality with filtering and visual indicators

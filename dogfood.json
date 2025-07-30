@@ -11,7 +11,15 @@
     "starred": true,
     "createdAt": "2024-07-20T09:30:00Z",
     "lastUpdated": "2024-07-25T14:20:00Z",
-    "dueDate": "2024-08-15T23:59:59Z"
+    "dueDate": "2024-08-15T23:59:59Z",
+    "stageDetails": {
+      "ideas": { "notes": "Initial design sketches for traditional 6-cup tea set with teapot and serving tray. Planning Raku-inspired glazes in earthy tones - iron oxide and copper carbonate combinations. Researching historical Japanese proportions. Cup dimensions: 3.5\" diameter x 2.5\" height. Teapot: 6\" width x 4\" height, 24oz capacity.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Tea+Set+Sketches" },
+      "throw": { "notes": "", "imageUrl": "" },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440002",
@@ -24,7 +32,15 @@
     "archived": false,
     "starred": false,
     "createdAt": "2024-07-18T16:45:00Z",
-    "lastUpdated": "2024-07-22T10:15:00Z"
+    "lastUpdated": "2024-07-22T10:15:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Concept for large weatherproof garden planters. Measurements: 16\" diameter x 12\" height. Need 1/2\" drainage holes at base. Considering rope texture impressions or carved geometric patterns. Research slip trailing techniques for surface decoration. Clay body must be high-fire stoneware for frost resistance.", "imageUrl": "https://placehold.co/400x300/2d5016/ffffff?text=Planter+Design" },
+      "throw": { "notes": "", "imageUrl": "" },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440003",
@@ -38,7 +54,15 @@
     "starred": false,
     "createdAt": "2024-07-15T11:00:00Z",
     "lastUpdated": "2024-07-15T11:00:00Z",
-    "dueDate": "2024-09-01T23:59:59Z"
+    "dueDate": "2024-09-01T23:59:59Z",
+    "stageDetails": {
+      "ideas": { "notes": "Abstract sculptural piece exploring flowing organic forms. Inspiration from wind-carved rock formations. Rough dimensions: 18\" height x 12\" width. Planning negative space openings to create interesting shadow play. Hand-building techniques - coil and pinch combination. Considering matte black or raw clay finish for gallery submission.", "imageUrl": "https://placehold.co/400x300/4a4a4a/ffffff?text=Sculpture+Concept" },
+      "throw": { "notes": "", "imageUrl": "" },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440004",
@@ -52,7 +76,15 @@
     "starred": true,
     "createdAt": "2024-07-25T08:00:00Z",
     "lastUpdated": "2024-07-27T13:30:00Z",
-    "dueDate": "2024-07-28T18:00:00Z"
+    "dueDate": "2024-07-28T18:00:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Large serving bowl design - 14\" diameter x 4\" deep. Perfect for family salads and entertaining. Using B-Mix clay for strength and neutral color. Planning subtle rim flare and wide foot ring for stability. Interior volume approximately 3.5 quarts.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Bowl+Sketch" },
+      "throw": { "notes": "Centered 3.2 lbs speckled stoneware successfully. Initial pull brought walls to 5\" height. Clay responding well - good plasticity. Rim thickness at 1/4\". Need to refine final wall thickness to 3/8\" and create subtle outward flare. Maintaining even wall thickness is key for this size.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Bowl", "weight": 1450 },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440005",
@@ -65,7 +97,15 @@
     "archived": false,
     "starred": false,
     "createdAt": "2024-07-23T14:15:00Z",
-    "lastUpdated": "2024-07-26T16:45:00Z"
+    "lastUpdated": "2024-07-26T16:45:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Set of 6 matching 12oz coffee mugs. Handle attachment critical for comfort and durability. Mug dimensions: 4\" diameter x 3.75\" height. Handle pulled from body for strength. Planning consistent weight and balance across all pieces. Using white stoneware for clean finish.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Mug+Design" },
+      "throw": { "notes": "Threw 4 of 6 mugs. Using 1.2 lbs clay per mug for consistency. Walls at 1/4\" thickness, good even rim. Clay centering well but fighting slight stiffness. May need to add more water to remaining clay. First 4 mugs matched well in size and proportion.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Mugs", "weight": 545 },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440006",
@@ -78,7 +118,15 @@
     "archived": false,
     "starred": false,
     "createdAt": "2024-07-20T12:30:00Z",
-    "lastUpdated": "2024-07-24T09:20:00Z"
+    "lastUpdated": "2024-07-24T09:20:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Tall decorative vase - 12\" height x 4\" diameter at widest point. Narrow neck flaring to 2.5\" opening. Considering pulled handles vs. thrown additions. Surface texture options: chattering tool, rope impressions, or carved lines. Form inspired by bamboo stalks.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Vase+Concept" },
+      "throw": { "notes": "Challenging throw - tall narrow form required careful water control. Started with 2.1 lbs clay. Pulled walls thin but maintained stability. Slight wobble at 8\" height but corrected. Final neck opening achieved at 2.25\". Clay slightly soft - may need slower drying.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Vase", "weight": 950 },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440007",
@@ -92,7 +140,15 @@
     "starred": false,
     "createdAt": "2024-07-26T10:00:00Z",
     "lastUpdated": "2024-07-27T11:15:00Z",
-    "dueDate": "2024-08-05T23:59:59Z"
+    "dueDate": "2024-08-05T23:59:59Z",
+    "stageDetails": {
+      "ideas": { "notes": "Two-piece chip and dip set. Large plate: 12\" diameter x 1.5\" deep. Center bowl: 6\" diameter x 2\" deep, must nest perfectly in plate center. Planning blue and white glaze combination - perhaps cobalt blue exterior with white interior. Functional and elegant design.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Chip+Dip+Design" },
+      "throw": { "notes": "Threw large plate first - 2.8 lbs clay, centered well. Achieved 12.5\" diameter with gentle curve. Plate walls consistent at 3/8\". Bowl threw separately using 1.4 lbs clay. Test fit shows good nesting relationship. Both pieces have clean, smooth finish.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Set", "weight": 1270 },
+      "trim": { "notes": "", "imageUrl": "" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440008",
@@ -106,7 +162,15 @@
     "starred": true,
     "createdAt": "2024-07-24T15:30:00Z",
     "lastUpdated": "2024-07-27T08:45:00Z",
-    "dueDate": "2024-07-29T12:00:00Z"
+    "dueDate": "2024-07-29T12:00:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Set of 4 wide pasta bowls - 9\" diameter x 2\" deep with generous curved walls. Rim design with subtle lip for easy handling. Planning neutral glaze to complement pasta colors. Each bowl should hold approximately 20oz comfortably.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Pasta+Bowl+Design" },
+      "throw": { "notes": "All 4 bowls thrown using 1.6 lbs clay each. Maintained consistent wall curve and rim thickness. Clay at perfect moisture content - responsive and stable. Walls finished at 5/16\" thickness. Forms have good weight distribution and pleasing proportions.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Bowls", "weight": 725 },
+      "trim": { "notes": "Perfect leather-hard stage reached. Trimmed clean foot rings - 4\" diameter x 3/8\" height. Refined wall thickness to 1/4\" while maintaining strength. Added subtle curve to interior bottom for easy cleaning. Surface ready for final smoothing and signature stamp.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Bowls" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440009",
@@ -119,7 +183,15 @@
     "archived": false,
     "starred": false,
     "createdAt": "2024-07-22T13:20:00Z",
-    "lastUpdated": "2024-07-25T17:10:00Z"
+    "lastUpdated": "2024-07-25T17:10:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Ceramic lamp base design - 10\" height x 5\" diameter. Cylindrical form with slight taper. Need 1/2\" cord hole drilled at leather-hard stage. Weight should be substantial for stability. Planning matte glaze finish in warm earth tone.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Lamp+Base+Design" },
+      "throw": { "notes": "Heavy throw using 4.2 lbs clay for stability. Centered successfully despite weight. Cylindrical form with gentle taper achieved. Walls consistent at 1/2\" thickness for durability. Cord hole marked for drilling during trim stage. Form has good proportional weight.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Lamp", "weight": 1905 },
+      "trim": { "notes": "Trimmed substantial foot ring for stability - 4.5\" diameter x 1/2\" height. Drilled cord hole cleanly using 1/2\" bit. Refined cylindrical form and smoothed all surfaces. Added maker's stamp on bottom. Form well-balanced and ready for slow drying.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Lamp" },
+      "bisque": { "notes": "", "imageUrl": "" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440010",
@@ -133,7 +205,15 @@
     "starred": false,
     "createdAt": "2024-07-19T10:15:00Z",
     "lastUpdated": "2024-07-27T14:00:00Z",
-    "dueDate": "2024-07-28T16:00:00Z"
+    "dueDate": "2024-07-28T16:00:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Set of 8 dinner plates - 10\" diameter with subtle raised rim. Functional daily-use plates with classic proportions. Planning food-safe glaze in warm cream or soft blue. Slight center depression for food presentation and sauce pooling.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Plate+Design" },
+      "throw": { "notes": "All 8 plates thrown using 2.2 lbs each. Achieved consistent 10.25\" diameter with gentle rim curve. Center depression formed perfectly. Wall thickness uniform at 3/8\". Clay behavior excellent - minimal warping. Forms are well-balanced and stack nicely.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Plates", "weight": 995 },
+      "trim": { "notes": "Trimmed clean foot rings - 6\" diameter x 1/4\" height. Refined plate curves and smoothed all surfaces. Added subtle weight to center for better balance. All 8 plates match perfectly in profile and weight. Surface preparation complete for bisque firing.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Plates" },
+      "bisque": { "notes": "Loaded in bisque kiln - Cone 04 firing (1945°F). Plates spaced carefully with stilts for even heating. 12-hour firing cycle planned. All pieces bone dry and ready. No visible cracks or imperfections before loading.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Firing" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440011",
@@ -146,7 +226,15 @@
     "archived": false,
     "starred": false,
     "createdAt": "2024-07-21T09:45:00Z",
-    "lastUpdated": "2024-07-27T12:30:00Z"
+    "lastUpdated": "2024-07-27T12:30:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Traditional teapot design - 32oz capacity with ergonomic handle and functional spout. Lid must fit snugly with steam hole. Handle attachment critical for heat protection. Planning bamboo-style handle form pulled from body. Spout curve designed for smooth pour.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Teapot+Design" },
+      "throw": { "notes": "Body thrown first using 3.1 lbs clay. Achieved good spherical form with 6\" diameter. Spout pulled and attached - required 3 attempts for proper curve and flow. Lid thrown separately with interior flange fit. Handle pulled from body clay for strength match.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Teapot", "weight": 1405 },
+      "trim": { "notes": "Trimmed body with stable foot ring - 4\" diameter. Refined spout tip for clean pour - filed smooth at 45° angle. Lid trimmed for perfect fit with 1/8\" steam hole. Handle smoothed and strengthened at attachment points. All joints sealed and reinforced.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Teapot" },
+      "bisque": { "notes": "Currently in kiln load #47 - Cone 04 bisque firing in progress. 8-hour firing cycle, now at 1200°F and climbing steadily. Teapot positioned carefully with lid separated. Handle supported to prevent sagging. Temperature probe monitoring closely.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Firing" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440012",
@@ -160,7 +248,15 @@
     "starred": false,
     "createdAt": "2024-07-16T14:30:00Z",
     "lastUpdated": "2024-07-23T11:20:00Z",
-    "dueDate": "2024-08-10T23:59:59Z"
+    "dueDate": "2024-08-10T23:59:59Z",
+    "stageDetails": {
+      "ideas": { "notes": "12 decorative wall tiles - 6\" x 6\" x 1/2\" thick. Hand-rolled slabs with impressed patterns using rope, stamps, and texture rollers. Part of bathroom renovation project. Need consistent thickness and precise measurements for installation.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Tile+Design" },
+      "throw": { "notes": "", "imageUrl": "" },
+      "trim": { "notes": "Hand-built from rolled slabs - each tile cut to exact 6\" square with wire tool. Impressed patterns using rope coils and carved stamps. Edges beveled slightly for installation. All pieces measured and marked for consistent thickness at 1/2\". Dried slowly to prevent warping.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Tile+Shaping" },
+      "bisque": { "notes": "Waiting for next available kiln space. All 12 tiles bone dry and stacked carefully with spacers. No cracks or warping detected. Impressed patterns show good depth and definition. Ready for Cone 04 bisque firing when kiln available.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Ready+for+Bisque" },
+      "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440013",
@@ -174,7 +270,15 @@
     "starred": true,
     "createdAt": "2024-07-18T08:30:00Z",
     "lastUpdated": "2024-07-27T09:15:00Z",
-    "dueDate": "2024-07-30T18:00:00Z"
+    "dueDate": "2024-07-30T18:00:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Large serving bowl with wooden utensils - 12\" diameter x 4\" deep. Planning celadon green exterior with clear food-safe interior. Bowl form should have wide rim for easy serving and stable foot ring. Capacity approximately 3 quarts.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Salad+Bowl+Design" },
+      "throw": { "notes": "Threw using 3.5 lbs clay - largest single throw this week. Centered cleanly and pulled walls evenly. Achieved 12.5\" diameter with gentle curve. Wall thickness maintained at 3/8\". Rim finished with soft rounded edge. Clay remained responsive throughout throwing.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Bowl", "weight": 1585 },
+      "trim": { "notes": "Trimmed generous foot ring - 5\" diameter x 3/8\" height for stability. Refined interior curve and smoothed all surfaces. Bowl has excellent balance and weight distribution. Added signature stamp. Ready for slow drying before bisque firing.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Bowl" },
+      "bisque": { "notes": "Bisque fired to Cone 04 successfully. No cracks or issues during firing. Bowl rang with clear tone when tapped - good vitrification achieved. Surface smooth and ready for glaze application. Weight reduced appropriately during firing.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
+      "glaze": { "notes": "Applying celadon green exterior today using dip method. Interior will be clear food-safe glaze applied by pouring. Need 3 coats exterior, 2 coats interior. Wax resist on foot ring. Planning Cone 10 reduction firing.", "imageUrl": "https://placehold.co/400x300/90ee90/ffffff?text=Glazing+Process", "glazes": "Celadon green exterior (copper carbonate base), Clear interior (zinc-free food safe)" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440014",
@@ -187,7 +291,15 @@
     "archived": false,
     "starred": false,
     "createdAt": "2024-07-22T15:45:00Z",
-    "lastUpdated": "2024-07-26T13:20:00Z"
+    "lastUpdated": "2024-07-26T13:20:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Set of 3 small bud vases - heights 4\", 5\", and 6\" with narrow necks. Designed for single stem display. Planning to test new copper red glaze recipe - copper carbonate with tin oxide. Openings sized for various stem thickness.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Bud+Vase+Design" },
+      "throw": { "notes": "All 3 vases thrown successfully. Used 0.8, 1.1, and 1.4 lbs clay respectively. Achieved good proportion with narrow necks - 1\" opening diameter. Forms are elegant and well-balanced. Clay behavior excellent for small detailed work.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Vases", "weight": 365 },
+      "trim": { "notes": "Trimmed delicate foot rings proportional to each size. Refined neck openings and smoothed all surfaces. Vases have good stability despite narrow forms. Surface preparation complete and ready for bisque firing. All three complement each other well.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Vases" },
+      "bisque": { "notes": "Bisque fired successfully to Cone 04. All three vases came through firing perfectly - no cracks or deformation. Clear ring tone indicates proper firing. Ready for copper red glaze testing. Surface ideal for glaze adhesion.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
+      "glaze": { "notes": "Testing new copper red glaze formula on these pieces. Mixed fresh batch with 3% copper carbonate, 8% tin oxide. Applied by dipping - need oxidation firing to Cone 10. Results will determine if recipe needs adjustment.", "imageUrl": "https://placehold.co/400x300/dc143c/ffffff?text=Copper+Red+Test", "glazes": "Copper red test glaze (copper carbonate, tin oxide, silica, feldspar)" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440015",
@@ -201,7 +313,15 @@
     "starred": false,
     "createdAt": "2024-07-24T11:00:00Z",
     "lastUpdated": "2024-07-27T15:45:00Z",
-    "dueDate": "2024-08-02T23:59:59Z"
+    "dueDate": "2024-08-02T23:59:59Z",
+    "stageDetails": {
+      "ideas": { "notes": "2-quart covered casserole dish with fitted lid and knob handle. Oval form for even heat distribution. Planning food-safe matte glaze in warm brown - iron oxide and manganese combination. Lid must fit snugly for moisture retention during cooking.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Casserole+Design" },
+      "throw": { "notes": "Base thrown using 4.1 lbs clay - oval shaped by paddling while on wheel. Achieved good proportions for 2-quart capacity. Lid thrown separately with interior flange for tight fit. Knob handle pulled and attached. Clay performed well for this larger functional piece.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Casserole", "weight": 1860 },
+      "trim": { "notes": "Trimmed substantial foot for oven stability. Refined lid fit - perfect seal achieved with slight compression. Knob handle reinforced at attachment point. Added steam vent hole in lid rim. All surfaces smoothed and ready for bisque firing.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Casserole" },
+      "bisque": { "notes": "Bisque fired to Cone 04 successfully. Both base and lid fired perfectly - no warping or cracks. Lid still fits precisely after firing shrinkage. Clear ring tone indicates complete vitrification. Ready for food-safe glaze application.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
+      "glaze": { "notes": "Planning to apply matte brown glaze tomorrow. Mixed fresh batch with iron oxide and manganese dioxide for warm earth tone. Will use brush application for even coverage. Need 3 coats for opacity. Wax resist on contact surfaces.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Ready+for+Glaze", "glazes": "Matte brown (iron oxide, manganese dioxide, barium carbonate, silica)" },
+      "finished": { "notes": "", "imageUrl": "" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440016",
@@ -214,7 +334,15 @@
     "archived": false,
     "starred": true,
     "createdAt": "2024-07-10T12:00:00Z",
-    "lastUpdated": "2024-07-24T16:30:00Z"
+    "lastUpdated": "2024-07-24T16:30:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Set of 4 espresso cups with matching saucers. Cup dimensions: 2.5\" diameter x 2\" height for perfect 3oz capacity. Saucers: 4.5\" diameter with subtle well for cup stability. Planning elegant black glaze with gold rim accent for sophistication.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Espresso+Set+Design" },
+      "throw": { "notes": "All 4 cups and saucers thrown. Used 0.6 lbs clay per cup, 0.9 lbs per saucer. Achieved consistent proportions across set. Cup walls at 1/4\" thickness, saucer wells perfectly sized. Handles pulled separately and attached. Clay consistency excellent throughout.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Espresso+Set", "weight": 275 },
+      "trim": { "notes": "Trimmed delicate foot rings on cups - 1.5\" diameter. Saucer wells refined for perfect cup fit. All surfaces smoothed to perfection. Handle attachments reinforced and blended seamlessly. Set shows excellent craftsmanship and attention to detail.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Espresso+Set" },
+      "bisque": { "notes": "Bisque fired to Cone 04 with perfect results. All 8 pieces (4 cups, 4 saucers) came through without issues. Handles strong and well-attached. Cup and saucer fits maintained perfectly through firing shrinkage. Ready for black glaze application.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
+      "glaze": { "notes": "Applied glossy black glaze using dip method. Gold rim accent applied with brush using gold luster. Base glaze fired to Cone 10, then gold luster fired to Cone 018. Results stunning - deep black with elegant gold rim.", "imageUrl": "https://placehold.co/400x300/000000/ffffff?text=Black+Gold+Glaze", "glazes": "Glossy black base glaze with gold luster rim accent" },
+      "finished": { "notes": "Completed July 24th. Final firing successful - gold luster achieved perfect metallic finish. Set has elegant appearance and perfect functionality. Cups hold exactly 3oz, saucers provide stable platform. Customer extremely pleased with sophisticated design and execution.", "imageUrl": "https://placehold.co/400x300/ffd700/000000?text=Finished+Espresso+Set" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440017",
@@ -227,7 +355,15 @@
     "archived": true,
     "starred": false,
     "createdAt": "2024-07-12T14:15:00Z",
-    "lastUpdated": "2024-07-22T18:45:00Z"
+    "lastUpdated": "2024-07-22T18:45:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Large centerpiece fruit bowl with fluted edges. 14\" diameter x 5\" deep with decorative scalloped rim. Planning blue-green gradient glaze - cobalt and copper combination. Form should be both functional and visually striking as dining room centerpiece.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Fruit+Bowl+Design" },
+      "throw": { "notes": "Threw using 4.2 lbs clay for substantial form. Achieved 14.5\" diameter with good wall curve. Fluted edges carved at leather-hard stage using ribbon tool. Clay remained stable despite large size. Form has excellent proportions and elegant presence.", "imageUrl": "https://placehold.co/400x300/cd853f/ffffff?text=Throwing+Fruit+Bowl", "weight": 1900 },
+      "trim": { "notes": "Trimmed wide foot ring - 6\" diameter for stability. Refined fluted edges and smoothed interior curves. Bowl has perfect balance and weight distribution. Carved signature and date on bottom. Surface preparation complete for bisque firing.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Trimming+Bowl" },
+      "bisque": { "notes": "Bisque fired to Cone 04 successfully. Large form handled firing well - no cracks or warping. Fluted edges maintained crisp definition. Clear ring tone indicates proper vitrification. Ready for blue-green gradient glaze application.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
+      "glaze": { "notes": "Applied blue-green gradient using spray technique. Base blue (cobalt oxide) followed by green blend (copper carbonate) at rim. Fired to Cone 10 in oxidation. Gradient effect achieved beautifully with smooth color transition.", "imageUrl": "https://placehold.co/400x300/4682b4/ffffff?text=Blue+Green+Gradient", "glazes": "Blue-green gradient (cobalt oxide base, copper carbonate blend)" },
+      "finished": { "notes": "Completed July 22nd with outstanding results. Gradient glaze created stunning visual effect - deep blue center transitioning to sea green at fluted rim. Form and function perfect for fruit display. Added to portfolio as example of advanced glazing technique.", "imageUrl": "https://placehold.co/400x300/20b2aa/ffffff?text=Finished+Fruit+Bowl" }
+    }
   },
   {
     "id": "550e8400-e29b-41d4-a716-446655440018",
@@ -240,6 +376,14 @@
     "archived": true,
     "starred": false,
     "createdAt": "2024-07-08T10:30:00Z",
-    "lastUpdated": "2024-07-20T15:20:00Z"
+    "lastUpdated": "2024-07-20T15:20:00Z",
+    "stageDetails": {
+      "ideas": { "notes": "Contemporary sculptural vessel exploring organic forms. 15\" height with carved surface texture inspired by tree bark. Planning hand-building techniques combining coil and pinch methods. Matte white glaze will highlight textural details and create museum-quality piece.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Sculptural+Vessel+Design" },
+      "throw": { "notes": "", "imageUrl": "" },
+      "trim": { "notes": "Hand-built using coil and pinch techniques. Created organic form with flowing curves and negative spaces. Carved bark-like texture using various tools - ribs, combs, and custom stamps. Surface rich with detail and visual interest. Form has dynamic presence and artistic merit.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Carving+Texture" },
+      "bisque": { "notes": "Bisque fired to Cone 04 with excellent results. Complex form fired evenly with no cracks or stress points. Carved textures maintained full definition and depth. Piece rings with clear tone indicating proper vitrification. Ready for matte white glaze.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
+      "glaze": { "notes": "Applied matte white glaze using brush technique to preserve textural details. Glaze settled beautifully into carved areas while maintaining surface variation. Fired to Cone 10 in oxidation atmosphere. Results exceeded expectations for artistic quality.", "imageUrl": "https://placehold.co/400x300/f5f5f5/000000?text=Matte+White+Glaze", "glazes": "Matte white (barium carbonate, kaolin, silica, titanium dioxide)" },
+      "finished": { "notes": "Completed July 20th with museum-quality results. Matte white glaze created perfect contrast highlighting every textural detail. Form has strong sculptural presence and artistic integrity. Submitted to gallery for contemporary ceramics exhibition. Represents significant artistic achievement.", "imageUrl": "https://placehold.co/400x300/ffffff/000000?text=Finished+Sculpture" }
+    }
   }
 ]
