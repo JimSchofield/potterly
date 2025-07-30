@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PotteryPiece } from "../../types/Piece";
 import { getStageIcon, getStageLabel } from "../../utils/labels-and-icons";
 
@@ -15,6 +15,12 @@ const PotteryTable = ({
   onMove,
   onArchive,
 }: PotteryTableProps) => {
+  const navigate = useNavigate();
+
+  const handleEdit = (piece: PotteryPiece) => {
+    navigate(`/piece/${piece.id}?edit=true`);
+  };
+
   return (
     <div className="table-content">
       <table className="pottery-table">
@@ -71,7 +77,7 @@ const PotteryTable = ({
                 <div className="actions">
                   <button
                     className="action-btn"
-                    onClick={() => onEdit?.(piece)}
+                    onClick={() => handleEdit(piece)}
                   >
                     Edit
                   </button>

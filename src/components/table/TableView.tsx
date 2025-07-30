@@ -4,10 +4,27 @@ import { filteredPiecesStore, piecesStore } from "../../stores/pieces";
 import Filters from "../Filters";
 import PotteryTable from "./PotteryTable";
 import TableStats from "./TableStats";
+import { getAllStages } from "../../utils/labels-and-icons";
 
 const TableView = () => {
   const filteredPieces = useStore(filteredPiecesStore);
   const allPieces = useStore(piecesStore);
+
+  // Define stage order for sorting
+  const stageOrder = getAllStages();
+  const stageOrderMap = Object.fromEntries(
+    stageOrder.map((stage, index) => [stage, index])
+  );
+
+  // Sort pieces by stage order, then by priority
+  const sortedPieces = [...filteredPieces].sort((a, b) => {
+    const stageComparison = stageOrderMap[a.stage] - stageOrderMap[b.stage];
+    if (stageComparison !== 0) return stageComparison;
+    
+    // If same stage, sort by priority (high > medium > low)
+    const priorityOrder = { high: 0, medium: 1, low: 2 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
 
   // Stats based on all pieces (not filtered)
   const stats = {
@@ -22,7 +39,7 @@ const TableView = () => {
     <div className="table-view-container">
       <Filters />
 
-      <PotteryTable pieces={filteredPieces} />
+      <PotteryTable pieces={sortedPieces} />
 
       <TableStats
         total={stats.total}

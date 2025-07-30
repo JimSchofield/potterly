@@ -1,22 +1,36 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useStore } from "@nanostores/react";
-import { piecesStore, updatePiece } from "../stores/pieces";
+import { piecesStore, updatePiece, removePiece } from "../stores/pieces";
 import { PotteryPiece } from "../types/Piece";
 import "./PieceDetail.css";
 
 const PieceDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const pieces = useStore(piecesStore);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPiece, setEditedPiece] = useState<PotteryPiece | null>(null);
 
   const piece = pieces.find((p) => p.id === id);
 
+  // Check for edit query parameter on mount
+  useEffect(() => {
+    if (searchParams.get('edit') === 'true' && piece) {
+      setIsEditMode(true);
+      setEditedPiece({ ...piece });
+    }
+  }, [searchParams, piece]);
+
   const handleEditToggle = () => {
     if (!isEditMode) {
       // Enter edit mode - initialize editedPiece
       setEditedPiece({ ...piece! });
+      setSearchParams({ edit: 'true' });
+    } else {
+      // Exit edit mode - remove query parameter
+      setSearchParams({});
     }
     setIsEditMode(!isEditMode);
   };
@@ -29,12 +43,14 @@ const PieceDetail = () => {
       });
       setIsEditMode(false);
       setEditedPiece(null);
+      setSearchParams({});
     }
   };
 
   const handleCancel = () => {
     setIsEditMode(false);
     setEditedPiece(null);
+    setSearchParams({});
   };
 
   const handleStageFieldUpdate = (stageName: string, field: string, value: any) => {
@@ -52,6 +68,13 @@ const PieceDetail = () => {
           }
         : null,
     );
+  };
+
+  const handleRemovePiece = () => {
+    if (piece && window.confirm(`Are you sure you want to permanently delete "${piece.title}"? This action cannot be undone.`)) {
+      removePiece(piece.id);
+      navigate('/pieces');
+    }
   };
 
   const currentPiece = isEditMode ? editedPiece! : piece!;
@@ -372,6 +395,21 @@ const PieceDetail = () => {
               )}
           </div>
         </div>
+
+        {isEditMode && (
+          <div className="piece-detail-footer">
+            <div className="danger-zone">
+              <h3>Danger Zone</h3>
+              <p>Permanently delete this pottery piece. This action cannot be undone.</p>
+              <button 
+                onClick={handleRemovePiece} 
+                className="remove-btn"
+              >
+                🗑️ Delete Piece
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
