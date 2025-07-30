@@ -59,7 +59,8 @@ The application follows a component-based architecture with centralized state:
 - **Home**: Dashboard with live statistics from piece store, time-based greetings, and navigation buttons to main app sections
 - **Profile**: Basic page component
 - **Pieces**: Tabbed interface with nested routing (Kanban/Table views)
-- **CreatePiece**: Form for adding new pottery pieces with status tracking
+- **PieceDetail**: Individual piece detail page with comprehensive view/edit mode for all piece data and stage-specific information
+- **CreatePiece**: Form for adding new pottery pieces with status tracking, redirects to detail page after creation
 - **Developer pages**: Isolated in `src/pages/developer/` (not in sidebar navigation)
 
 **State Management:**
@@ -75,6 +76,7 @@ The application follows a component-based architecture with centralized state:
 - `/pieces` - Pottery pieces with nested routing:
   - `/pieces/kanban` - Kanban board view (default)
   - `/pieces/table` - Table view
+- `/piece/:id` - Individual piece detail page with view/edit mode toggle
 - `/profile` - User profile
 - `/create-piece` - Form to create new pottery pieces
 
@@ -136,8 +138,10 @@ interface StageDetails {
 - **Visual Indicators**: Star icons for favorited pieces, archive badges, priority dots
 
 ### Recent Features Added
+- **Piece Detail Page with Edit Mode**: Complete detail view for individual pottery pieces with toggleable edit mode. Users can view all piece information and stage details, then switch to edit mode to modify any field including stage-specific notes, images, weights, and glazes. Features responsive design and pottery-themed styling
+- **Enhanced Navigation**: Pottery cards in Kanban view and piece titles in table view are now clickable links to piece detail pages. Create form redirects to new piece detail page for immediate editing workflow
 - **Stage-Specific Data Model**: Added comprehensive stageDetails system with stage-specific information including notes, images, clay weights for throwing, and glaze descriptions. All pottery pieces now track detailed information for each stage of the pottery workflow
-- **Enhanced Data Structure**: Expanded PotteryPiece interface with StageDetails containing specialized data for ideas, throw, trim, bisque, glaze, and finished stages. Includes realistic example data in dogfood.json following sequential pottery workflow
+- **Enhanced Data Structure**: Expanded PotteryPiece interface with StageDetails containing specialized data for ideas, throw, trim, bisque, glaze, and finished stages. Includes realistic example data in dogfood.json following sequential pottery workflow. New pieces automatically get default empty stage details
 - **Dynamic Home Dashboard**: Interactive home page with live statistics calculated from piece store, time-based greetings, and navigation buttons to main app sections
 - **Updated Home Statistics**: Home page now shows total pieces (including archived), bisque stage count, starred pieces, and ideas stage count - removed duplicate "total pieces created" card
 - **CSS Variables Cleanup**: Removed duplicate CSS variables and consolidated similar colors/styles for better maintainability

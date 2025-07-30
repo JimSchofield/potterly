@@ -1,20 +1,70 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStore } from "@nanostores/react";
-import { piecesStore } from "../stores/pieces";
+import { piecesStore, updatePiece } from "../stores/pieces";
+import { PotteryPiece } from "../types/Piece";
 import "./PieceDetail.css";
 
 const PieceDetail = () => {
   const { id } = useParams<{ id: string }>();
   const pieces = useStore(piecesStore);
-  
-  const piece = pieces.find(p => p.id === id);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedPiece, setEditedPiece] = useState<PotteryPiece | null>(null);
+
+  const piece = pieces.find((p) => p.id === id);
+
+  const handleEditToggle = () => {
+    if (!isEditMode) {
+      // Enter edit mode - initialize editedPiece
+      setEditedPiece({ ...piece! });
+    }
+    setIsEditMode(!isEditMode);
+  };
+
+  const handleSave = () => {
+    if (editedPiece) {
+      updatePiece(editedPiece.id, {
+        ...editedPiece,
+        lastUpdated: new Date().toISOString(),
+      });
+      setIsEditMode(false);
+      setEditedPiece(null);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsEditMode(false);
+    setEditedPiece(null);
+  };
+
+  const handleStageFieldUpdate = (stageName: string, field: string, value: any) => {
+    setEditedPiece((prev) =>
+      prev && prev.stageDetails
+        ? {
+            ...prev,
+            stageDetails: {
+              ...prev.stageDetails,
+              [stageName]: {
+                ...prev.stageDetails[stageName as keyof typeof prev.stageDetails],
+                [field]: value,
+              },
+            },
+          }
+        : null,
+    );
+  };
+
+  const currentPiece = isEditMode ? editedPiece! : piece!;
 
   if (!piece) {
     return (
       <div className="piece-detail-container">
         <div className="piece-not-found">
           <h1>Piece Not Found</h1>
-          <p>The pottery piece you're looking for doesn't exist or has been removed.</p>
+          <p>
+            The pottery piece you're looking for doesn't exist or has been
+            removed.
+          </p>
         </div>
       </div>
     );
@@ -23,16 +73,55 @@ const PieceDetail = () => {
   return (
     <div className="piece-detail-container">
       <div className="piece-detail-header">
-        <h1>{piece.title}</h1>
-        <div className="piece-meta">
-          <span className={`priority-indicator priority-${piece.priority}`}>
-            {piece.priority} priority
-          </span>
-          <span className={`stage-indicator stage-${piece.stage}`}>
-            {piece.stage}
-          </span>
-          {piece.starred && <span className="starred-indicator">⭐ Starred</span>}
-          {piece.archived && <span className="archived-indicator">📦 Archived</span>}
+        <div className="header-content">
+          <h1>
+            {isEditMode ? (
+              <input
+                type="text"
+                value={currentPiece.title}
+                onChange={(e) =>
+                  setEditedPiece((prev) =>
+                    prev ? { ...prev, title: e.target.value } : null,
+                  )
+                }
+                className="title-input"
+              />
+            ) : (
+              currentPiece.title
+            )}
+          </h1>
+          <div className="piece-meta">
+            <span
+              className={`priority-indicator priority-${currentPiece.priority}`}
+            >
+              {currentPiece.priority} priority
+            </span>
+            <span className={`stage-indicator stage-${currentPiece.stage}`}>
+              {currentPiece.stage}
+            </span>
+            {currentPiece.starred && (
+              <span className="starred-indicator">⭐ Starred</span>
+            )}
+            {currentPiece.archived && (
+              <span className="archived-indicator">📦 Archived</span>
+            )}
+          </div>
+        </div>
+        <div className="header-actions">
+          {isEditMode ? (
+            <>
+              <button onClick={handleSave} className="save-btn">
+                💾 Save
+              </button>
+              <button onClick={handleCancel} className="cancel-btn">
+                ❌ Cancel
+              </button>
+            </>
+          ) : (
+            <button onClick={handleEditToggle} className="edit-btn">
+              ✏️ Edit
+            </button>
+          )}
         </div>
       </div>
 
@@ -40,47 +129,247 @@ const PieceDetail = () => {
         <div className="piece-basic-info">
           <div className="info-section">
             <h3>Basic Information</h3>
-            <p><strong>Type:</strong> {piece.type}</p>
-            <p><strong>Details:</strong> {piece.details}</p>
-            {piece.status && <p><strong>Status:</strong> {piece.status}</p>}
-            <p><strong>Created:</strong> {new Date(piece.createdAt).toLocaleDateString()}</p>
-            <p><strong>Last Updated:</strong> {new Date(piece.lastUpdated).toLocaleDateString()}</p>
-            {piece.dueDate && (
-              <p><strong>Due Date:</strong> {new Date(piece.dueDate).toLocaleDateString()}</p>
-            )}
+            <p>
+              <strong>Type:</strong>{" "}
+              {isEditMode ? (
+                <select
+                  value={currentPiece.type}
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev ? { ...prev, type: e.target.value as any } : null,
+                    )
+                  }
+                  className="edit-input"
+                >
+                  <option value="Functional">Functional</option>
+                  <option value="Decorative">Decorative</option>
+                  <option value="Art Piece">Art Piece</option>
+                  <option value="Set">Set</option>
+                  <option value="Test piece">Test piece</option>
+                </select>
+              ) : (
+                currentPiece.type
+              )}
+            </p>
+            <p>
+              <strong>Details:</strong>{" "}
+              {isEditMode ? (
+                <textarea
+                  value={currentPiece.details}
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev ? { ...prev, details: e.target.value } : null,
+                    )
+                  }
+                  className="edit-textarea"
+                  rows={3}
+                />
+              ) : (
+                currentPiece.details
+              )}
+            </p>
+            <p>
+              <strong>Status:</strong>{" "}
+              {isEditMode ? (
+                <input
+                  type="text"
+                  value={currentPiece.status || ""}
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev ? { ...prev, status: e.target.value } : null,
+                    )
+                  }
+                  className="edit-input"
+                  placeholder="Optional status"
+                />
+              ) : (
+                currentPiece.status || "Not set"
+              )}
+            </p>
+            <p>
+              <strong>Priority:</strong>{" "}
+              {isEditMode ? (
+                <select
+                  value={currentPiece.priority}
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev
+                        ? { ...prev, priority: e.target.value as any }
+                        : null,
+                    )
+                  }
+                  className="edit-input"
+                >
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              ) : (
+                currentPiece.priority
+              )}
+            </p>
+            <p>
+              <strong>Stage:</strong>{" "}
+              {isEditMode ? (
+                <select
+                  value={currentPiece.stage}
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev ? { ...prev, stage: e.target.value as any } : null,
+                    )
+                  }
+                  className="edit-input"
+                >
+                  <option value="ideas">Ideas</option>
+                  <option value="throw">Throw</option>
+                  <option value="trim">Trim</option>
+                  <option value="bisque">Bisque</option>
+                  <option value="glaze">Glaze</option>
+                  <option value="finished">Finished</option>
+                </select>
+              ) : (
+                currentPiece.stage
+              )}
+            </p>
+            <p>
+              <strong>Created:</strong>{" "}
+              {new Date(currentPiece.createdAt).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Last Updated:</strong>{" "}
+              {new Date(currentPiece.lastUpdated).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Due Date:</strong>{" "}
+              {isEditMode ? (
+                <input
+                  type="date"
+                  value={
+                    currentPiece.dueDate
+                      ? new Date(currentPiece.dueDate)
+                          .toISOString()
+                          .split("T")[0]
+                      : ""
+                  }
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev
+                        ? {
+                            ...prev,
+                            dueDate: e.target.value
+                              ? new Date(e.target.value).toISOString()
+                              : undefined,
+                          }
+                        : null,
+                    )
+                  }
+                  className="edit-input"
+                />
+              ) : currentPiece.dueDate ? (
+                new Date(currentPiece.dueDate).toLocaleDateString()
+              ) : (
+                "Not set"
+              )}
+            </p>
           </div>
         </div>
 
         <div className="stage-details-section">
           <h3>Stage Details</h3>
           <div className="stages-grid">
-            {Object.entries(piece.stageDetails).map(([stageName, stageData]) => (
-              <div key={stageName} className={`stage-card stage-${stageName} ${piece.stage === stageName ? 'current-stage' : ''}`}>
-                <h4>{stageName.charAt(0).toUpperCase() + stageName.slice(1)}</h4>
-                {'weight' in stageData && stageData.weight && (
-                  <div className="stage-weight">
-                    <strong>Weight:</strong> {stageData.weight}g
+            {currentPiece.stageDetails &&
+              Object.entries(currentPiece.stageDetails).map(
+                ([stageName, stageData]) => (
+                  <div
+                    key={stageName}
+                    className={`stage-card stage-${stageName} ${currentPiece.stage === stageName ? "current-stage" : ""}`}
+                  >
+                    <h4>
+                      {stageName.charAt(0).toUpperCase() + stageName.slice(1)}
+                    </h4>
+                    {"weight" in stageData && (
+                      <div className="stage-weight">
+                        <strong>Weight:</strong>{" "}
+                        {isEditMode ? (
+                          <input
+                            type="number"
+                            value={stageData.weight || ""}
+                            onChange={(e) =>
+                              handleStageFieldUpdate(
+                                stageName,
+                                'weight',
+                                e.target.value ? Number(e.target.value) : undefined
+                              )
+                            }
+                            className="edit-input weight-input"
+                            placeholder="Weight in grams"
+                            min="0"
+                          />
+                        ) : stageData.weight ? (
+                          `${stageData.weight}g`
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    )}
+                    {"glazes" in stageData && (
+                      <div className="stage-glazes">
+                        <strong>Glazes:</strong>
+                        {isEditMode ? (
+                          <textarea
+                            value={stageData.glazes || ""}
+                            onChange={(e) =>
+                              handleStageFieldUpdate(stageName, 'glazes', e.target.value)
+                            }
+                            className="edit-textarea"
+                            placeholder="Glazes used"
+                            rows={2}
+                          />
+                        ) : (
+                          <p>{stageData.glazes}</p>
+                        )}
+                      </div>
+                    )}
+                    <div className="stage-notes">
+                      <strong>Notes:</strong>
+                      {isEditMode ? (
+                        <textarea
+                          value={stageData.notes || ""}
+                          onChange={(e) =>
+                            handleStageFieldUpdate(stageName, 'notes', e.target.value)
+                          }
+                          className="edit-textarea"
+                          placeholder="Stage notes"
+                          rows={3}
+                        />
+                      ) : (
+                        <p>{stageData.notes || "No notes"}</p>
+                      )}
+                    </div>
+                    <div className="stage-image">
+                      <strong>Image URL:</strong>
+                      {isEditMode ? (
+                        <input
+                          type="url"
+                          value={stageData.imageUrl || ""}
+                          onChange={(e) =>
+                            handleStageFieldUpdate(stageName, 'imageUrl', e.target.value)
+                          }
+                          className="edit-input"
+                          placeholder="Image URL"
+                        />
+                      ) : stageData.imageUrl ? (
+                        <img
+                          src={stageData.imageUrl}
+                          alt={`${stageName} stage`}
+                        />
+                      ) : (
+                        <p>No image</p>
+                      )}
+                    </div>
                   </div>
-                )}
-                {'glazes' in stageData && stageData.glazes && (
-                  <div className="stage-glazes">
-                    <strong>Glazes:</strong>
-                    <p>{stageData.glazes}</p>
-                  </div>
-                )}
-                {stageData.notes && (
-                  <div className="stage-notes">
-                    <strong>Notes:</strong>
-                    <p>{stageData.notes}</p>
-                  </div>
-                )}
-                {stageData.imageUrl && (
-                  <div className="stage-image">
-                    <img src={stageData.imageUrl} alt={`${stageName} stage`} />
-                  </div>
-                )}
-              </div>
-            ))}
+                ),
+              )}
           </div>
         </div>
       </div>
@@ -89,3 +378,4 @@ const PieceDetail = () => {
 };
 
 export default PieceDetail;
+

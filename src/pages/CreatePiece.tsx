@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { addPiece } from "../stores/pieces";
 import { PotteryPiece, Stages, Priorities, Types } from "../types/Piece";
+import { createDefaultStageDetails } from "../utils/stage-defaults";
 import {
   getAllStages,
   getStageIcon,
@@ -51,10 +52,11 @@ const CreatePiece = () => {
       dueDate: formData.dueDate
         ? new Date(formData.dueDate).toISOString()
         : undefined,
+      stageDetails: createDefaultStageDetails(),
     };
 
     addPiece(newPiece);
-    navigate("/pieces");
+    navigate(`/piece/${newPiece.id}`);
   };
 
   const handleReset = () => {
