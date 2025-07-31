@@ -80,18 +80,7 @@
   border-left-color: var(--color-stage-ideas);
 }
 
-.home-stat-number {
-  font-size: var(--font-size-xxl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-dark-clay);
-  margin-bottom: var(--spacing-sm);
-}
-
-.home-stat-label {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-}
+/* Stat card content styles are now in styles/card.css */
 
 .home-stat-icon {
   font-size: var(--font-size-xxl);
@@ -129,9 +118,7 @@
     padding: var(--spacing-md);
   }
 
-  .home-stat-number {
-    font-size: var(--font-size-xxl);
-  }
+  /* Mobile card styles are now in styles/card.css */
 
   .home-navigation {
     padding: var(--spacing-lg);

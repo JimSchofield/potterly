@@ -37,25 +37,25 @@ const Home = () => {
 
       <div className="home-main-content">
         <div className="home-quick-stats">
-          <div className="home-stat-card total-pieces">
+          <div className="card stat-card card-accent card-hover card-center accent-clay">
             <div className="home-stat-icon">🏺</div>
-            <div className="home-stat-number">{totalPieces}</div>
-            <div className="home-stat-label">Pieces Total</div>
+            <div className="card-number">{totalPieces}</div>
+            <div className="card-label">Pieces Total</div>
           </div>
-          <div className="home-stat-card bisque-stage">
+          <div className="card stat-card card-accent card-hover card-center accent-bisque">
             <div className="home-stat-icon">🔥</div>
-            <div className="home-stat-number">{bisquePieces}</div>
-            <div className="home-stat-label">Pieces in Bisque Stage</div>
+            <div className="card-number">{bisquePieces}</div>
+            <div className="card-label">Pieces in Bisque Stage</div>
           </div>
-          <div className="home-stat-card starred">
+          <div className="card stat-card card-accent card-hover card-center accent-gold">
             <div className="home-stat-icon">⭐</div>
-            <div className="home-stat-number">{starredPieces}</div>
-            <div className="home-stat-label">Pieces Starred</div>
+            <div className="card-number">{starredPieces}</div>
+            <div className="card-label">Pieces Starred</div>
           </div>
-          <div className="home-stat-card ideas-stage">
+          <div className="card stat-card card-accent card-hover card-center accent-ideas">
             <div className="home-stat-icon">💡</div>
-            <div className="home-stat-number">{ideasPieces}</div>
-            <div className="home-stat-label">Ideas Stage</div>
+            <div className="card-number">{ideasPieces}</div>
+            <div className="card-label">Ideas Stage</div>
           </div>
         </div>
 

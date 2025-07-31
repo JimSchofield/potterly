@@ -38,6 +38,7 @@ const KanbanColumn = ({
             type={piece.type}
             details={piece.details}
             status={piece.status}
+            stage={piece.stage}
             priority={piece.priority}
             archived={piece.archived}
             starred={piece.starred}
@@ -53,4 +54,3 @@ const KanbanColumn = ({
 };
 
 export default KanbanColumn;
-

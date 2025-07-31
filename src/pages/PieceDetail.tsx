@@ -331,7 +331,7 @@ const PieceDetail = () => {
                               handleStageFieldUpdate(
                                 stageName,
                                 'weight',
-                                e.target.value ? Number(e.target.value) : undefined
+                                e.target.value ? Number(e.target.value) : null
                               )
                             }
                             className="form-input edit-mode weight-input"
@@ -341,7 +341,7 @@ const PieceDetail = () => {
                         ) : stageData.weight ? (
                           `${stageData.weight}g`
                         ) : (
-                          ""
+                          "Not set"
                         )}
                       </div>
                     )}

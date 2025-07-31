@@ -8,7 +8,7 @@ export const createDefaultStageData = (): StageData => ({
 export const createDefaultThrowStageData = (): ThrowStageData => ({
   notes: '',
   imageUrl: '',
-  weight: undefined
+  weight: null
 });
 
 export const createDefaultGlazeStageData = (): GlazeStageData => ({

@@ -1,0 +1,200 @@
+/* Global Card System */
+
+/* Base Card Styles */
+.card {
+  background: var(--color-pure-white);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
+}
+
+/* Card with left border accent */
+.card.card-accent {
+  border-left: 4px solid var(--color-clay-brown);
+}
+
+/* Card hover effects */
+.card.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card interactive (clickable/draggable) */
+.card.card-interactive {
+  cursor: pointer;
+}
+
+.card.card-interactive:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card draggable (for kanban) */
+.card.card-draggable {
+  cursor: grab;
+}
+
+.card.card-draggable:active {
+  cursor: grabbing;
+}
+
+/* Card sizes */
+.card.card-sm {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+}
+
+.card.card-lg {
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-large);
+}
+
+/* Card layouts */
+.card.card-center {
+  text-align: center;
+}
+
+.card.card-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card accent colors */
+.card.card-accent.accent-clay {
+  border-left-color: var(--color-clay-brown);
+}
+
+.card.card-accent.accent-ideas {
+  border-left-color: var(--color-stage-ideas);
+}
+
+.card.card-accent.accent-throw {
+  border-left-color: var(--color-stage-throw);
+}
+
+.card.card-accent.accent-trim {
+  border-left-color: var(--color-stage-trim);
+}
+
+.card.card-accent.accent-bisque {
+  border-left-color: var(--color-stage-bisque);
+}
+
+.card.card-accent.accent-glaze {
+  border-left-color: var(--color-stage-glaze);
+}
+
+.card.card-accent.accent-finished {
+  border-left-color: var(--color-stage-finished);
+}
+
+.card.card-accent.accent-gold {
+  border-left-color: var(--color-glaze-gold);
+}
+
+.card.card-accent.accent-high {
+  border-left-color: var(--color-priority-high);
+}
+
+.card.card-accent.accent-medium {
+  border-left-color: var(--color-priority-medium);
+}
+
+.card.card-accent.accent-low {
+  border-left-color: var(--color-priority-low);
+}
+
+/* Card content elements */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.card-title-link {
+  color: var(--color-clay-brown);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  transition: color 0.2s ease;
+}
+
+.card-title-link:hover {
+  color: var(--color-dark-clay);
+  text-decoration: underline;
+}
+
+.card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.card-content {
+  flex: 1;
+  margin-bottom: var(--spacing-md);
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.card-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: flex-end;
+  margin-top: var(--spacing-sm);
+}
+
+/* Stat card specific */
+.card.stat-card .card-number {
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-clay-brown);
+  margin-bottom: var(--spacing-xs);
+}
+
+.card.stat-card .card-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: var(--spacing-md);
+  }
+  
+  .card.card-sm {
+    padding: var(--spacing-sm);
+  }
+  
+  .card.card-lg {
+    padding: var(--spacing-lg);
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+  
+  .card-meta {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+}

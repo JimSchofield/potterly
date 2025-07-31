@@ -18,7 +18,7 @@ export interface StageData {
 }
 
 export interface ThrowStageData extends StageData {
-  weight?: number; // Weight in grams or ounces
+  weight?: number | null; // Weight in grams
 }
 
 export interface GlazeStageData extends StageData {

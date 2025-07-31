@@ -9,7 +9,9 @@
 /* Form System */
 @import './form.css';
 
+/* Card System */
+@import './card.css';
+
 /* Future style modules can be added here:
- * @import './cards.css';
  * @import './layout.css';
  */

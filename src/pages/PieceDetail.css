@@ -5,7 +5,11 @@
 }
 
 .piece-detail-header {
-  background: linear-gradient(135deg, var(--color-clay-brown), var(--color-sienna));
+  background: linear-gradient(
+    135deg,
+    var(--color-clay-brown),
+    var(--color-sienna)
+  );
   color: white;
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-large);
@@ -106,6 +110,7 @@
 
 .stage-card.current-stage {
   flex-direction: column;
+  justify-content: start;
   align-items: stretch;
   background: var(--color-cream);
   box-shadow: var(--shadow-md);
@@ -214,7 +219,9 @@
 @media (max-width: 768px) {
   .piece-detail-container {
     padding: var(--spacing-md);
-    padding-top: calc(var(--spacing-md) + 50px); /* Extra space for hamburger menu */
+    padding-top: calc(
+      var(--spacing-md) + 50px
+    ); /* Extra space for hamburger menu */
   }
 
   .piece-detail-header {

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./PotteryCard.css";
+import { Stages } from "../../types/Piece";
 
 interface PotteryCardProps {
   id: string;
@@ -7,6 +8,7 @@ interface PotteryCardProps {
   type: string;
   details: string;
   status?: string;
+  stage: Stages;
   priority: "high" | "medium" | "low";
   archived?: boolean;
   starred?: boolean;
@@ -25,6 +27,7 @@ const PotteryCard = ({
   archived = false,
   starred = false,
   createdAt,
+  stage,
   lastUpdated,
   dueDate,
 }: PotteryCardProps) => {
@@ -39,7 +42,9 @@ const PotteryCard = ({
     });
   };
   return (
-    <div className="pottery-card">
+    <div
+      className={`card card-accent card-interactive card-draggable card-flex accent-${stage}`}
+    >
       <div className="card-header">
         <div>
           <div className="card-title">
@@ -52,7 +57,7 @@ const PotteryCard = ({
           <div className="card-type">{type}</div>
         </div>
       </div>
-      <div className="card-details">{details}</div>
+      <div className="card-content">{details}</div>
       <div className="card-meta">
         <div className="card-dates">
           {status && <div className="card-status">📋 {status}</div>}

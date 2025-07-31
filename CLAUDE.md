@@ -20,7 +20,7 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - **Build Tool**: Vite 4.x
 - **Routing**: React Router DOM v6 (using BrowserRouter)
 - **State Management**: Nanostores with React integration
-- **Styling**: CSS modules with BEM-like naming convention
+- **Styling**: CSS modules with BEM-like naming convention and global CSS systems
 - **Linting**: ESLint with TypeScript support
 - **UUID Generation**: uuid library for unique identifiers
 
@@ -32,7 +32,7 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - `src/pages/developer/` - Developer/admin pages not shown in sidebar navigation
 - `src/stores/` - Nanostores state management (pieces store with CRUD actions)
 - `src/types/` - TypeScript type definitions (PotteryPiece interface)
-- `src/styles/` - Global CSS modules (button system, future: forms, cards, layout)
+- `src/styles/` - Global CSS modules (button, badge, form, and card systems)
 - `src/variables.css` - Global CSS variables for pottery color design system
 - `dogfood.json` - Sample pottery data with realistic examples
 - CSS files are co-located with their respective components
@@ -136,9 +136,11 @@ interface StageDetails {
   - `styles/button.css`: Comprehensive button system with variants (primary, secondary, danger, success, outline), sizes (sm, lg, xl), and layout utilities (block, group)
   - `styles/badge.css`: Badge system with stage badges, priority badges, status indicators, and archive badges
   - `styles/form.css`: Unified form system with consolidated selectors (form-input, form-textarea, form-select) and modifier classes (edit-mode, title-input, weight-input, search-box)
+  - `styles/card.css`: Global card system with base card styles, modifier classes (card-accent, card-hover, card-interactive, card-draggable), accent colors, and content elements
   - `styles/index.css`: Central import hub for all global styles
 - **Form System**: Consolidated form elements using single selectors with modifier classes for consistent styling across all inputs, textareas, and selects
-- **Badge System**: Comprehensive badge variants for stages, priorities, and status indicators with consistent styling
+- **Badge System**: Comprehensive badge variants for stages, priorities, and status indicators with consistent styling and no-wrap text
+- **Card System**: Unified card components with shared base styles, hover effects, accent borders, and flexible content layouts for stat cards and pottery cards
 - **Animations**: Smooth transitions, hover effects, and micro-interactions
 - **Responsive Design**: Mobile-first approach with grid layouts, hamburger menu, and proper mobile spacing to avoid menu overlap
 - **Icons**: Emoji-based iconography for pottery workflow stages
@@ -161,10 +163,12 @@ interface StageDetails {
 - **Mobile Optimizations**: Improved mobile layout with wider content area and better spacing
 - **Modular CSS Architecture**: Extracted duplicate styles into global systems:
   - Button system with consistent variants and sizing across all components
-  - Badge system with unified stage, priority, and status indicators
+  - Badge system with unified stage, priority, and status indicators  
   - Form system with consolidated selectors and modifier classes
-  - Eliminated 200+ lines of duplicate CSS code
+  - Card system with shared base styles for stat cards and pottery cards
+  - Eliminated 300+ lines of duplicate CSS code across components
 - **Form System Consolidation**: Unified form elements under single selectors (form-input, form-textarea, form-select) with modifier classes for variations, improving maintainability and consistency
+- **Card System**: Extracted shared card styling into global system with base card class, modifier classes for behavior (hover, interactive, draggable), accent colors for stage-based borders, and flexible content layouts
 - **Mobile Spacing Improvements**: Added proper top padding on mobile pages to avoid hamburger menu overlap
 - **Modal System**: Native HTML dialog-based modal system with context provider for confirmation dialogs and forms
 - **Stage Update Dialog**: Modal interface for updating pottery piece stages from table view with confirmation workflow

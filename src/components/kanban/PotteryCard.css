@@ -1,27 +1,7 @@
-/* PotteryCard component styles */
-.pottery-card {
-  background: var(--color-pure-white);
-  border-radius: 10px;
-  padding: 1.2rem;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid;
-  cursor: grab;
-  transition: all 0.2s ease;
-}
+/* Card styles are now in styles/card.css */
 
-.card-title-link {
-  color: var(--color-clay-brown);
-  text-decoration: none;
-  font-weight: var(--font-weight-semibold);
-  transition: color 0.2s ease;
-}
-
-.card-title-link:hover {
-  color: var(--color-dark-clay);
-  text-decoration: underline;
-}
-
-.pottery-card:active {
+/* PotteryCard-specific overrides */
+.card.card-draggable:active {
   cursor: grabbing;
 }
 
@@ -45,17 +25,11 @@
   border-left-color: var(--color-stage-finished);
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  margin-bottom: 0.8rem;
-}
+/* Card header and title styles are now in styles/card.css */
 
-.card-title {
+/* PotteryCard-specific title adjustments */
+.card .card-title {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
   margin-bottom: 0.3rem;
 }
 
@@ -74,19 +48,19 @@
   border-radius: 12px;
 }
 
-.card-details {
+/* Card content styles are now in styles/card.css */
+
+/* PotteryCard-specific content adjustments */
+.card .card-content {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
   line-height: 1.4;
-  margin-bottom: 1rem;
 }
 
-.card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+/* Card meta styles are now in styles/card.css */
+
+/* PotteryCard-specific meta adjustments */
+.card .card-meta {
   font-size: 0.8rem;
-  color: var(--color-text-muted);
 }
 
 .card-dates {

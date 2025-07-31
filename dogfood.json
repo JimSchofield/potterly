@@ -14,7 +14,7 @@
     "dueDate": "2024-08-15T23:59:59Z",
     "stageDetails": {
       "ideas": { "notes": "Initial design sketches for traditional 6-cup tea set with teapot and serving tray. Planning Raku-inspired glazes in earthy tones - iron oxide and copper carbonate combinations. Researching historical Japanese proportions. Cup dimensions: 3.5\" diameter x 2.5\" height. Teapot: 6\" width x 4\" height, 24oz capacity.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Tea+Set+Sketches" },
-      "throw": { "notes": "", "imageUrl": "" },
+      "throw": { "notes": "", "imageUrl": "", "weight": null },
       "trim": { "notes": "", "imageUrl": "" },
       "bisque": { "notes": "", "imageUrl": "" },
       "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
@@ -35,7 +35,7 @@
     "lastUpdated": "2024-07-22T10:15:00Z",
     "stageDetails": {
       "ideas": { "notes": "Concept for large weatherproof garden planters. Measurements: 16\" diameter x 12\" height. Need 1/2\" drainage holes at base. Considering rope texture impressions or carved geometric patterns. Research slip trailing techniques for surface decoration. Clay body must be high-fire stoneware for frost resistance.", "imageUrl": "https://placehold.co/400x300/2d5016/ffffff?text=Planter+Design" },
-      "throw": { "notes": "", "imageUrl": "" },
+      "throw": { "notes": "", "imageUrl": "", "weight": null },
       "trim": { "notes": "", "imageUrl": "" },
       "bisque": { "notes": "", "imageUrl": "" },
       "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
@@ -57,7 +57,7 @@
     "dueDate": "2024-09-01T23:59:59Z",
     "stageDetails": {
       "ideas": { "notes": "Abstract sculptural piece exploring flowing organic forms. Inspiration from wind-carved rock formations. Rough dimensions: 18\" height x 12\" width. Planning negative space openings to create interesting shadow play. Hand-building techniques - coil and pinch combination. Considering matte black or raw clay finish for gallery submission.", "imageUrl": "https://placehold.co/400x300/4a4a4a/ffffff?text=Sculpture+Concept" },
-      "throw": { "notes": "", "imageUrl": "" },
+      "throw": { "notes": "", "imageUrl": "", "weight": null },
       "trim": { "notes": "", "imageUrl": "" },
       "bisque": { "notes": "", "imageUrl": "" },
       "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
@@ -251,7 +251,7 @@
     "dueDate": "2024-08-10T23:59:59Z",
     "stageDetails": {
       "ideas": { "notes": "12 decorative wall tiles - 6\" x 6\" x 1/2\" thick. Hand-rolled slabs with impressed patterns using rope, stamps, and texture rollers. Part of bathroom renovation project. Need consistent thickness and precise measurements for installation.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Tile+Design" },
-      "throw": { "notes": "", "imageUrl": "" },
+      "throw": { "notes": "", "imageUrl": "", "weight": null },
       "trim": { "notes": "Hand-built from rolled slabs - each tile cut to exact 6\" square with wire tool. Impressed patterns using rope coils and carved stamps. Edges beveled slightly for installation. All pieces measured and marked for consistent thickness at 1/2\". Dried slowly to prevent warping.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Tile+Shaping" },
       "bisque": { "notes": "Waiting for next available kiln space. All 12 tiles bone dry and stacked carefully with spacers. No cracks or warping detected. Impressed patterns show good depth and definition. Ready for Cone 04 bisque firing when kiln available.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Ready+for+Bisque" },
       "glaze": { "notes": "", "imageUrl": "", "glazes": "" },
@@ -379,7 +379,7 @@
     "lastUpdated": "2024-07-20T15:20:00Z",
     "stageDetails": {
       "ideas": { "notes": "Contemporary sculptural vessel exploring organic forms. 15\" height with carved surface texture inspired by tree bark. Planning hand-building techniques combining coil and pinch methods. Matte white glaze will highlight textural details and create museum-quality piece.", "imageUrl": "https://placehold.co/400x300/8b4513/ffffff?text=Sculptural+Vessel+Design" },
-      "throw": { "notes": "", "imageUrl": "" },
+      "throw": { "notes": "", "imageUrl": "", "weight": null },
       "trim": { "notes": "Hand-built using coil and pinch techniques. Created organic form with flowing curves and negative spaces. Carved bark-like texture using various tools - ribs, combs, and custom stamps. Surface rich with detail and visual interest. Form has dynamic presence and artistic merit.", "imageUrl": "https://placehold.co/400x300/daa520/ffffff?text=Carving+Texture" },
       "bisque": { "notes": "Bisque fired to Cone 04 with excellent results. Complex form fired evenly with no cracks or stress points. Carved textures maintained full definition and depth. Piece rings with clear tone indicating proper vitrification. Ready for matte white glaze.", "imageUrl": "https://placehold.co/400x300/ff6347/ffffff?text=Bisque+Complete" },
       "glaze": { "notes": "Applied matte white glaze using brush technique to preserve textural details. Glaze settled beautifully into carved areas while maintaining surface variation. Fired to Cone 10 in oxidation atmosphere. Results exceeded expectations for artistic quality.", "imageUrl": "https://placehold.co/400x300/f5f5f5/000000?text=Matte+White+Glaze", "glazes": "Matte white (barium carbonate, kaolin, silica, titanium dioxide)" },
