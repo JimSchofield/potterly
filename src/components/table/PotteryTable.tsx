@@ -13,12 +13,7 @@ interface PotteryTableProps {
   onArchive?: (piece: PotteryPiece) => void;
 }
 
-const PotteryTable = ({
-  pieces,
-  onEdit,
-  onMove,
-  onArchive,
-}: PotteryTableProps) => {
+const PotteryTable = ({ pieces }: PotteryTableProps) => {
   const navigate = useNavigate();
   const { openModal } = useModal();
 
@@ -32,14 +27,14 @@ const PotteryTable = ({
 
   const handleArchive = (piece: PotteryPiece) => {
     showConfirmDialog(openModal, {
-      title: 'Archive Pottery Piece',
+      title: "Archive Pottery Piece",
       message: `Are you sure you want to archive "${piece.title}"? This will remove it from the active workflow but keep it in your collection.`,
-      confirmText: 'Archive',
-      cancelText: 'Cancel',
-      type: 'warning',
+      confirmText: "Archive",
+      cancelText: "Cancel",
+      type: "warning",
       onConfirm: () => {
         archivePiece(piece.id);
-      }
+      },
     });
   };
 
@@ -63,7 +58,10 @@ const PotteryTable = ({
                 <div className="piece-info">
                   <div className="piece-name">
                     {piece.starred && <span className="star-icon">⭐</span>}
-                    <Link to={`/piece/${piece.id}`} className="piece-title-link">
+                    <Link
+                      to={`/piece/${piece.id}`}
+                      className="piece-title-link"
+                    >
                       {piece.title}
                     </Link>
                     {piece.archived && (
@@ -93,7 +91,7 @@ const PotteryTable = ({
                 </div>
               </td>
               <td>
-                <div className="status-info">{piece.status || '—'}</div>
+                <div className="status-info">{piece.status || "—"}</div>
               </td>
               <td>
                 <div className="actions">
@@ -126,4 +124,3 @@ const PotteryTable = ({
 };
 
 export default PotteryTable;
-

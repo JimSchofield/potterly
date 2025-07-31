@@ -17,11 +17,7 @@ import {
 } from "../stores/pieces";
 import "./Filters.css";
 
-interface FiltersProps {
-  onAddNew?: () => void;
-}
-
-const Filters = ({ onAddNew }: FiltersProps) => {
+const Filters = () => {
   const stages = getAllStages();
   const filters = useStore(filtersStore);
   const navigate = useNavigate();

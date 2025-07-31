@@ -77,6 +77,7 @@ const StageUpdateDialog: React.FC<StageUpdateDialogProps> = ({ piece }) => {
 
 // Helper function to show stage update dialog
 export const showStageUpdateDialog = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   openModal: (props: any) => void,
   piece: PotteryPiece
 ) => {

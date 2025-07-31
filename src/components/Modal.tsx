@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useModal, ModalProps } from '../contexts/ModalContext';
+import { useModal } from '../contexts/ModalContext';
 import './Modal.css';
 
 const Modal: React.FC = () => {

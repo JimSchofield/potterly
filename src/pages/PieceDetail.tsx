@@ -20,7 +20,7 @@ const PieceDetail = () => {
 
   // Check for edit query parameter on mount
   useEffect(() => {
-    if (searchParams.get('edit') === 'true' && piece) {
+    if (searchParams.get("edit") === "true" && piece) {
       setIsEditMode(true);
       setEditedPiece({ ...piece });
     }
@@ -30,7 +30,7 @@ const PieceDetail = () => {
     if (!isEditMode) {
       // Enter edit mode - initialize editedPiece
       setEditedPiece({ ...piece! });
-      setSearchParams({ edit: 'true' });
+      setSearchParams({ edit: "true" });
     } else {
       // Exit edit mode - remove query parameter
       setSearchParams({});
@@ -56,7 +56,12 @@ const PieceDetail = () => {
     setSearchParams({});
   };
 
-  const handleStageFieldUpdate = (stageName: string, field: string, value: any) => {
+  const handleStageFieldUpdate = (
+    stageName: string,
+    field: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any,
+  ) => {
     setEditedPiece((prev) =>
       prev && prev.stageDetails
         ? {
@@ -64,7 +69,9 @@ const PieceDetail = () => {
             stageDetails: {
               ...prev.stageDetails,
               [stageName]: {
-                ...prev.stageDetails[stageName as keyof typeof prev.stageDetails],
+                ...prev.stageDetails[
+                  stageName as keyof typeof prev.stageDetails
+                ],
                 [field]: value,
               },
             },
@@ -75,17 +82,17 @@ const PieceDetail = () => {
 
   const handleRemovePiece = () => {
     if (!piece) return;
-    
+
     showConfirmDialog(openModal, {
-      title: 'Delete Pottery Piece',
+      title: "Delete Pottery Piece",
       message: `Are you sure you want to permanently delete "${piece.title}"? This action cannot be undone.`,
-      confirmText: 'Delete',
-      cancelText: 'Cancel',
-      type: 'danger',
+      confirmText: "Delete",
+      cancelText: "Cancel",
+      type: "danger",
       onConfirm: () => {
         removePiece(piece.id);
-        navigate('/pieces');
-      }
+        navigate("/pieces");
+      },
     });
   };
 
@@ -97,7 +104,7 @@ const PieceDetail = () => {
         <div className="piece-not-found">
           <h1>Piece Not Found</h1>
           <p>
-            The pottery piece you're looking for doesn't exist or has been
+            The pottery piece you&apos;re looking for doesn&apos;t exist or has been
             removed.
           </p>
         </div>
@@ -169,6 +176,7 @@ const PieceDetail = () => {
                   value={currentPiece.type}
                   onChange={(e) =>
                     setEditedPiece((prev) =>
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       prev ? { ...prev, type: e.target.value as any } : null,
                     )
                   }
@@ -227,7 +235,8 @@ const PieceDetail = () => {
                   onChange={(e) =>
                     setEditedPiece((prev) =>
                       prev
-                        ? { ...prev, priority: e.target.value as any }
+                        ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          { ...prev, priority: e.target.value as any }
                         : null,
                     )
                   }
@@ -248,6 +257,7 @@ const PieceDetail = () => {
                   value={currentPiece.stage}
                   onChange={(e) =>
                     setEditedPiece((prev) =>
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       prev ? { ...prev, stage: e.target.value as any } : null,
                     )
                   }
@@ -330,8 +340,8 @@ const PieceDetail = () => {
                             onChange={(e) =>
                               handleStageFieldUpdate(
                                 stageName,
-                                'weight',
-                                e.target.value ? Number(e.target.value) : null
+                                "weight",
+                                e.target.value ? Number(e.target.value) : null,
                               )
                             }
                             className="form-input edit-mode weight-input"
@@ -352,7 +362,11 @@ const PieceDetail = () => {
                           <textarea
                             value={stageData.glazes || ""}
                             onChange={(e) =>
-                              handleStageFieldUpdate(stageName, 'glazes', e.target.value)
+                              handleStageFieldUpdate(
+                                stageName,
+                                "glazes",
+                                e.target.value,
+                              )
                             }
                             className="form-textarea edit-mode"
                             placeholder="Glazes used"
@@ -369,7 +383,11 @@ const PieceDetail = () => {
                         <textarea
                           value={stageData.notes || ""}
                           onChange={(e) =>
-                            handleStageFieldUpdate(stageName, 'notes', e.target.value)
+                            handleStageFieldUpdate(
+                              stageName,
+                              "notes",
+                              e.target.value,
+                            )
                           }
                           className="form-textarea edit-mode"
                           placeholder="Stage notes"
@@ -386,7 +404,11 @@ const PieceDetail = () => {
                           type="url"
                           value={stageData.imageUrl || ""}
                           onChange={(e) =>
-                            handleStageFieldUpdate(stageName, 'imageUrl', e.target.value)
+                            handleStageFieldUpdate(
+                              stageName,
+                              "imageUrl",
+                              e.target.value,
+                            )
                           }
                           className="form-input edit-mode"
                           placeholder="Image URL"
@@ -410,11 +432,11 @@ const PieceDetail = () => {
           <div className="piece-detail-footer">
             <div className="danger-zone">
               <h3>Danger Zone</h3>
-              <p>Permanently delete this pottery piece. This action cannot be undone.</p>
-              <button 
-                onClick={handleRemovePiece} 
-                className="btn btn-danger"
-              >
+              <p>
+                Permanently delete this pottery piece. This action cannot be
+                undone.
+              </p>
+              <button onClick={handleRemovePiece} className="btn btn-danger">
                 🗑️ Delete Piece
               </button>
             </div>
@@ -426,4 +448,3 @@ const PieceDetail = () => {
 };
 
 export default PieceDetail;
-

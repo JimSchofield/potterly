@@ -61,6 +61,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
 // Helper function to show confirm dialog
 export const showConfirmDialog = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   openModal: (props: any) => void,
   options: {
     title: string;
