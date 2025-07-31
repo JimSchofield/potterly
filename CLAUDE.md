@@ -161,15 +161,13 @@ interface StageDetails {
 - **Starred System**: Star/favorite pieces with filtering and visual indicators across table and kanban views
 - **Enhanced Filtering**: Comprehensive filter system with search, archived status, and starred-only views
 - **Mobile Optimizations**: Improved mobile layout with wider content area and better spacing
-- **Modular CSS Architecture**: Extracted duplicate styles into global systems:
-  - Button system with consistent variants and sizing across all components
-  - Badge system with unified stage, priority, and status indicators  
-  - Form system with consolidated selectors and modifier classes
-  - Card system with shared base styles for stat cards and pottery cards
-  - Eliminated 300+ lines of duplicate CSS code across components
-- **Form System Consolidation**: Unified form elements under single selectors (form-input, form-textarea, form-select) with modifier classes for variations, improving maintainability and consistency
-- **Card System**: Extracted shared card styling into global system with base card class, modifier classes for behavior (hover, interactive, draggable), accent colors for stage-based borders, and flexible content layouts
+- **Modular CSS Architecture**: Complete CSS system extraction eliminating 300+ lines of duplicate code:
+  - Button system (`styles/button.css`): Comprehensive variants (primary, secondary, danger, success, outline), sizes (sm, lg, xl), and layout utilities (block, group) with CSS nesting
+  - Badge system (`styles/badge.css`): Unified stage badges, priority badges, status indicators, archive badges with consistent styling and white-space: nowrap
+  - Form system (`styles/form.css`): Consolidated form elements under single selectors (form-input, form-textarea, form-select) with modifier classes (edit-mode, title-input, weight-input, search-box)
+  - Card system (`styles/card.css`): Global card base class with modifier classes for behavior (hover, interactive, draggable), accent colors for stage-based borders, and flexible content layouts
+  - Central import hub (`styles/index.css`): Manages all global style imports through main.tsx
 - **Mobile Spacing Improvements**: Added proper top padding on mobile pages to avoid hamburger menu overlap
-- **Modal System**: Native HTML dialog-based modal system with context provider for confirmation dialogs and forms
+- **Modal System**: Native HTML dialog-based modal system with context provider for confirmation dialogs and forms, fixed TypeScript interface issues
 - **Stage Update Dialog**: Modal interface for updating pottery piece stages from table view with confirmation workflow
 - **Archive Functionality**: Complete archive system with confirmation dialogs and proper UI state management

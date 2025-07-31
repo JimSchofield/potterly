@@ -26,8 +26,6 @@ export const useModal = () => {
 };
 
 interface ModalProviderProps {
-  size: string;
-  showCloseButton: boolean;
   children: ReactNode;
 }
 
