@@ -4,12 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- **Start development server**: `pnpm dev` - Starts Vite development server with hot reload
+- **Start development server**: `netlify dev` - Starts Netlify dev server with functions and Vite hot reload
+- **Start Vite only**: `pnpm dev` - Starts Vite development server without functions
 - **Build for production**: `pnpm build` - Runs TypeScript compilation then Vite build
 - **Lint code**: `pnpm lint` - Runs ESLint with TypeScript extensions, treats warnings as errors
 - **Type checking**: `pnpm typecheck` - Runs TypeScript compiler without emitting files
 - **Preview production build**: `pnpm preview` - Serves the production build locally
 - **Install dependencies**: `pnpm install` - Installs all dependencies using pnpm
+- **Database commands**:
+  - `pnpm drizzle-kit push` - Push schema changes to database
+  - `pnpm drizzle-kit studio` - Open Drizzle Studio for database management
+  - `pnpm db:generate` - Generate migrations
+  - `pnpm db:migrate` - Run migrations
 
 ## Architecture Overview
 
@@ -20,6 +26,8 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - **Build Tool**: Vite 4.x
 - **Routing**: React Router DOM v6 (using BrowserRouter)
 - **State Management**: Nanostores with React integration
+- **Backend**: Netlify Functions (serverless)
+- **Database**: PostgreSQL (Neon) with Drizzle ORM
 - **Styling**: CSS modules with BEM-like naming convention and global CSS systems
 - **Linting**: ESLint with TypeScript support
 - **UUID Generation**: uuid library for unique identifiers
@@ -30,11 +38,16 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - `src/components/` - Reusable UI components (Sidebar, PotteryCard, KanbanBoard)
 - `src/pages/` - Route-specific page components (Home, Pieces, Profile, CreatePiece)
 - `src/pages/developer/` - Developer/admin pages not shown in sidebar navigation
-- `src/stores/` - Nanostores state management (pieces store with CRUD actions)
-- `src/types/` - TypeScript type definitions (PotteryPiece interface)
+- `src/stores/` - Nanostores state management (pieces store with CRUD actions and database integration)
+- `src/types/` - TypeScript type definitions (PotteryPiece, User interfaces)
 - `src/styles/` - Global CSS modules (button, badge, form, and card systems)
 - `src/variables.css` - Global CSS variables for pottery color design system
-- `dogfood.json` - Sample pottery data with realistic examples
+- `netlify/functions/` - Serverless API endpoints for database operations
+- `db/schema.ts` - Drizzle ORM database schema definitions
+- `examples/` - Sample JSON data (dogfood.json, user.json)
+- `.env` - Environment variables (DATABASE_URL)
+- `netlify.toml` - Netlify configuration for functions and dev server
+- `drizzle.config.ts` - Drizzle ORM configuration
 - CSS files are co-located with their respective components
 
 ### Key Patterns
@@ -65,11 +78,12 @@ The application follows a component-based architecture with centralized state:
 - **Developer pages**: Isolated in `src/pages/developer/` (not in sidebar navigation)
 
 **State Management:**
-- Centralized pieces store using Nanostores with reactive filtering
-- Filter state management with computed stores for real-time filtering
-- CRUD operations: addPiece, updatePiece, removePiece, archivePiece, starPiece
+- Centralized pieces store using Nanostores with reactive filtering and database persistence
+- Hybrid data approach: memory store for performance, database for persistence
+- CRUD operations: addPiece, updatePiece, removePiece, archivePiece, starPiece (with database sync)
 - Advanced filtering: stage, type, priority, search, archived status, starred pieces
 - Computed filteredPiecesStore for reactive UI updates
+- `getPieceById` function with fallback to database when not in memory store
 
 ### Routes
 **Main Application Routes:**
@@ -100,10 +114,24 @@ interface PotteryPiece {
   stage: "ideas" | "throw" | "trim" | "bisque" | "glaze" | "finished";
   archived: boolean;       // Whether piece is archived
   starred: boolean;        // Whether piece is starred/favorited
+  ownerId: string;         // UUID of the user who owns this piece
   createdAt: string;       // ISO date string
   lastUpdated: string;     // ISO date string  
   dueDate?: string;        // Optional ISO date string
   stageDetails: StageDetails; // Stage-specific information with notes, images, and specialized data
+}
+
+interface User {
+  id: string;              // UUID
+  firstName: string;       // User's first name
+  lastName: string;        // User's last name
+  email: string;           // User's email address
+  location: string;        // User's location
+  title: string;           // User's professional title
+  bio: string;             // User's biography
+  website: string;         // User's website URL
+  socials: UserSocials;    // Social media links
+  username: string;        // Unique username
 }
 
 // Stage-specific data interfaces
@@ -171,3 +199,9 @@ interface StageDetails {
 - **Modal System**: Native HTML dialog-based modal system with context provider for confirmation dialogs and forms, fixed TypeScript interface issues
 - **Stage Update Dialog**: Modal interface for updating pottery piece stages from table view with confirmation workflow
 - **Archive Functionality**: Complete archive system with confirmation dialogs and proper UI state management
+- **Database Integration**: Added PostgreSQL database with Drizzle ORM for data persistence
+- **Netlify Functions**: Created serverless API endpoints for CRUD operations on pieces, users, and stage details
+- **Hybrid Data Architecture**: Combined in-memory store for performance with database persistence
+- **Database Schema**: Normalized relational schema with separate tables for pieces, users, and stage_details
+- **Enhanced PieceDetail**: Refactored to fetch pieces from database when not available in memory store
+- **Development Setup**: Added Netlify CLI integration, environment configuration, and database migration tools

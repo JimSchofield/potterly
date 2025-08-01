@@ -25,9 +25,35 @@ export const filtersStore = atom<FilterState>({
 });
 
 // Actions
-export const addPiece = (piece: PotteryPiece) => {
-  const currentPieces = piecesStore.get();
-  piecesStore.set([...currentPieces, piece]);
+export const addPiece = async (piece: PotteryPiece) => {
+  try {
+    // Add to database first
+    const response = await fetch("/api/pieces", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(piece),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to add piece: ${response.statusText}`);
+    }
+
+    const savedPiece = await response.json();
+
+    // Update local store with the piece returned from database
+    const currentPieces = piecesStore.get();
+    piecesStore.set([...currentPieces, savedPiece]);
+
+    return savedPiece;
+  } catch (error) {
+    console.error("Error adding piece:", error);
+    // Fallback to local-only storage if database fails
+    const currentPieces = piecesStore.get();
+    piecesStore.set([...currentPieces, piece]);
+    throw error;
+  }
 };
 
 export const updatePiece = (
@@ -86,9 +112,37 @@ export const getPiecesByStage = (stage: string) => {
   return pieces.filter((piece) => piece.stage === stage);
 };
 
-export const getPieceById = (id: string) => {
+export const getPieceById = async (id: string) => {
+  // First check if piece is in store memory
   const pieces = piecesStore.get();
-  return pieces.find((piece) => piece.id === id);
+  const pieceInStore = pieces.find((piece) => piece.id === id);
+
+  if (pieceInStore) {
+    return pieceInStore;
+  }
+
+  // If not in store, fetch from database with stages
+  try {
+    const response = await fetch(`/api/piece-with-stages?id=${id}`);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error(`Failed to fetch piece: ${response.statusText}`);
+    }
+
+    const pieceWithStages = await response.json();
+
+    // Add to store for future use
+    const currentPieces = piecesStore.get();
+    piecesStore.set([...currentPieces, pieceWithStages]);
+
+    return pieceWithStages;
+  } catch (error) {
+    console.error("Error fetching piece:", error);
+    return null;
+  }
 };
 
 // Filter actions

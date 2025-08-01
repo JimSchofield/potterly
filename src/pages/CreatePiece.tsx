@@ -56,6 +56,7 @@ const CreatePiece = () => {
       id: uuidv4(),
       ...formData,
       archived: false,
+      ownerId: "550e8400-e29b-41d4-a716-446655440999", // TODO: Replace with actual user ID from auth
       createdAt: now,
       lastUpdated: now,
       dueDate: formData.dueDate

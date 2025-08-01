@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useStore } from "@nanostores/react";
-import { piecesStore, updatePiece, removePiece } from "../stores/pieces";
+import {
+  piecesStore,
+  updatePiece,
+  removePiece,
+  getPieceById,
+} from "../stores/pieces";
+
 import { PotteryPiece } from "../types/Piece";
 import { useModal } from "../contexts/ModalContext";
 import { showConfirmDialog } from "../components/ConfirmDialog";
@@ -15,8 +21,36 @@ const PieceDetail = () => {
   const pieces = useStore(piecesStore);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPiece, setEditedPiece] = useState<PotteryPiece | null>(null);
+  const [piece, setPiece] = useState<PotteryPiece | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const piece = pieces.find((p) => p.id === id);
+  // Find piece in store or fetch from database
+  useEffect(() => {
+    const loadPiece = async () => {
+      if (!id) return;
+
+      setLoading(true);
+      // First check store
+      const pieceInStore = pieces.find((p) => p.id === id);
+
+      if (pieceInStore) {
+        setPiece(pieceInStore);
+        setLoading(false);
+      } else {
+        // Fetch from database if not in store
+        try {
+          const fetchedPiece = await getPieceById(id);
+          setPiece(fetchedPiece);
+        } catch (error) {
+          console.error("Error loading piece:", error);
+          setPiece(null);
+        }
+        setLoading(false);
+      }
+    };
+
+    loadPiece();
+  }, [id, pieces]);
 
   // Check for edit query parameter on mount
   useEffect(() => {
@@ -98,14 +132,25 @@ const PieceDetail = () => {
 
   const currentPiece = isEditMode ? editedPiece! : piece!;
 
+  if (loading) {
+    return (
+      <div className="piece-detail-container">
+        <div className="loading">
+          <h1>Loading piece...</h1>
+          <p>Please wait while we fetch your pottery piece.</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!piece) {
     return (
       <div className="piece-detail-container">
         <div className="piece-not-found">
           <h1>Piece Not Found</h1>
           <p>
-            The pottery piece you&apos;re looking for doesn&apos;t exist or has been
-            removed.
+            The pottery piece you&apos;re looking for doesn&apos;t exist or has
+            been removed.
           </p>
         </div>
       </div>
