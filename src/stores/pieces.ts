@@ -1,6 +1,6 @@
 import { atom, computed } from "nanostores";
 import { PotteryPiece } from "../types/Piece";
-import potteryData from "../../dogfood.json";
+import potteryData from "../../examples/dogfood.json";
 
 // Initialize the store with dogfood data
 export const piecesStore = atom<PotteryPiece[]>(potteryData as PotteryPiece[]);

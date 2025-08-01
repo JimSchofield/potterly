@@ -8,11 +8,16 @@
     "build": "tsc && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "netlify dev:exec drizzle-kit migrate",
+    "db:studio": "netlify dev:exec drizzle-kit studio"
   },
   "dependencies": {
     "@nanostores/react": "^1.0.0",
+    "@netlify/neon": "^0.1.0",
     "@types/uuid": "^10.0.0",
+    "drizzle-orm": "^0.44.4",
     "nanostores": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.32.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",

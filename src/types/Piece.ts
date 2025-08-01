@@ -44,6 +44,7 @@ export interface PotteryPiece {
   stage: Stages;
   archived: boolean;
   starred: boolean;
+  ownerId: string; // UUID of the user who owns this piece
   createdAt: string; // ISO date string
   lastUpdated: string; // ISO date string
   dueDate?: string; // Optional ISO date string

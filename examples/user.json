@@ -1,0 +1,50 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440999",
+    "firstName": "Sarah",
+    "lastName": "Chen",
+    "email": "sarah.chen@email.com",
+    "location": "Portland, Oregon",
+    "title": "Ceramic Artist & Studio Owner",
+    "bio": "Passionate ceramic artist specializing in functional pottery and sculptural work. I draw inspiration from Japanese pottery traditions while exploring contemporary forms. My work focuses on the intersection of utility and beauty.",
+    "website": "https://sarahchenceramics.com",
+    "socials": {
+      "instagram": "@sarahchenceramics",
+      "twitter": "@sarahpotter",
+      "facebook": "SarahChenCeramics"
+    },
+    "username": "sarahc"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440998",
+    "firstName": "Marcus",
+    "lastName": "Rodriguez",
+    "email": "marcus.r.pottery@gmail.com",
+    "location": "Austin, Texas",
+    "title": "Pottery Instructor & Glaze Specialist",
+    "bio": "Teaching pottery for over 15 years with a focus on glaze chemistry and experimental techniques. I love helping students discover their unique voice through clay while pushing the boundaries of traditional pottery methods.",
+    "website": "https://austinpotteryworkshop.com",
+    "socials": {
+      "instagram": "@marcuspottery",
+      "youtube": "MarcusRodriguezCeramics",
+      "linkedin": "marcus-rodriguez-ceramics"
+    },
+    "username": "marcusr"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440997",
+    "firstName": "Elena",
+    "lastName": "Nakamura",
+    "email": "elena.nakamura.art@hotmail.com",
+    "location": "Seattle, Washington",
+    "title": "Contemporary Ceramic Sculptor",
+    "bio": "Creating large-scale ceramic installations and sculptures that explore themes of nature, identity, and cultural heritage. My work has been exhibited in galleries across the Pacific Northwest and featured in Ceramics Monthly.",
+    "website": "https://elenanakamura.art",
+    "socials": {
+      "instagram": "@elenanakamura_art",
+      "twitter": "@elenasculpts",
+      "behance": "elenanakamura"
+    },
+    "username": "elenan"
+  }
+]
