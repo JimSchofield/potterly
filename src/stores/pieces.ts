@@ -1,5 +1,6 @@
 import { atom, computed } from "nanostores";
 import { PotteryPiece } from "../types/Piece";
+import { createPieceAPI, getPieceWithStagesAPI } from "../network/pieces";
 import potteryData from "../../examples/dogfood.json";
 
 // Initialize the store with dogfood data
@@ -28,19 +29,7 @@ export const filtersStore = atom<FilterState>({
 export const addPiece = async (piece: PotteryPiece) => {
   try {
     // Add to database first
-    const response = await fetch("/api/pieces", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(piece),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to add piece: ${response.statusText}`);
-    }
-
-    const savedPiece = await response.json();
+    const savedPiece = await createPieceAPI(piece);
 
     // Update local store with the piece returned from database
     const currentPieces = piecesStore.get();
@@ -49,9 +38,6 @@ export const addPiece = async (piece: PotteryPiece) => {
     return savedPiece;
   } catch (error) {
     console.error("Error adding piece:", error);
-    // Fallback to local-only storage if database fails
-    const currentPieces = piecesStore.get();
-    piecesStore.set([...currentPieces, piece]);
     throw error;
   }
 };
@@ -123,20 +109,13 @@ export const getPieceById = async (id: string) => {
 
   // If not in store, fetch from database with stages
   try {
-    const response = await fetch(`/api/piece-with-stages?id=${id}`);
+    const pieceWithStages = await getPieceWithStagesAPI(id);
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error(`Failed to fetch piece: ${response.statusText}`);
+    if (pieceWithStages) {
+      // Add to store for future use
+      const currentPieces = piecesStore.get();
+      piecesStore.set([...currentPieces, pieceWithStages]);
     }
-
-    const pieceWithStages = await response.json();
-
-    // Add to store for future use
-    const currentPieces = piecesStore.get();
-    piecesStore.set([...currentPieces, pieceWithStages]);
 
     return pieceWithStages;
   } catch (error) {

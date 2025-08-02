@@ -38,7 +38,8 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - `src/components/` - Reusable UI components (Sidebar, PotteryCard, KanbanBoard)
 - `src/pages/` - Route-specific page components (Home, Pieces, Profile, CreatePiece)
 - `src/pages/developer/` - Developer/admin pages not shown in sidebar navigation
-- `src/stores/` - Nanostores state management (pieces store with CRUD actions and database integration)
+- `src/stores/` - Nanostores state management (pieces and user stores with CRUD actions)
+- `src/network/` - API layer for database communication (pieces.ts, users.ts)
 - `src/types/` - TypeScript type definitions (PotteryPiece, User interfaces)
 - `src/styles/` - Global CSS modules (button, badge, form, and card systems)
 - `src/variables.css` - Global CSS variables for pottery color design system
@@ -53,11 +54,13 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 ### Key Patterns
 - **Routing**: Uses declarative routing with Routes/Route components in App.tsx
 - **State Management**: Nanostores atoms with reactive React hooks (useStore)
+- **Network Layer**: Dedicated API functions in `src/network/` for all HTTP communication
 - **Navigation**: Sidebar component uses NavLink with active state styling
 - **Styling**: BEM-style CSS class naming (e.g., `sidebar__title`, `sidebar__link--active`)
 - **Component Structure**: Functional components with TypeScript, default exports
 - **Layout**: Fixed sidebar + main content area layout pattern
 - **Data Flow**: Store → Component via useStore hook for reactive updates
+- **API Architecture**: Separation of concerns between state management and network calls
 
 ### Component Architecture
 The application follows a component-based architecture with centralized state:
@@ -78,16 +81,22 @@ The application follows a component-based architecture with centralized state:
 - **Developer pages**: Isolated in `src/pages/developer/` (not in sidebar navigation)
 
 **State Management:**
-- Centralized pieces store using Nanostores with reactive filtering and database persistence
-- Hybrid data approach: memory store for performance, database for persistence
-- CRUD operations: addPiece, updatePiece, removePiece, archivePiece, starPiece (with database sync)
-- Advanced filtering: stage, type, priority, search, archived status, starred pieces
-- Computed filteredPiecesStore for reactive UI updates
-- `getPieceById` function with fallback to database when not in memory store
+- **Pieces Store**: Centralized pottery piece management with reactive filtering and database persistence
+  - Hybrid data approach: memory store for performance, database for persistence
+  - CRUD operations: addPiece, updatePiece, removePiece, archivePiece, starPiece (with database sync)
+  - Advanced filtering: stage, type, priority, search, archived status, starred pieces
+  - Computed filteredPiecesStore for reactive UI updates
+  - `getPieceById` function with fallback to database when not in memory store
+- **User Store**: User authentication and profile management
+  - User state management with authentication status, loading, and error states
+  - Actions: createUser, loginUser, getUserProfile, updateUserProfile, logoutUser
+  - Helper functions: getCurrentUser, isUserAuthenticated, getCurrentUserId
+  - Integration with pieces store for ownership tracking
 
 ### Routes
 **Main Application Routes:**
-- `/` - Home dashboard with live statistics and quick navigation
+- `/` - Home dashboard with live statistics and quick navigation (backwards compatibility)
+- `/home` - Home dashboard (canonical path)
 - `/pieces` - Pottery pieces with nested routing:
   - `/pieces/kanban` - Kanban board view (default)
   - `/pieces/table` - Table view
@@ -206,3 +215,6 @@ interface StageDetails {
 - **Enhanced PieceDetail**: Refactored to fetch pieces from database when not available in memory store
 - **Development Setup**: Added Netlify CLI integration, environment configuration, and database migration tools
 - **SPA Configuration**: Added Netlify redirect rules for proper single-page application routing support
+- **Network Layer Architecture**: Extracted all HTTP calls into dedicated API functions in `src/network/`
+- **User Management System**: Complete user store with authentication, profile management, and database integration
+- **Routing Updates**: Added `/home` as canonical home path while maintaining `/` for backwards compatibility

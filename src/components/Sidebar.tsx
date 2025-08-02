@@ -26,7 +26,7 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
         <ul className="sidebar__nav">
           <li className="sidebar__item">
             <NavLink
-              to="/"
+              to="/home"
               className={({ isActive }) =>
                 `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
               }

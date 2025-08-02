@@ -1,0 +1,66 @@
+import { User } from "../types/User";
+
+export const createUserAPI = async (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> => {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to create user: ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
+export const getUserProfileAPI = async (userId: string): Promise<User | null> => {
+  const response = await fetch(`/api/users?id=${userId}`);
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error(`Failed to fetch user profile: ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
+export const updateUserProfileAPI = async (userId: string, updates: Partial<Omit<User, 'id'>>): Promise<User> => {
+  const response = await fetch(`/api/users?id=${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updates),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to update user profile: ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
+export const deleteUserAPI = async (userId: string): Promise<void> => {
+  const response = await fetch(`/api/users?id=${userId}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete user: ${response.statusText}`);
+  }
+};
+
+export const getAllUsersAPI = async (): Promise<User[]> => {
+  const response = await fetch('/api/users');
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch users: ${response.statusText}`);
+  }
+
+  return response.json();
+};
