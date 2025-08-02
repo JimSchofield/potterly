@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { addPiece } from "../stores/pieces";
+import { getCurrentUser } from "../stores/user";
 import { PotteryPiece, Stages, Priorities, Types } from "../types/Piece";
 import { createDefaultStageDetails } from "../utils/stage-defaults";
 import {
@@ -15,6 +16,7 @@ import "./CreatePiece.css";
 const CreatePiece = () => {
   const navigate = useNavigate();
   const stages = getAllStages();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -48,15 +50,25 @@ const CreatePiece = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isSubmitting) return;
+
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      console.error("No authenticated user found");
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const now = new Date().toISOString();
     const newPiece: PotteryPiece = {
       id: uuidv4(),
       ...formData,
       archived: false,
-      ownerId: "550e8400-e29b-41d4-a716-446655440999", // TODO: Replace with actual user ID from auth
+      ownerId: currentUser.id,
       createdAt: now,
       lastUpdated: now,
       dueDate: formData.dueDate
@@ -65,8 +77,13 @@ const CreatePiece = () => {
       stageDetails: createDefaultStageDetails(),
     };
 
-    addPiece(newPiece);
-    navigate(`/piece/${newPiece.id}`);
+    try {
+      const savedPiece = await addPiece(newPiece);
+      navigate(`/piece/${savedPiece.id}`);
+    } catch (error) {
+      console.error("Failed to create piece:", error);
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -230,8 +247,12 @@ const CreatePiece = () => {
             >
               Reset
             </button>
-            <button type="submit" className="btn btn-primary">
-              Create Piece
+            <button 
+              type="submit" 
+              className="btn btn-primary"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating..." : "Create Piece"}
             </button>
           </div>
         </form>

@@ -218,3 +218,19 @@ interface StageDetails {
 - **Network Layer Architecture**: Extracted all HTTP calls into dedicated API functions in `src/network/`
 - **User Management System**: Complete user store with authentication, profile management, and database integration
 - **Routing Updates**: Added `/home` as canonical home path while maintaining `/` for backwards compatibility
+- **Google OAuth Authentication**: Complete Google SSO integration using @react-oauth/google with JWT token decoding to extract real user information. Users can sign in with Google accounts and their profile data is automatically populated from Google's user info
+- **HTTPS Local Development**: Configured mkcert for SSL certificates enabling HTTPS on localhost:8888 for proper Google OAuth testing
+- **Profile Management**: Comprehensive profile page with editing functionality, real user data integration, and pottery-themed styling. Users can edit all profile fields including social links with proper form validation
+- **Real User Data Integration**: Replaced dogfood/sample data with real database-backed user pieces. All user pieces are loaded automatically at login time and stored in the reactive pieces store
+- **Database Persistence**: Complete CRUD operations now persist to PostgreSQL database:
+  - Piece creation with automatic stage details generation
+  - Piece editing (title, type, details, priority, stage, etc.) with proper field filtering
+  - Stage detail editing (notes, images, weight, glazes) with individual stage persistence
+  - Archive/unarchive operations with database sync
+  - User profile updates with database storage
+- **Submitting States**: Added proper loading states and UI disabling during network operations:
+  - CreatePiece form shows "Creating..." state and prevents multiple submissions
+  - PieceDetail edit mode shows "Saving..." state and disables all form fields during submission
+  - Archive operations show proper loading feedback
+- **Logout Functionality**: Added logout button to sidebar with proper session cleanup and navigation
+- **Error Handling**: Comprehensive error handling for all database operations with proper user feedback and graceful degradation

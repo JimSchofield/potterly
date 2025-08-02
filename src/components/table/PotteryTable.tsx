@@ -32,8 +32,12 @@ const PotteryTable = ({ pieces }: PotteryTableProps) => {
       confirmText: "Archive",
       cancelText: "Cancel",
       type: "warning",
-      onConfirm: () => {
-        archivePiece(piece.id);
+      onConfirm: async () => {
+        try {
+          await archivePiece(piece.id);
+        } catch (error) {
+          console.error("Failed to archive piece:", error);
+        }
       },
     });
   };

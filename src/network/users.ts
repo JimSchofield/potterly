@@ -77,3 +77,34 @@ export const getAllUsersAPI = async (): Promise<User[]> => {
 
   return response.json();
 };
+
+export interface UserStats {
+  totalPieces: number;
+  activePieces: number;
+  completedPieces: number;
+  starredPieces: number;
+  archivedPieces: number;
+  piecesByStage: {
+    ideas: number;
+    throw: number;
+    trim: number;
+    bisque: number;
+    glaze: number;
+    finished: number;
+  };
+  piecesByPriority: {
+    high: number;
+    medium: number;
+    low: number;
+  };
+}
+
+export const getUserStatsAPI = async (userId: string): Promise<UserStats> => {
+  const response = await fetch(`/api/user-stats?userId=${userId}`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch user statistics: ${response.statusText}`);
+  }
+
+  return response.json();
+};

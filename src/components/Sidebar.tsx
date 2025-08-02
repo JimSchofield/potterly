@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logoutUser } from "../stores/user";
 import "./Sidebar.css";
 
 interface SidebarProps {
@@ -7,8 +8,18 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
+  const navigate = useNavigate();
+
   const handleLinkClick = () => {
     // Close mobile menu when a link is clicked
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/");
     if (onClose) {
       onClose();
     }
@@ -71,6 +82,14 @@ const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
               <span className="sidebar__icon">👤</span>
               <span className="sidebar__text">Profile</span>
             </NavLink>
+          </li>
+          <li className="sidebar__item">
+            <div className="sidebar__logout">
+              <button onClick={handleLogout} className="sidebar__logout-btn">
+                <span className="sidebar__icon">🚪</span>
+                <span className="sidebar__text">Sign Out</span>
+              </button>
+            </div>
           </li>
         </ul>
       </nav>

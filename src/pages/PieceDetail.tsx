@@ -6,6 +6,7 @@ import {
   updatePiece,
   removePiece,
   getPieceById,
+  updateStageDetail,
 } from "../stores/pieces";
 
 import { PotteryPiece } from "../types/Piece";
@@ -23,6 +24,7 @@ const PieceDetail = () => {
   const [editedPiece, setEditedPiece] = useState<PotteryPiece | null>(null);
   const [piece, setPiece] = useState<PotteryPiece | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Find piece in store or fetch from database
   useEffect(() => {
@@ -72,15 +74,42 @@ const PieceDetail = () => {
     setIsEditMode(!isEditMode);
   };
 
-  const handleSave = () => {
-    if (editedPiece) {
-      updatePiece(editedPiece.id, {
-        ...editedPiece,
+  const handleSave = async () => {
+    if (!editedPiece || !piece || isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      // Compare original and edited stage details to find changes
+      const stageNames = ["ideas", "throw", "trim", "bisque", "glaze", "finished"] as const;
+      
+      for (const stageName of stageNames) {
+        const originalStage = piece.stageDetails[stageName];
+        const editedStage = editedPiece.stageDetails[stageName];
+        
+        // Check if stage details have changed
+        const hasChanged = JSON.stringify(originalStage) !== JSON.stringify(editedStage);
+        
+        if (hasChanged) {
+          await updateStageDetail(editedPiece.id, stageName, editedStage);
+        }
+      }
+
+      // Update the main piece data (excluding stageDetails since we handled those separately)
+      const { stageDetails, ...pieceWithoutStages } = editedPiece;
+      await updatePiece(editedPiece.id, {
+        ...pieceWithoutStages,
         lastUpdated: new Date().toISOString(),
       });
+
       setIsEditMode(false);
       setEditedPiece(null);
       setSearchParams({});
+    } catch (error) {
+      console.error("Failed to save piece:", error);
+      // Could add user notification here
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -172,6 +201,7 @@ const PieceDetail = () => {
                   )
                 }
                 className="form-input title-input"
+                disabled={isSubmitting}
               />
             ) : (
               currentPiece.title
@@ -195,10 +225,18 @@ const PieceDetail = () => {
         <div className="header-actions">
           {isEditMode ? (
             <>
-              <button onClick={handleSave} className="btn btn-success">
-                💾 Save
+              <button 
+                onClick={handleSave} 
+                className="btn btn-success"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "💾 Saving..." : "💾 Save"}
               </button>
-              <button onClick={handleCancel} className="btn btn-danger">
+              <button 
+                onClick={handleCancel} 
+                className="btn btn-danger"
+                disabled={isSubmitting}
+              >
                 ❌ Cancel
               </button>
             </>
@@ -226,6 +264,7 @@ const PieceDetail = () => {
                     )
                   }
                   className="form-select edit-mode"
+                  disabled={isSubmitting}
                 >
                   <option value="Functional">Functional</option>
                   <option value="Decorative">Decorative</option>
@@ -249,6 +288,7 @@ const PieceDetail = () => {
                   }
                   className="form-textarea edit-mode"
                   rows={3}
+                  disabled={isSubmitting}
                 />
               ) : (
                 currentPiece.details
@@ -267,6 +307,7 @@ const PieceDetail = () => {
                   }
                   className="form-input edit-mode"
                   placeholder="Optional status"
+                  disabled={isSubmitting}
                 />
               ) : (
                 currentPiece.status || "Not set"
@@ -286,6 +327,7 @@ const PieceDetail = () => {
                     )
                   }
                   className="form-select edit-mode"
+                  disabled={isSubmitting}
                 >
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
@@ -307,6 +349,7 @@ const PieceDetail = () => {
                     )
                   }
                   className="form-select edit-mode"
+                  disabled={isSubmitting}
                 >
                   <option value="ideas">Ideas</option>
                   <option value="throw">Throw</option>
@@ -392,6 +435,7 @@ const PieceDetail = () => {
                             className="form-input edit-mode weight-input"
                             placeholder="Weight in grams"
                             min="0"
+                            disabled={isSubmitting}
                           />
                         ) : stageData.weight ? (
                           `${stageData.weight}g`
@@ -416,6 +460,7 @@ const PieceDetail = () => {
                             className="form-textarea edit-mode"
                             placeholder="Glazes used"
                             rows={2}
+                            disabled={isSubmitting}
                           />
                         ) : (
                           <p>{stageData.glazes}</p>
@@ -437,6 +482,7 @@ const PieceDetail = () => {
                           className="form-textarea edit-mode"
                           placeholder="Stage notes"
                           rows={3}
+                          disabled={isSubmitting}
                         />
                       ) : (
                         <p>{stageData.notes || "No notes"}</p>
@@ -457,6 +503,7 @@ const PieceDetail = () => {
                           }
                           className="form-input edit-mode"
                           placeholder="Image URL"
+                          disabled={isSubmitting}
                         />
                       ) : stageData.imageUrl ? (
                         <img

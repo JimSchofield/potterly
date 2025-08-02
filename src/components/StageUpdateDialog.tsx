@@ -14,9 +14,14 @@ const StageUpdateDialog: React.FC<StageUpdateDialogProps> = ({ piece }) => {
   const [selectedStage, setSelectedStage] = useState<Stages>(piece.stage);
   const stages = getAllStages();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (selectedStage !== piece.stage) {
-      updatePiece(piece.id, { stage: selectedStage });
+      try {
+        await updatePiece(piece.id, { stage: selectedStage });
+      } catch (error) {
+        console.error("Failed to update stage:", error);
+        // Could add user notification here
+      }
     }
     closeModal();
   };

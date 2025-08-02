@@ -1,10 +1,9 @@
 import { atom, computed } from "nanostores";
-import { PotteryPiece } from "../types/Piece";
-import { createPieceAPI, getPieceWithStagesAPI } from "../network/pieces";
-import potteryData from "../../examples/dogfood.json";
+import { PotteryPiece, StageData, ThrowStageData, GlazeStageData } from "../types/Piece";
+import { createPieceAPI, getPieceWithStagesAPI, getUserPiecesAPI, updateStageDetailAPI, updatePieceAPI } from "../network/pieces";
 
-// Initialize the store with dogfood data
-export const piecesStore = atom<PotteryPiece[]>(potteryData as PotteryPiece[]);
+// Initialize the store with empty array - will be populated with user data
+export const piecesStore = atom<PotteryPiece[]>([]);
 
 // Filter state
 interface FilterState {
@@ -26,14 +25,40 @@ export const filtersStore = atom<FilterState>({
 });
 
 // Actions
+export const loadUserPieces = async (userId: string) => {
+  try {
+    const userPieces = await getUserPiecesAPI(userId);
+    piecesStore.set(userPieces);
+    return userPieces;
+  } catch (error) {
+    console.error("Error loading user pieces:", error);
+    // Keep empty array on error
+    piecesStore.set([]);
+    throw error;
+  }
+};
+
 export const addPiece = async (piece: PotteryPiece) => {
   try {
+    // Check if piece already exists in store (prevents duplicates from React Strict Mode)
+    const currentPieces = piecesStore.get();
+    const existingPiece = currentPieces.find(p => p.id === piece.id);
+    
+    if (existingPiece) {
+      console.log("Piece already exists in store, skipping add");
+      return existingPiece;
+    }
+
     // Add to database first
     const savedPiece = await createPieceAPI(piece);
 
     // Update local store with the piece returned from database
-    const currentPieces = piecesStore.get();
-    piecesStore.set([...currentPieces, savedPiece]);
+    const updatedPieces = piecesStore.get();
+    const stillExists = updatedPieces.find(p => p.id === savedPiece.id);
+    
+    if (!stillExists) {
+      piecesStore.set([...updatedPieces, savedPiece]);
+    }
 
     return savedPiece;
   } catch (error) {
@@ -42,21 +67,65 @@ export const addPiece = async (piece: PotteryPiece) => {
   }
 };
 
-export const updatePiece = (
+export const updatePiece = async (
   id: string,
   updates: Partial<Omit<PotteryPiece, "id">>,
 ) => {
-  const currentPieces = piecesStore.get();
-  const updatedPieces = currentPieces.map((piece) =>
-    piece.id === id
-      ? {
-          ...piece,
-          ...updates,
-          lastUpdated: new Date().toISOString(),
-        }
-      : piece,
-  );
-  piecesStore.set(updatedPieces);
+  try {
+    // Update in database first
+    const updatedPiece = await updatePieceAPI(id, {
+      ...updates,
+      lastUpdated: new Date().toISOString(),
+    });
+
+    // Update local store with the piece returned from database, preserving stage details
+    const currentPieces = piecesStore.get();
+    const updatedPieces = currentPieces.map((piece) =>
+      piece.id === id 
+        ? {
+            ...updatedPiece,
+            // Preserve existing stage details since API response doesn't include them
+            stageDetails: piece.stageDetails,
+          }
+        : piece,
+    );
+    piecesStore.set(updatedPieces);
+
+    return updatedPiece;
+  } catch (error) {
+    console.error("Error updating piece:", error);
+    throw error;
+  }
+};
+
+export const updateStageDetail = async (
+  pieceId: string,
+  stage: string,
+  stageData: StageData | ThrowStageData | GlazeStageData
+) => {
+  try {
+    // Update in database first
+    await updateStageDetailAPI(pieceId, stage, stageData);
+
+    // Update local store
+    const currentPieces = piecesStore.get();
+    const updatedPieces = currentPieces.map((piece) =>
+      piece.id === pieceId
+        ? {
+            ...piece,
+            stageDetails: {
+              ...piece.stageDetails,
+              [stage]: stageData,
+            },
+            lastUpdated: new Date().toISOString(),
+          }
+        : piece,
+    );
+    piecesStore.set(updatedPieces);
+  } catch (error) {
+    console.error("Error updating stage detail:", error);
+    throw error;
+  }
 };
 
 export const removePiece = (id: string) => {
@@ -65,32 +134,22 @@ export const removePiece = (id: string) => {
   piecesStore.set(filteredPieces);
 };
 
-export const archivePiece = (id: string) => {
-  const currentPieces = piecesStore.get();
-  const updatedPieces = currentPieces.map((piece) =>
-    piece.id === id
-      ? {
-          ...piece,
-          archived: true,
-          lastUpdated: new Date().toISOString(),
-        }
-      : piece,
-  );
-  piecesStore.set(updatedPieces);
+export const archivePiece = async (id: string) => {
+  try {
+    await updatePiece(id, { archived: true });
+  } catch (error) {
+    console.error("Error archiving piece:", error);
+    throw error;
+  }
 };
 
-export const unarchivePiece = (id: string) => {
-  const currentPieces = piecesStore.get();
-  const updatedPieces = currentPieces.map((piece) =>
-    piece.id === id
-      ? {
-          ...piece,
-          archived: false,
-          lastUpdated: new Date().toISOString(),
-        }
-      : piece,
-  );
-  piecesStore.set(updatedPieces);
+export const unarchivePiece = async (id: string) => {
+  try {
+    await updatePiece(id, { archived: false });
+  } catch (error) {
+    console.error("Error unarchiving piece:", error);
+    throw error;
+  }
 };
 
 export const getPiecesByStage = (stage: string) => {

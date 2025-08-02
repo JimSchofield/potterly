@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
 import { User } from "../types/User";
 import { createUserAPI, getUserProfileAPI, updateUserProfileAPI, getUserByGoogleIdAPI } from "../network/users";
+import { loadUserPieces, piecesStore } from "./pieces";
 
 // User store state
 interface UserState {
@@ -44,6 +45,14 @@ export const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'upda
       error: null,
     });
 
+    // Load user's pieces (will be empty for new user)
+    try {
+      await loadUserPieces(newUser.id);
+    } catch (piecesError) {
+      console.error("Failed to load user pieces:", piecesError);
+      // Don't fail the login if pieces can't be loaded
+    }
+
     return newUser;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create user';
@@ -67,6 +76,15 @@ export const loginUser = async (userId: string) => {
         loading: false,
         error: null,
       });
+
+      // Load user's pieces
+      try {
+        await loadUserPieces(userProfile.id);
+      } catch (piecesError) {
+        console.error("Failed to load user pieces:", piecesError);
+        // Don't fail the login if pieces can't be loaded
+      }
+
       return userProfile;
     } else {
       throw new Error('User not found');
@@ -93,6 +111,15 @@ export const loginUserByGoogleId = async (googleId: string) => {
         loading: false,
         error: null,
       });
+
+      // Load user's pieces
+      try {
+        await loadUserPieces(userProfile.id);
+      } catch (piecesError) {
+        console.error("Failed to load user pieces:", piecesError);
+        // Don't fail the login if pieces can't be loaded
+      }
+
       return userProfile;
     } else {
       throw new Error('User not found');
@@ -146,6 +173,9 @@ export const logoutUser = () => {
     loading: false,
     error: null,
   });
+
+  // Clear pieces store on logout
+  piecesStore.set([]);
 };
 
 // Helper function to get current user

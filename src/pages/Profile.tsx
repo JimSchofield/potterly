@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { userStore, isUserAuthenticated, getCurrentUser, logoutUser, updateUserProfile } from "../stores/user";
 import { piecesStore } from "../stores/pieces";
 import { PotteryPiece } from "../types/Piece";
+import { UserStats, getUserStatsAPI } from "../network/users";
 import { getStageIcon } from "../utils/labels-and-icons";
 import "./Profile.css";
 
@@ -12,6 +13,8 @@ const Profile = () => {
   const user = useStore(userStore);
   const pieces = useStore(piecesStore);
   const [userPieces, setUserPieces] = useState<PotteryPiece[]>([]);
+  const [userStats, setUserStats] = useState<UserStats | null>(null);
+  const [statsLoading, setStatsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     firstName: "",
@@ -37,7 +40,7 @@ const Profile = () => {
   }, [navigate]);
 
 
-  // Filter pieces by current user
+  // Filter pieces by current user (for recent work display)
   useEffect(() => {
     const currentUser = getCurrentUser();
     if (currentUser) {
@@ -45,6 +48,26 @@ const Profile = () => {
       setUserPieces(filteredPieces);
     }
   }, [pieces, user.user]);
+
+  // Fetch user statistics from database
+  useEffect(() => {
+    const fetchUserStats = async () => {
+      const currentUser = getCurrentUser();
+      if (currentUser && !statsLoading) {
+        setStatsLoading(true);
+        try {
+          const stats = await getUserStatsAPI(currentUser.id);
+          setUserStats(stats);
+        } catch (error) {
+          console.error("Error fetching user stats:", error);
+        } finally {
+          setStatsLoading(false);
+        }
+      }
+    };
+
+    fetchUserStats();
+  }, [user.user]);
 
   // Populate form when entering edit mode
   useEffect(() => {
@@ -138,10 +161,12 @@ const Profile = () => {
   }
 
   const currentUser = user.user;
-  const totalPieces = userPieces.length;
-  const completedPieces = userPieces.filter(piece => piece.stage === "finished").length;
-  const activePieces = userPieces.filter(piece => piece.stage !== "finished" && !piece.archived).length;
-  const starredPieces = userPieces.filter(piece => piece.starred).length;
+  
+  // Use API stats if available, otherwise fall back to calculated stats
+  const totalPieces = userStats?.totalPieces ?? userPieces.length;
+  const completedPieces = userStats?.completedPieces ?? userPieces.filter(piece => piece.stage === "finished").length;
+  const activePieces = userStats?.activePieces ?? userPieces.filter(piece => piece.stage !== "finished" && !piece.archived).length;
+  const starredPieces = userStats?.starredPieces ?? userPieces.filter(piece => piece.starred).length;
 
   const recentPieces = userPieces
     .filter(piece => !piece.archived)
@@ -226,19 +251,27 @@ const Profile = () => {
 
       <div className="profile-stats">
         <div className="stat-card">
-          <div className="stat-number">{totalPieces}</div>
+          <div className="stat-number">
+            {statsLoading ? "..." : totalPieces}
+          </div>
           <div className="stat-label">Total Pieces</div>
         </div>
         <div className="stat-card">
-          <div className="stat-number">{activePieces}</div>
+          <div className="stat-number">
+            {statsLoading ? "..." : activePieces}
+          </div>
           <div className="stat-label">Active Projects</div>
         </div>
         <div className="stat-card">
-          <div className="stat-number">{completedPieces}</div>
+          <div className="stat-number">
+            {statsLoading ? "..." : completedPieces}
+          </div>
           <div className="stat-label">Completed</div>
         </div>
         <div className="stat-card">
-          <div className="stat-number">{starredPieces}</div>
+          <div className="stat-number">
+            {statsLoading ? "..." : starredPieces}
+          </div>
           <div className="stat-label">Starred</div>
         </div>
       </div>
