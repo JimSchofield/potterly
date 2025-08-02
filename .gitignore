@@ -33,3 +33,9 @@ dist-ssr
 .env
 .env.local
 .env.production
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.cert

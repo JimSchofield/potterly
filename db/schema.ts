@@ -41,6 +41,7 @@ export const stageDetails = pgTable("stage_details", {
 
 export const users = pgTable("users", {
   id: uuid().primaryKey().defaultRandom(),
+  googleId: varchar("google_id", { length: 255 }).unique(), // Google OAuth ID
   firstName: varchar("first_name", { length: 100 }).notNull(),
   lastName: varchar("last_name", { length: 100 }).notNull(),
   email: varchar({ length: 255 }).notNull().unique(),

@@ -1,6 +1,6 @@
 import { atom } from "nanostores";
 import { User } from "../types/User";
-import { createUserAPI, getUserProfileAPI, updateUserProfileAPI } from "../network/users";
+import { createUserAPI, getUserProfileAPI, updateUserProfileAPI, getUserByGoogleIdAPI } from "../network/users";
 
 // User store state
 interface UserState {
@@ -59,6 +59,32 @@ export const loginUser = async (userId: string) => {
 
   try {
     const userProfile = await getUserProfile(userId);
+    
+    if (userProfile) {
+      userStore.set({
+        user: userProfile,
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      });
+      return userProfile;
+    } else {
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to login user';
+    setError(errorMessage);
+    setLoading(false);
+    throw error;
+  }
+};
+
+export const loginUserByGoogleId = async (googleId: string) => {
+  setLoading(true);
+  setError(null);
+
+  try {
+    const userProfile = await getUserByGoogleIdAPI(googleId);
     
     if (userProfile) {
       userStore.set({

@@ -9,6 +9,10 @@
   command = "pnpm dev"
   targetPort = 5173
 
+[dev.https]
+  certFile = "localhost.pem"
+  keyFile = "localhost-key.pem"
+
 # SPA redirect rule - must be last
 [[redirects]]
   from = "/*"

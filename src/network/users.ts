@@ -29,6 +29,19 @@ export const getUserProfileAPI = async (userId: string): Promise<User | null> =>
   return response.json();
 };
 
+export const getUserByGoogleIdAPI = async (googleId: string): Promise<User | null> => {
+  const response = await fetch(`/api/users?googleId=${googleId}`);
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error(`Failed to fetch user by Google ID: ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
 export const updateUserProfileAPI = async (userId: string, updates: Partial<Omit<User, 'id'>>): Promise<User> => {
   const response = await fetch(`/api/users?id=${userId}`, {
     method: 'PUT',

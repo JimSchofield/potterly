@@ -17,12 +17,25 @@ export default async (req: Request, context: Context) => {
   const { method } = req;
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
+  const googleId = url.searchParams.get("googleId");
 
   try {
     switch (method) {
       case "GET":
-        if (id) {
-          // Get single user
+        if (googleId) {
+          // Get user by Google ID
+          const user = await db.select().from(users).where(eq(users.googleId, googleId));
+          if (user.length === 0) {
+            return new Response(JSON.stringify({ error: "User not found" }), {
+              status: 404,
+              headers: { "Content-Type": "application/json" }
+            });
+          }
+          return new Response(JSON.stringify(user[0]), {
+            headers: { "Content-Type": "application/json" }
+          });
+        } else if (id) {
+          // Get single user by UUID
           const user = await db.select().from(users).where(eq(users.id, id));
           if (user.length === 0) {
             return new Response(JSON.stringify({ error: "User not found" }), {

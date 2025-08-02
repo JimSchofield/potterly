@@ -17,8 +17,11 @@
   "dependencies": {
     "@nanostores/react": "^1.0.0",
     "@netlify/neon": "^0.1.0",
+    "@react-oauth/google": "^0.12.2",
     "@types/uuid": "^10.0.0",
     "drizzle-orm": "^0.44.4",
+    "google-auth-library": "^10.2.0",
+    "jwt-decode": "^4.0.0",
     "nanostores": "^1.0.1",
     "postgres": "^3.4.7",
     "react": "^18.2.0",

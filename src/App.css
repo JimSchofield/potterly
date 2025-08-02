@@ -11,6 +11,13 @@
   box-shadow: var(--shadow-sm);
 }
 
+.container--full {
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
 /* Global styles are imported in main.tsx */
 
 /* Mobile responsive */

@@ -9,6 +9,7 @@ export interface UserSocials {
 
 export interface User {
   id: string; // UUID
+  googleId?: string; // Google OAuth ID
   firstName: string;
   lastName: string;
   email: string;

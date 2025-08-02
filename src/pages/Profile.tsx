@@ -1,9 +1,499 @@
-import "./Page.css";
+import { useEffect, useState } from "react";
+import { useStore } from "@nanostores/react";
+import { useNavigate } from "react-router-dom";
+import { userStore, isUserAuthenticated, getCurrentUser, logoutUser, updateUserProfile } from "../stores/user";
+import { piecesStore } from "../stores/pieces";
+import { PotteryPiece } from "../types/Piece";
+import { getStageIcon } from "../utils/labels-and-icons";
+import "./Profile.css";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const user = useStore(userStore);
+  const pieces = useStore(piecesStore);
+  const [userPieces, setUserPieces] = useState<PotteryPiece[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    firstName: "",
+    lastName: "",
+    title: "",
+    bio: "",
+    location: "",
+    website: "",
+    socials: {
+      instagram: "",
+      twitter: "",
+      facebook: "",
+      youtube: "",
+      linkedin: "",
+    }
+  });
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!isUserAuthenticated()) {
+      navigate("/");
+    }
+  }, [navigate]);
+
+
+  // Filter pieces by current user
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+      const filteredPieces = pieces.filter(piece => piece.ownerId === currentUser.id);
+      setUserPieces(filteredPieces);
+    }
+  }, [pieces, user.user]);
+
+  // Populate form when entering edit mode
+  useEffect(() => {
+    if (isEditing && user.user) {
+      setEditForm({
+        firstName: user.user.firstName || "",
+        lastName: user.user.lastName || "",
+        title: user.user.title || "",
+        bio: user.user.bio || "",
+        location: user.user.location || "",
+        website: user.user.website || "",
+        socials: {
+          instagram: user.user.socials?.instagram || "",
+          twitter: user.user.socials?.twitter || "",
+          facebook: user.user.socials?.facebook || "",
+          youtube: user.user.socials?.youtube || "",
+          linkedin: user.user.socials?.linkedin || "",
+        }
+      });
+    }
+  }, [isEditing, user.user]);
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/");
+  };
+
+  const handleEditProfile = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleSaveProfile = async () => {
+    if (!user.user) return;
+    
+    try {
+      await updateUserProfile(user.user.id, editForm);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setEditForm(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSocialChange = (platform: string, value: string) => {
+    setEditForm(prev => ({
+      ...prev,
+      socials: {
+        ...prev.socials,
+        [platform]: value
+      }
+    }));
+  };
+
+  if (user.loading) {
+    return (
+      <div className="profile-page">
+        <div className="profile-header">
+          <div className="profile-info">
+            <div className="profile-avatar loading-skeleton"></div>
+            <div className="profile-details">
+              <div className="loading-skeleton skeleton-title"></div>
+              <div className="loading-skeleton skeleton-text"></div>
+              <div className="loading-skeleton skeleton-text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user.user) {
+    return (
+      <div className="profile-page">
+        <div className="empty-state">
+          <div className="icon">👤</div>
+          <h2>No Profile Found</h2>
+          <p>Please log in to view your profile.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const currentUser = user.user;
+  const totalPieces = userPieces.length;
+  const completedPieces = userPieces.filter(piece => piece.stage === "finished").length;
+  const activePieces = userPieces.filter(piece => piece.stage !== "finished" && !piece.archived).length;
+  const starredPieces = userPieces.filter(piece => piece.starred).length;
+
+  const recentPieces = userPieces
+    .filter(piece => !piece.archived)
+    .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
+    .slice(0, 6);
+
   return (
-    <div className="page">
-      <h1 className="page__title">Profile</h1>
+    <div className="profile-page">
+      <div className="profile-header">
+        <div className="edit-profile-btn">
+          {isEditing ? (
+            <div style={{ display: "flex", gap: "0.75rem" }}>
+              <button className="btn btn--primary" onClick={handleSaveProfile} disabled={user.loading}>
+                {user.loading ? "Saving..." : "Save"}
+              </button>
+              <button className="btn btn--outline" onClick={handleCancelEdit}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button className="btn btn--secondary" onClick={handleEditProfile}>
+              Edit Profile
+            </button>
+          )}
+        </div>
+        
+        <div className="profile-info">
+          <div className="profile-avatar">
+            🏺
+          </div>
+          <div className="profile-details">
+            {isEditing ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <input
+                    type="text"
+                    value={editForm.firstName}
+                    onChange={(e) => handleInputChange("firstName", e.target.value)}
+                    placeholder="First Name"
+                    className="form-input"
+                    style={{ fontSize: "1.5rem", fontWeight: "600" }}
+                  />
+                  <input
+                    type="text"
+                    value={editForm.lastName}
+                    onChange={(e) => handleInputChange("lastName", e.target.value)}
+                    placeholder="Last Name"
+                    className="form-input"
+                    style={{ fontSize: "1.5rem", fontWeight: "600" }}
+                  />
+                </div>
+                <input
+                  type="text"
+                  value={editForm.title}
+                  onChange={(e) => handleInputChange("title", e.target.value)}
+                  placeholder="Title"
+                  className="form-input"
+                  style={{ fontSize: "1.1rem" }}
+                />
+                <input
+                  type="text"
+                  value={editForm.location}
+                  onChange={(e) => handleInputChange("location", e.target.value)}
+                  placeholder="Location"
+                  className="form-input"
+                />
+              </div>
+            ) : (
+              <>
+                <h1>{currentUser.firstName} {currentUser.lastName}</h1>
+                <div className="title">{currentUser.title}</div>
+                {currentUser.location && (
+                  <div className="location">
+                    📍 {currentUser.location}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="profile-stats">
+        <div className="stat-card">
+          <div className="stat-number">{totalPieces}</div>
+          <div className="stat-label">Total Pieces</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-number">{activePieces}</div>
+          <div className="stat-label">Active Projects</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-number">{completedPieces}</div>
+          <div className="stat-label">Completed</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-number">{starredPieces}</div>
+          <div className="stat-label">Starred</div>
+        </div>
+      </div>
+
+      <div className="profile-content">
+        <div className="profile-main">
+          <div className="profile-section">
+            <h3>
+              📝 About
+            </h3>
+            {isEditing ? (
+              <textarea
+                value={editForm.bio}
+                onChange={(e) => handleInputChange("bio", e.target.value)}
+                placeholder="Tell us about yourself and your pottery journey..."
+                className="form-textarea"
+                rows={4}
+                style={{ width: "100%", resize: "vertical" }}
+              />
+            ) : (
+              <div className="bio-text">
+                {currentUser.bio || "No bio available. Click Edit Profile to add one!"}
+              </div>
+            )}
+          </div>
+
+          <div className="profile-section">
+            <h3>
+              🏺 Recent Work
+            </h3>
+            {recentPieces.length > 0 ? (
+              <div className="recent-pieces">
+                {recentPieces.map(piece => (
+                  <div 
+                    key={piece.id} 
+                    className="piece-thumbnail"
+                    onClick={() => navigate(`/piece/${piece.id}`)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="stage-icon">
+                      {getStageIcon(piece.stage)}
+                    </div>
+                    <div className="piece-title">{piece.title}</div>
+                    <div className="piece-stage">{piece.stage}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="icon">🏺</div>
+                <p>No pottery pieces yet. Start creating!</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="profile-sidebar">
+          <div className="profile-section">
+            <h3>
+              📞 Contact Info
+            </h3>
+            {isEditing ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    Email (read-only)
+                  </label>
+                  <input
+                    type="email"
+                    value={currentUser.email}
+                    disabled
+                    className="form-input"
+                    style={{ backgroundColor: "var(--color-background)", cursor: "not-allowed" }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    Website
+                  </label>
+                  <input
+                    type="url"
+                    value={editForm.website}
+                    onChange={(e) => handleInputChange("website", e.target.value)}
+                    placeholder="https://yourwebsite.com"
+                    className="form-input"
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    Username (read-only)
+                  </label>
+                  <input
+                    type="text"
+                    value={currentUser.username}
+                    disabled
+                    className="form-input"
+                    style={{ backgroundColor: "var(--color-background)", cursor: "not-allowed" }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <ul className="contact-info">
+                <li>
+                  <span className="icon">📧</span>
+                  <a href={`mailto:${currentUser.email}`}>{currentUser.email}</a>
+                </li>
+                {currentUser.website && (
+                  <li>
+                    <span className="icon">🌐</span>
+                    <a href={currentUser.website} target="_blank" rel="noopener noreferrer">
+                      Website
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <span className="icon">👤</span>
+                  <span>@{currentUser.username}</span>
+                </li>
+              </ul>
+            )}
+          </div>
+
+          <div className="profile-section">
+            <h3>
+              🔗 Social Links
+            </h3>
+            {isEditing ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    📷 Instagram
+                  </label>
+                  <input
+                    type="url"
+                    value={editForm.socials.instagram}
+                    onChange={(e) => handleSocialChange("instagram", e.target.value)}
+                    placeholder="https://instagram.com/yourusername"
+                    className="form-input"
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    🐦 Twitter
+                  </label>
+                  <input
+                    type="url"
+                    value={editForm.socials.twitter}
+                    onChange={(e) => handleSocialChange("twitter", e.target.value)}
+                    placeholder="https://twitter.com/yourusername"
+                    className="form-input"
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    📘 Facebook
+                  </label>
+                  <input
+                    type="url"
+                    value={editForm.socials.facebook}
+                    onChange={(e) => handleSocialChange("facebook", e.target.value)}
+                    placeholder="https://facebook.com/yourusername"
+                    className="form-input"
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    📺 YouTube
+                  </label>
+                  <input
+                    type="url"
+                    value={editForm.socials.youtube}
+                    onChange={(e) => handleSocialChange("youtube", e.target.value)}
+                    placeholder="https://youtube.com/@yourusername"
+                    className="form-input"
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                    💼 LinkedIn
+                  </label>
+                  <input
+                    type="url"
+                    value={editForm.socials.linkedin}
+                    onChange={(e) => handleSocialChange("linkedin", e.target.value)}
+                    placeholder="https://linkedin.com/in/yourusername"
+                    className="form-input"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="social-links-list">
+                {currentUser.socials.instagram && (
+                  <div className="social-link-item">
+                    <span className="social-icon">📷</span>
+                    <a href={currentUser.socials.instagram} target="_blank" rel="noopener noreferrer">
+                      {currentUser.socials.instagram}
+                    </a>
+                  </div>
+                )}
+                {currentUser.socials.twitter && (
+                  <div className="social-link-item">
+                    <span className="social-icon">🐦</span>
+                    <a href={currentUser.socials.twitter} target="_blank" rel="noopener noreferrer">
+                      {currentUser.socials.twitter}
+                    </a>
+                  </div>
+                )}
+                {currentUser.socials.facebook && (
+                  <div className="social-link-item">
+                    <span className="social-icon">📘</span>
+                    <a href={currentUser.socials.facebook} target="_blank" rel="noopener noreferrer">
+                      {currentUser.socials.facebook}
+                    </a>
+                  </div>
+                )}
+                {currentUser.socials.youtube && (
+                  <div className="social-link-item">
+                    <span className="social-icon">📺</span>
+                    <a href={currentUser.socials.youtube} target="_blank" rel="noopener noreferrer">
+                      {currentUser.socials.youtube}
+                    </a>
+                  </div>
+                )}
+                {currentUser.socials.linkedin && (
+                  <div className="social-link-item">
+                    <span className="social-icon">💼</span>
+                    <a href={currentUser.socials.linkedin} target="_blank" rel="noopener noreferrer">
+                      {currentUser.socials.linkedin}
+                    </a>
+                  </div>
+                )}
+                {!Object.values(currentUser.socials).some(link => link) && (
+                  <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem" }}>
+                    No social links yet
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="profile-section">
+            <h3>
+              ⚙️ Account
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <button className="btn btn--outline" onClick={handleEditProfile}>
+                Edit Profile
+              </button>
+              <button className="btn btn--danger" onClick={handleLogout}>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
