@@ -8,3 +8,9 @@
 [dev]
   command = "pnpm dev"
   targetPort = 5173
+
+# SPA redirect rule - must be last
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

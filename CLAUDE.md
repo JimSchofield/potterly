@@ -46,7 +46,7 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - `db/schema.ts` - Drizzle ORM database schema definitions
 - `examples/` - Sample JSON data (dogfood.json, user.json)
 - `.env` - Environment variables (DATABASE_URL)
-- `netlify.toml` - Netlify configuration for functions and dev server
+- `netlify.toml` - Netlify configuration for functions, dev server, and SPA routing
 - `drizzle.config.ts` - Drizzle ORM configuration
 - CSS files are co-located with their respective components
 
@@ -205,3 +205,4 @@ interface StageDetails {
 - **Database Schema**: Normalized relational schema with separate tables for pieces, users, and stage_details
 - **Enhanced PieceDetail**: Refactored to fetch pieces from database when not available in memory store
 - **Development Setup**: Added Netlify CLI integration, environment configuration, and database migration tools
+- **SPA Configuration**: Added Netlify redirect rules for proper single-page application routing support
