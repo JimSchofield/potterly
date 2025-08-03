@@ -25,7 +25,7 @@ export const useModal = () => {
   return context;
 };
 
-export const ModalProvider: React.FC<ModalProps> = ({ children }) => {
+export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
