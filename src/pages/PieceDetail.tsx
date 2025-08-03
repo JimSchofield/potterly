@@ -12,6 +12,7 @@ import {
 import { PotteryPiece } from "../types/Piece";
 import { useModal } from "../contexts/ModalContext";
 import { showConfirmDialog } from "../components/ConfirmDialog";
+import { getCurrentUser } from "../stores/user";
 import "./PieceDetail.css";
 
 const PieceDetail = () => {
@@ -169,6 +170,9 @@ const PieceDetail = () => {
   };
 
   const currentPiece = isEditMode ? editedPiece! : piece!;
+  const currentUser = getCurrentUser();
+  const isOwner = currentUser && piece && currentUser.id === piece.ownerId;
+  const canEdit = isEditMode && isOwner;
 
   if (loading) {
     return (
@@ -200,7 +204,7 @@ const PieceDetail = () => {
       <div className="piece-detail-header">
         <div className="header-content">
           <h1>
-            {isEditMode ? (
+            {canEdit ? (
               <input
                 type="text"
                 value={currentPiece.title}
@@ -232,27 +236,31 @@ const PieceDetail = () => {
           </div>
         </div>
         <div className="header-actions">
-          {isEditMode ? (
+          {isOwner && (
             <>
-              <button
-                onClick={handleSave}
-                className="btn btn-success"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "💾 Saving..." : "💾 Save"}
-              </button>
-              <button
-                onClick={handleCancel}
-                className="btn btn-danger"
-                disabled={isSubmitting}
-              >
-                ❌ Cancel
-              </button>
+              {isEditMode ? (
+                <>
+                  <button
+                    onClick={handleSave}
+                    className="btn btn-success"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "💾 Saving..." : "💾 Save"}
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    className="btn btn-danger"
+                    disabled={isSubmitting}
+                  >
+                    ❌ Cancel
+                  </button>
+                </>
+              ) : (
+                <button onClick={handleEditToggle} className="btn btn-outline">
+                  ✏️ Edit
+                </button>
+              )}
             </>
-          ) : (
-            <button onClick={handleEditToggle} className="btn btn-outline">
-              ✏️ Edit
-            </button>
           )}
         </div>
       </div>
@@ -263,7 +271,7 @@ const PieceDetail = () => {
             <h3>Basic Information</h3>
             <p>
               <strong>Type:</strong>{" "}
-              {isEditMode ? (
+              {canEdit ? (
                 <select
                   value={currentPiece.type}
                   onChange={(e) =>
@@ -287,7 +295,7 @@ const PieceDetail = () => {
             </p>
             <p>
               <strong>Details:</strong>{" "}
-              {isEditMode ? (
+              {canEdit ? (
                 <textarea
                   value={currentPiece.details}
                   onChange={(e) =>
@@ -305,7 +313,7 @@ const PieceDetail = () => {
             </p>
             <p>
               <strong>Status:</strong>{" "}
-              {isEditMode ? (
+              {canEdit ? (
                 <input
                   type="text"
                   value={currentPiece.status || ""}
@@ -324,7 +332,7 @@ const PieceDetail = () => {
             </p>
             <p>
               <strong>Priority:</strong>{" "}
-              {isEditMode ? (
+              {canEdit ? (
                 <select
                   value={currentPiece.priority}
                   onChange={(e) =>
@@ -348,7 +356,7 @@ const PieceDetail = () => {
             </p>
             <p>
               <strong>Stage:</strong>{" "}
-              {isEditMode ? (
+              {canEdit ? (
                 <select
                   value={currentPiece.stage}
                   onChange={(e) =>
@@ -430,7 +438,7 @@ const PieceDetail = () => {
                     {"weight" in stageData && (
                       <div className="stage-weight">
                         <strong>Weight:</strong>{" "}
-                        {isEditMode ? (
+                        {canEdit ? (
                           <input
                             type="number"
                             value={stageData.weight || ""}
@@ -456,7 +464,7 @@ const PieceDetail = () => {
                     {"glazes" in stageData && (
                       <div className="stage-glazes">
                         <strong>Glazes:</strong>
-                        {isEditMode ? (
+                        {canEdit ? (
                           <textarea
                             value={stageData.glazes || ""}
                             onChange={(e) =>
@@ -478,7 +486,7 @@ const PieceDetail = () => {
                     )}
                     <div className="stage-notes">
                       <strong>Notes:</strong>
-                      {isEditMode ? (
+                      {canEdit ? (
                         <textarea
                           value={stageData.notes || ""}
                           onChange={(e) =>
@@ -499,7 +507,7 @@ const PieceDetail = () => {
                     </div>
                     <div className="stage-image">
                       <strong>Image URL:</strong>
-                      {isEditMode ? (
+                      {canEdit ? (
                         <input
                           type="url"
                           value={stageData.imageUrl || ""}
@@ -529,7 +537,7 @@ const PieceDetail = () => {
           </div>
         </div>
 
-        {isEditMode && (
+        {isEditMode && isOwner && (
           <div className="piece-detail-footer">
             <div className="danger-zone">
               <h3>Danger Zone</h3>
