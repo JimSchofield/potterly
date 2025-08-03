@@ -44,15 +44,19 @@ export default async (req: Request, _context: Context) => {
 
       case "POST": {
         const newPiece = await req.json();
-        
+
         // Convert date strings to Date objects for database insertion
         const pieceData = {
           ...newPiece,
-          createdAt: newPiece.createdAt ? new Date(newPiece.createdAt) : new Date(),
-          lastUpdated: newPiece.lastUpdated ? new Date(newPiece.lastUpdated) : new Date(),
+          createdAt: newPiece.createdAt
+            ? new Date(newPiece.createdAt)
+            : new Date(),
+          lastUpdated: newPiece.lastUpdated
+            ? new Date(newPiece.lastUpdated)
+            : new Date(),
           dueDate: newPiece.dueDate ? new Date(newPiece.dueDate) : undefined,
         };
-        
+
         const insertedPiece = await db
           .insert(pieces)
           .values(pieceData)
@@ -76,7 +80,10 @@ export default async (req: Request, _context: Context) => {
           ...(stage === "glaze" && { glazes: "" }),
         }));
 
-        const insertedStageDetails = await db.insert(stageDetails).values(stageDetailsData).returning();
+        const insertedStageDetails = await db
+          .insert(stageDetails)
+          .values(stageDetailsData)
+          .returning();
 
         // Create stageDetails object with proper structure
         const stageDetailsObj = {
@@ -85,18 +92,18 @@ export default async (req: Request, _context: Context) => {
           trim: { notes: "", imageUrl: "" },
           bisque: { notes: "", imageUrl: "" },
           glaze: { notes: "", imageUrl: "", glazes: "" },
-          finished: { notes: "", imageUrl: "" }
+          finished: { notes: "", imageUrl: "" },
         };
 
         // Populate with actual data from database
-        insertedStageDetails.forEach(stageDetail => {
+        insertedStageDetails.forEach((stageDetail) => {
           const stageKey = stageDetail.stage as keyof typeof stageDetailsObj;
           if (stageKey in stageDetailsObj) {
             stageDetailsObj[stageKey] = {
               notes: stageDetail.notes || "",
               imageUrl: stageDetail.imageUrl || "",
               ...(stageKey === "throw" && { weight: stageDetail.weight }),
-              ...(stageKey === "glaze" && { glazes: stageDetail.glazes || "" })
+              ...(stageKey === "glaze" && { glazes: stageDetail.glazes || "" }),
             };
           }
         });
@@ -107,7 +114,7 @@ export default async (req: Request, _context: Context) => {
           createdAt: insertedPiece[0].createdAt.toISOString(),
           lastUpdated: insertedPiece[0].lastUpdated.toISOString(),
           dueDate: insertedPiece[0].dueDate?.toISOString(),
-          stageDetails: stageDetailsObj
+          stageDetails: stageDetailsObj,
         };
 
         return new Response(JSON.stringify(pieceWithStages), {
@@ -127,7 +134,7 @@ export default async (req: Request, _context: Context) => {
           );
         }
         const updateData = await req.json();
-        
+
         // Filter out fields that don't exist in the pieces table
         const validPieceFields = {
           title: updateData.title,
@@ -139,15 +146,20 @@ export default async (req: Request, _context: Context) => {
           archived: updateData.archived,
           starred: updateData.starred,
           ownerId: updateData.ownerId,
-          dueDate: updateData.dueDate ? new Date(updateData.dueDate) : undefined,
-          lastUpdated: new Date()
+          dueDate: updateData.dueDate
+            ? new Date(updateData.dueDate)
+            : undefined,
+          lastUpdated: new Date(),
         };
-        
+
         // Remove undefined values
         const cleanedData = Object.fromEntries(
-          Object.entries(validPieceFields).filter(([_, value]) => value !== undefined)
+          Object.entries(validPieceFields).filter(
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            ([_, value]) => value !== undefined,
+          ),
         );
-        
+
         const updatedPiece = await db
           .update(pieces)
           .set(cleanedData)
@@ -167,7 +179,7 @@ export default async (req: Request, _context: Context) => {
           lastUpdated: updatedPiece[0].lastUpdated.toISOString(),
           dueDate: updatedPiece[0].dueDate?.toISOString(),
         };
-        
+
         return new Response(JSON.stringify(formattedPiece), {
           headers: { "Content-Type": "application/json" },
         });

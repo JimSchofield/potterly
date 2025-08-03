@@ -13,7 +13,8 @@ if (!databaseUrl) {
 const client = postgres(databaseUrl);
 const db = drizzle(client);
 
-export default async (req: Request, context: Context) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default async (req: Request, _context: Context) => {
   const { method } = req;
   const url = new URL(req.url);
   const userId = url.searchParams.get("userId");

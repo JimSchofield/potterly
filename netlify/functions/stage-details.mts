@@ -13,7 +13,8 @@ if (!databaseUrl) {
 const client = postgres(databaseUrl);
 const db = drizzle(client);
 
-export default async (req: Request, context: Context) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default async (req: Request, _context: Context) => {
   const { method } = req;
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
@@ -61,15 +62,16 @@ export default async (req: Request, context: Context) => {
           });
         }
 
-      case "POST":
+      case "POST": {
         const newStageDetail = await req.json();
         const insertedStageDetail = await db.insert(stageDetails).values(newStageDetail).returning();
         return new Response(JSON.stringify(insertedStageDetail[0]), {
           status: 201,
           headers: { "Content-Type": "application/json" }
         });
+      }
 
-      case "PUT":
+      case "PUT": {
         if (!id) {
           return new Response(JSON.stringify({ error: "ID required for update" }), {
             status: 400,
@@ -92,8 +94,9 @@ export default async (req: Request, context: Context) => {
         return new Response(JSON.stringify(updatedStageDetail[0]), {
           headers: { "Content-Type": "application/json" }
         });
+      }
 
-      case "DELETE":
+      case "DELETE": {
         if (!id) {
           return new Response(JSON.stringify({ error: "ID required for delete" }), {
             status: 400,
@@ -110,6 +113,7 @@ export default async (req: Request, context: Context) => {
         return new Response(JSON.stringify({ message: "Stage detail deleted successfully" }), {
           headers: { "Content-Type": "application/json" }
         });
+      }
 
       default:
         return new Response(JSON.stringify({ error: "Method not allowed" }), {

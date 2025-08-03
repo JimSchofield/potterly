@@ -6,16 +6,39 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
+    ignores: [
+      ".netlify/**/*",
+      "dist/**/*", 
+      "node_modules/**/*",
+    ],
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
   },
+  {
+    files: ["netlify/functions/**/*.{ts,mts}"],
+    languageOptions: { 
+      globals: {
+        ...globals.node,
+        Netlify: "readonly",
+      }
+    },
+  },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat["jsx-runtime"],
   {
     rules: {
       "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
   },
 ]);

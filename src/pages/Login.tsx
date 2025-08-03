@@ -55,7 +55,8 @@ const Login = () => {
       try {
         await loginUserByGoogleId(decoded.sub);
         navigate("/home");
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
         // If user doesn't exist, create a new user with Google data
         console.log("User not found, creating new user with Google data");
 
@@ -162,7 +163,7 @@ const Login = () => {
           <div className="security-note">
             <span>🔒</span>
             <span>
-              Your account is secured with Google's authentication. We never
+              Your account is secured with Google authentication. We never
               store your password.
             </span>
           </div>
@@ -192,4 +193,3 @@ const Login = () => {
 };
 
 export default Login;
-

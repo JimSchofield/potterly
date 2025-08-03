@@ -81,22 +81,31 @@ const PieceDetail = () => {
 
     try {
       // Compare original and edited stage details to find changes
-      const stageNames = ["ideas", "throw", "trim", "bisque", "glaze", "finished"] as const;
-      
+      const stageNames = [
+        "ideas",
+        "throw",
+        "trim",
+        "bisque",
+        "glaze",
+        "finished",
+      ] as const;
+
       for (const stageName of stageNames) {
         const originalStage = piece.stageDetails[stageName];
         const editedStage = editedPiece.stageDetails[stageName];
-        
+
         // Check if stage details have changed
-        const hasChanged = JSON.stringify(originalStage) !== JSON.stringify(editedStage);
-        
+        const hasChanged =
+          JSON.stringify(originalStage) !== JSON.stringify(editedStage);
+
         if (hasChanged) {
           await updateStageDetail(editedPiece.id, stageName, editedStage);
         }
       }
 
       // Update the main piece data (excluding stageDetails since we handled those separately)
-      const { stageDetails, ...pieceWithoutStages } = editedPiece;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { stageDetails: _, ...pieceWithoutStages } = editedPiece;
       await updatePiece(editedPiece.id, {
         ...pieceWithoutStages,
         lastUpdated: new Date().toISOString(),
@@ -225,15 +234,15 @@ const PieceDetail = () => {
         <div className="header-actions">
           {isEditMode ? (
             <>
-              <button 
-                onClick={handleSave} 
+              <button
+                onClick={handleSave}
                 className="btn btn-success"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "💾 Saving..." : "💾 Save"}
               </button>
-              <button 
-                onClick={handleCancel} 
+              <button
+                onClick={handleCancel}
                 className="btn btn-danger"
                 disabled={isSubmitting}
               >

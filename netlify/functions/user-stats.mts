@@ -34,7 +34,8 @@ interface UserStats {
   };
 }
 
-export default async (req: Request, context: Context) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default async (req: Request, _context: Context) => {
   const { method } = req;
   const url = new URL(req.url);
   const userId = url.searchParams.get("userId");
@@ -60,8 +61,9 @@ export default async (req: Request, context: Context) => {
       .from(pieces)
       .where(eq(pieces.ownerId, userId));
 
-    // Get active pieces (not finished and not archived)
-    const activePiecesResult = await db
+    // Get active pieces (not finished and not archived) 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _activePiecesResult = await db
       .select({ count: count() })
       .from(pieces)
       .where(

@@ -145,7 +145,7 @@ export default async (req: Request, _context: Context) => {
         
         // Remove undefined values
         const cleanedData = Object.fromEntries(
-          Object.entries(validPieceFields).filter(([_, value]) => value !== undefined)
+          Object.entries(validPieceFields).filter(([, value]) => value !== undefined)
         );
         
         const updatedPiece = await db

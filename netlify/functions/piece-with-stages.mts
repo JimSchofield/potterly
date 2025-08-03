@@ -62,7 +62,7 @@ export default async (req: Request, _context: Context) => {
 
     // Populate with actual data from database
     stages.forEach((stage) => {
-      const stageData: any = {
+      const stageData: Record<string, unknown> = {
         notes: stage.notes || "",
         imageUrl: stage.imageUrl || "",
       };

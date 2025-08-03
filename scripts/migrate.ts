@@ -1,6 +1,4 @@
-import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { pieces, users, stageDetails } from "../db/schema";
 
 // Load environment variables
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -10,7 +8,6 @@ if (!DATABASE_URL) {
 }
 
 const client = postgres(DATABASE_URL);
-const db = drizzle(client);
 
 async function createTables() {
   try {
