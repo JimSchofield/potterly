@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate, Link } from "react-router-dom";
 import { useStore } from "@nanostores/react";
 import {
   piecesStore,
@@ -10,9 +10,11 @@ import {
 } from "../stores/pieces";
 
 import { PotteryPiece } from "../types/Piece";
+import { User } from "../types/User";
 import { useModal } from "../contexts/ModalContext";
 import { showConfirmDialog } from "../components/ConfirmDialog";
 import { getCurrentUser } from "../stores/user";
+import { getUserProfileAPI } from "../network/users";
 import "./PieceDetail.css";
 
 const PieceDetail = () => {
@@ -24,6 +26,7 @@ const PieceDetail = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPiece, setEditedPiece] = useState<PotteryPiece | null>(null);
   const [piece, setPiece] = useState<PotteryPiece | null>(null);
+  const [creator, setCreator] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -54,6 +57,23 @@ const PieceDetail = () => {
 
     loadPiece();
   }, [id, pieces]);
+
+  // Fetch creator information when piece is loaded
+  useEffect(() => {
+    const loadCreator = async () => {
+      if (!piece) return;
+
+      try {
+        const creatorData = await getUserProfileAPI(piece.ownerId);
+        setCreator(creatorData);
+      } catch (error) {
+        console.error("Error loading creator:", error);
+        setCreator(null);
+      }
+    };
+
+    loadCreator();
+  }, [piece]);
 
   // Check for edit query parameter on mount
   useEffect(() => {
@@ -234,6 +254,26 @@ const PieceDetail = () => {
               <span className="badge archived-indicator">📦 Archived</span>
             )}
           </div>
+          {creator && (
+            <div className="piece-creator">
+              <span className="creator-label">Created by:</span>
+              {isOwner ? (
+                <Link 
+                  to="/profile" 
+                  className="creator-link creator-link--self"
+                >
+                  👤 You ({creator.firstName} {creator.lastName})
+                </Link>
+              ) : (
+                <Link 
+                  to={`/profile/${creator.username}`} 
+                  className="creator-link"
+                >
+                  👤 {creator.firstName} {creator.lastName}
+                </Link>
+              )}
+            </div>
+          )}
         </div>
         <div className="header-actions">
           {isOwner && (

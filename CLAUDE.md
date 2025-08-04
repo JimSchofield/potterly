@@ -106,8 +106,9 @@ The application follows a component-based architecture with centralized state:
   - `/pieces/kanban` - Kanban board view (default)
   - `/pieces/table` - Table view
 - `/piece/:id` - Individual piece detail page with view/edit mode toggle
-- `/profile` - User profile
-- `/create-piece` - Form to create new pottery pieces
+- `/profile` - Current user's profile page with edit capabilities
+- `/profile/:username` - View other user profiles by username (read-only, public view)
+- `/create-piece` - Form to create new pottery pieces with stage query parameter support
 
 **Developer/Admin Routes:**
 - `/developer` - Color palette design guide showcasing pottery-themed colors
@@ -272,3 +273,21 @@ interface StageDetails {
   - Automatic loading of user pieces when session is restored from localStorage
   - Type-safe persistence with data validation to ensure session integrity
   - Seamless user experience - login once every 30 days, stay logged in otherwise
+- **Stage Query Parameter Support**: Enhanced CreatePiece form to accept stage query parameters for pre-filling the stage field. Kanban board "Add" buttons now link directly to `/create-piece?stage={stageName}` for streamlined piece creation workflow
+- **Username-Based Profile Routes**: Changed profile routes from UUID-based to username-based for user-friendly URLs:
+  - Enhanced Netlify users function to support username lookup with `/api/users?username={username}`
+  - Added `getUserByUsernameAPI()` function for fetching users by username
+  - Updated route from `/profile/:userId` to `/profile/:username` for readable URLs like `/profile/johndoe`
+  - Automatic redirect to `/profile` when users visit their own username-based profile
+  - Proper URL encoding and error handling for usernames containing periods and special characters
+- **Enhanced Pieces Store Architecture**: Fixed `getPieceById` function to prevent automatic addition of pieces to user store when viewing piece detail pages. Pieces are only added to store when explicitly loaded as part of user's pieces or through normal CRUD operations
+- **Creator Links on Piece Detail Pages**: Added comprehensive creator identification and linking on piece detail pages:
+  - Fetches and displays piece creator information with automatic user data loading
+  - Smart linking: own pieces link to `/profile` (editable), others' pieces link to `/profile/{username}` (public view)
+  - Context-aware display: shows "You (Full Name)" for own pieces, "Creator Name" for others
+  - Professional styling integrated with pottery theme, subtle backgrounds with hover effects
+- **Interactive Username Links**: Made usernames clickable links in profile contact info sections:
+  - Own profile: username links to public profile view (`/profile/{username}`) to see how profile appears to others
+  - Other profiles: username links refresh current profile page for consistency
+  - Added dedicated `.username-link` styling with pottery theme colors and hover effects
+  - Enhanced user discoverability and navigation throughout the platform

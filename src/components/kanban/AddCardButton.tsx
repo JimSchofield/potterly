@@ -1,15 +1,16 @@
+import { Link } from "react-router-dom";
 import "./AddCardButton.css";
 
 interface AddCardButtonProps {
   text: string;
-  onClick?: () => void;
+  stage: string;
 }
 
-const AddCardButton = ({ text, onClick }: AddCardButtonProps) => {
+const AddCardButton = ({ text, stage }: AddCardButtonProps) => {
   return (
-    <button className="add-card-btn" onClick={onClick}>
+    <Link to={`/create-piece?stage=${stage}`} className="add-card-btn">
       {text}
-    </button>
+    </Link>
   );
 };
 

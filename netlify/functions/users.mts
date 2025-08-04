@@ -19,6 +19,7 @@ export default async (req: Request, _context: Context) => {
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
   const googleId = url.searchParams.get("googleId");
+  const username = url.searchParams.get("username");
 
   try {
     switch (method) {
@@ -29,6 +30,21 @@ export default async (req: Request, _context: Context) => {
             .select()
             .from(users)
             .where(eq(users.googleId, googleId));
+          if (user.length === 0) {
+            return new Response(JSON.stringify({ error: "User not found" }), {
+              status: 404,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+          return new Response(JSON.stringify(user[0]), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else if (username) {
+          // Get user by username
+          const user = await db
+            .select()
+            .from(users)
+            .where(eq(users.username, username));
           if (user.length === 0) {
             return new Response(JSON.stringify({ error: "User not found" }), {
               status: 404,

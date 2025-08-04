@@ -166,19 +166,34 @@ export const getPieceById = async (id: string) => {
     return pieceInStore;
   }
 
-  // If not in store, fetch from database with stages
+  // If not in store, fetch from database with stages but DON'T add to store
+  try {
+    const pieceWithStages = await getPieceWithStagesAPI(id);
+    return pieceWithStages;
+  } catch (error) {
+    console.error("Error fetching piece:", error);
+    return null;
+  }
+};
+
+// Helper function to fetch and add a piece to the store (for when we want to add it)
+export const fetchAndAddPieceToStore = async (id: string) => {
   try {
     const pieceWithStages = await getPieceWithStagesAPI(id);
 
     if (pieceWithStages) {
       // Add to store for future use
       const currentPieces = piecesStore.get();
-      piecesStore.set([...currentPieces, pieceWithStages]);
+      const existingPiece = currentPieces.find(p => p.id === id);
+      
+      if (!existingPiece) {
+        piecesStore.set([...currentPieces, pieceWithStages]);
+      }
     }
 
     return pieceWithStages;
   } catch (error) {
-    console.error("Error fetching piece:", error);
+    console.error("Error fetching and adding piece:", error);
     return null;
   }
 };

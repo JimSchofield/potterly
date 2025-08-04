@@ -44,6 +44,41 @@
   align-items: center;
 }
 
+.piece-creator {
+  margin-top: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.creator-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: var(--font-weight-medium);
+}
+
+.creator-link {
+  color: white;
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.creator-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.creator-link--self {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 /* Badge styles are now in styles/badge.css */
 
 .piece-detail-content {

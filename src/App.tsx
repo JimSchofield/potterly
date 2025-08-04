@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Pieces from "./pages/Pieces";
 import PieceDetail from "./pages/PieceDetail";
 import Profile from "./pages/Profile";
+import UserProfile from "./pages/UserProfile";
 import CreatePiece from "./pages/CreatePiece";
 import Login from "./pages/Login";
 import Developer from "./pages/developer/Developer";
@@ -49,6 +50,7 @@ function App() {
             <Route path="/pieces/*" element={<Pieces />} />
             <Route path="/piece/:id" element={<PieceDetail />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:username" element={<UserProfile />} />
             <Route path="/create-piece" element={<CreatePiece />} />
             <Route path="/developer" element={<Developer />} />
             <Route path="/design" element={<Design />} />

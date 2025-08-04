@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { addPiece } from "../stores/pieces";
 import { getCurrentUser } from "../stores/user";
@@ -15,6 +15,7 @@ import "./CreatePiece.css";
 
 const CreatePiece = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const stages = getAllStages();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -28,6 +29,17 @@ const CreatePiece = () => {
     starred: false,
     dueDate: "",
   });
+
+  // Check for stage query parameter and pre-fill the stage
+  useEffect(() => {
+    const stageParam = searchParams.get("stage");
+    if (stageParam && stages.includes(stageParam as Stages)) {
+      setFormData(prev => ({
+        ...prev,
+        stage: stageParam as Stages
+      }));
+    }
+  }, [searchParams, stages]);
 
   const handleInputChange = (
     e: React.ChangeEvent<

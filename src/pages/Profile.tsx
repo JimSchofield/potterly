@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@nanostores/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   userStore,
   isUserAuthenticated,
@@ -461,7 +461,12 @@ const Profile = () => {
                 )}
                 <li>
                   <span className="icon">👤</span>
-                  <span>@{currentUser.username}</span>
+                  <Link
+                    to={`/profile/${currentUser.username}`}
+                    className="username-link"
+                  >
+                    @{currentUser.username}
+                  </Link>
                 </li>
               </ul>
             )}

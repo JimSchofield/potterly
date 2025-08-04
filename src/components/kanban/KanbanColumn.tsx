@@ -9,7 +9,6 @@ interface KanbanColumnProps {
   title: string;
   pieces: PotteryPiece[];
   addButtonText: string;
-  onAddClick?: () => void;
 }
 
 const KanbanColumn = ({
@@ -18,7 +17,6 @@ const KanbanColumn = ({
   title,
   pieces,
   addButtonText,
-  onAddClick,
 }: KanbanColumnProps) => {
   return (
     <div className={`column ${stage}`}>
@@ -48,7 +46,7 @@ const KanbanColumn = ({
           />
         ))}
       </div>
-      <AddCardButton text={addButtonText} onClick={onAddClick} />
+      <AddCardButton text={addButtonText} stage={stage} />
     </div>
   );
 };

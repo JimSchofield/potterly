@@ -164,15 +164,3 @@
 .sidebar__logout-btn .sidebar__icon {
   font-size: var(--font-size-lg);
 }
-
-/* Mobile logout button */
-@media (max-width: 768px) {
-  .sidebar__logout {
-    padding-top: var(--spacing-md);
-  }
-  
-  .sidebar__logout-btn {
-    padding: var(--spacing-lg);
-    justify-content: center;
-  }
-}
