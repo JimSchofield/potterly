@@ -247,8 +247,8 @@ const CreatePiece = () => {
             >
               Reset
             </button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="btn btn-primary"
               disabled={isSubmitting}
             >

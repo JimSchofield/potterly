@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import HamburgerMenu from "./components/HamburgerMenu";
 import Modal from "./components/Modal";
 import { ModalProvider } from "./contexts/ModalContext";
+import { initializeUserSession } from "./stores/user";
 import Home from "./pages/Home";
 import Pieces from "./pages/Pieces";
 import PieceDetail from "./pages/PieceDetail";
@@ -18,6 +19,11 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
+
+  // Initialize user session on app startup
+  useEffect(() => {
+    initializeUserSession();
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

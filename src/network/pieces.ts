@@ -106,3 +106,13 @@ export const updateStageDetailAPI = async (
     throw new Error(`Failed to update stage detail: ${updateResponse.statusText}`);
   }
 };
+
+export const getUserRecentPiecesAPI = async (userId: string): Promise<PotteryPiece[]> => {
+  const response = await fetch(`/api/user-recent-pieces?userId=${userId}`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch recent pieces: ${response.statusText}`);
+  }
+
+  return response.json();
+};

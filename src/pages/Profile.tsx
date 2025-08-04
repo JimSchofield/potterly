@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useNavigate } from "react-router-dom";
-import { userStore, isUserAuthenticated, getCurrentUser, logoutUser, updateUserProfile } from "../stores/user";
-import { piecesStore } from "../stores/pieces";
+import {
+  userStore,
+  isUserAuthenticated,
+  getCurrentUser,
+  logoutUser,
+  updateUserProfile,
+} from "../stores/user";
 import { PotteryPiece } from "../types/Piece";
 import { UserStats, getUserStatsAPI } from "../network/users";
+import { getUserRecentPiecesAPI } from "../network/pieces";
 import { getStageIcon } from "../utils/labels-and-icons";
+import ProfilePicture from "../components/ProfilePicture";
 import "./Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();
   const user = useStore(userStore);
-  const pieces = useStore(piecesStore);
-  const [userPieces, setUserPieces] = useState<PotteryPiece[]>([]);
+  const [recentPieces, setRecentPieces] = useState<PotteryPiece[]>([]);
   const [userStats, setUserStats] = useState<UserStats | null>(null);
   const [statsLoading, setStatsLoading] = useState(false);
+  const [recentPiecesLoading, setRecentPiecesLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     firstName: "",
@@ -29,7 +36,7 @@ const Profile = () => {
       facebook: "",
       youtube: "",
       linkedin: "",
-    }
+    },
   });
 
   // Redirect if not authenticated
@@ -38,16 +45,6 @@ const Profile = () => {
       navigate("/");
     }
   }, [navigate]);
-
-
-  // Filter pieces by current user (for recent work display)
-  useEffect(() => {
-    const currentUser = getCurrentUser();
-    if (currentUser) {
-      const filteredPieces = pieces.filter(piece => piece.ownerId === currentUser.id);
-      setUserPieces(filteredPieces);
-    }
-  }, [pieces, user.user]);
 
   // Fetch user statistics from database
   useEffect(() => {
@@ -69,6 +66,26 @@ const Profile = () => {
     fetchUserStats();
   }, [user.user]);
 
+  // Fetch recent pieces from database
+  useEffect(() => {
+    const fetchRecentPieces = async () => {
+      const currentUser = getCurrentUser();
+      if (currentUser && !recentPiecesLoading) {
+        setRecentPiecesLoading(true);
+        try {
+          const pieces = await getUserRecentPiecesAPI(currentUser.id);
+          setRecentPieces(pieces);
+        } catch (error) {
+          console.error("Failed to fetch recent pieces:", error);
+        } finally {
+          setRecentPiecesLoading(false);
+        }
+      }
+    };
+
+    fetchRecentPieces();
+  }, [user.user]);
+
   // Populate form when entering edit mode
   useEffect(() => {
     if (isEditing && user.user) {
@@ -85,7 +102,7 @@ const Profile = () => {
           facebook: user.user.socials?.facebook || "",
           youtube: user.user.socials?.youtube || "",
           linkedin: user.user.socials?.linkedin || "",
-        }
+        },
       });
     }
   }, [isEditing, user.user]);
@@ -101,7 +118,7 @@ const Profile = () => {
 
   const handleSaveProfile = async () => {
     if (!user.user) return;
-    
+
     try {
       await updateUserProfile(user.user.id, editForm);
       setIsEditing(false);
@@ -115,19 +132,19 @@ const Profile = () => {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setEditForm(prev => ({
+    setEditForm((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleSocialChange = (platform: string, value: string) => {
-    setEditForm(prev => ({
+    setEditForm((prev) => ({
       ...prev,
       socials: {
         ...prev.socials,
-        [platform]: value
-      }
+        [platform]: value,
+      },
     }));
   };
 
@@ -161,17 +178,14 @@ const Profile = () => {
   }
 
   const currentUser = user.user;
-  
-  // Use API stats if available, otherwise fall back to calculated stats
-  const totalPieces = userStats?.totalPieces ?? userPieces.length;
-  const completedPieces = userStats?.completedPieces ?? userPieces.filter(piece => piece.stage === "finished").length;
-  const activePieces = userStats?.activePieces ?? userPieces.filter(piece => piece.stage !== "finished" && !piece.archived).length;
-  const starredPieces = userStats?.starredPieces ?? userPieces.filter(piece => piece.starred).length;
 
-  const recentPieces = userPieces
-    .filter(piece => !piece.archived)
-    .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
-    .slice(0, 6);
+  // Use API stats (no fallback since we're fetching from database)
+  const totalPieces = userStats?.totalPieces ?? 0;
+  const completedPieces = userStats?.completedPieces ?? 0;
+  const activePieces = userStats?.activePieces ?? 0;
+  const starredPieces = userStats?.starredPieces ?? 0;
+
+  // Recent pieces are now fetched directly from the database API
 
   return (
     <div className="profile-page">
@@ -179,7 +193,11 @@ const Profile = () => {
         <div className="edit-profile-btn">
           {isEditing ? (
             <div style={{ display: "flex", gap: "0.75rem" }}>
-              <button className="btn btn--primary" onClick={handleSaveProfile} disabled={user.loading}>
+              <button
+                className="btn btn--primary"
+                onClick={handleSaveProfile}
+                disabled={user.loading}
+              >
                 {user.loading ? "Saving..." : "Save"}
               </button>
               <button className="btn btn--outline" onClick={handleCancelEdit}>
@@ -192,19 +210,30 @@ const Profile = () => {
             </button>
           )}
         </div>
-        
+
         <div className="profile-info">
-          <div className="profile-avatar">
-            🏺
-          </div>
+          <ProfilePicture
+            profilePicture={currentUser.profilePicture}
+            userName={`${currentUser.firstName} ${currentUser.lastName}`}
+            size="LARGE"
+            className="profile-avatar-custom"
+          />
           <div className="profile-details">
             {isEditing ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.75rem",
+                }}
+              >
                 <div style={{ display: "flex", gap: "0.5rem" }}>
                   <input
                     type="text"
                     value={editForm.firstName}
-                    onChange={(e) => handleInputChange("firstName", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("firstName", e.target.value)
+                    }
                     placeholder="First Name"
                     className="form-input"
                     style={{ fontSize: "1.5rem", fontWeight: "600" }}
@@ -212,7 +241,9 @@ const Profile = () => {
                   <input
                     type="text"
                     value={editForm.lastName}
-                    onChange={(e) => handleInputChange("lastName", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("lastName", e.target.value)
+                    }
                     placeholder="Last Name"
                     className="form-input"
                     style={{ fontSize: "1.5rem", fontWeight: "600" }}
@@ -229,19 +260,21 @@ const Profile = () => {
                 <input
                   type="text"
                   value={editForm.location}
-                  onChange={(e) => handleInputChange("location", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("location", e.target.value)
+                  }
                   placeholder="Location"
                   className="form-input"
                 />
               </div>
             ) : (
               <>
-                <h1>{currentUser.firstName} {currentUser.lastName}</h1>
+                <h1>
+                  {currentUser.firstName} {currentUser.lastName}
+                </h1>
                 <div className="title">{currentUser.title}</div>
                 {currentUser.location && (
-                  <div className="location">
-                    📍 {currentUser.location}
-                  </div>
+                  <div className="location">📍 {currentUser.location}</div>
                 )}
               </>
             )}
@@ -279,9 +312,7 @@ const Profile = () => {
       <div className="profile-content">
         <div className="profile-main">
           <div className="profile-section">
-            <h3>
-              📝 About
-            </h3>
+            <h3>📝 About</h3>
             {isEditing ? (
               <textarea
                 value={editForm.bio}
@@ -293,20 +324,23 @@ const Profile = () => {
               />
             ) : (
               <div className="bio-text">
-                {currentUser.bio || "No bio available. Click Edit Profile to add one!"}
+                {currentUser.bio ||
+                  "No bio available. Click Edit Profile to add one!"}
               </div>
             )}
           </div>
 
           <div className="profile-section">
-            <h3>
-              🏺 Recent Work
-            </h3>
-            {recentPieces.length > 0 ? (
+            <h3>🏺 Recent Work</h3>
+            {recentPiecesLoading ? (
+              <div className="loading-state">
+                <p>Loading recent pieces...</p>
+              </div>
+            ) : recentPieces.length > 0 ? (
               <div className="recent-pieces">
-                {recentPieces.map(piece => (
-                  <div 
-                    key={piece.id} 
+                {recentPieces.map((piece) => (
+                  <div
+                    key={piece.id}
                     className="piece-thumbnail"
                     onClick={() => navigate(`/piece/${piece.id}`)}
                     style={{ cursor: "pointer" }}
@@ -330,13 +364,24 @@ const Profile = () => {
 
         <div className="profile-sidebar">
           <div className="profile-section">
-            <h3>
-              📞 Contact Info
-            </h3>
+            <h3>📞 Contact Info</h3>
             {isEditing ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.75rem",
+                }}
+              >
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     Email (read-only)
                   </label>
                   <input
@@ -344,23 +389,42 @@ const Profile = () => {
                     value={currentUser.email}
                     disabled
                     className="form-input"
-                    style={{ backgroundColor: "var(--color-background)", cursor: "not-allowed" }}
+                    style={{
+                      backgroundColor: "var(--color-background)",
+                      cursor: "not-allowed",
+                    }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     Website
                   </label>
                   <input
                     type="url"
                     value={editForm.website}
-                    onChange={(e) => handleInputChange("website", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("website", e.target.value)
+                    }
                     placeholder="https://yourwebsite.com"
                     className="form-input"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     Username (read-only)
                   </label>
                   <input
@@ -368,7 +432,10 @@ const Profile = () => {
                     value={currentUser.username}
                     disabled
                     className="form-input"
-                    style={{ backgroundColor: "var(--color-background)", cursor: "not-allowed" }}
+                    style={{
+                      backgroundColor: "var(--color-background)",
+                      cursor: "not-allowed",
+                    }}
                   />
                 </div>
               </div>
@@ -376,12 +443,18 @@ const Profile = () => {
               <ul className="contact-info">
                 <li>
                   <span className="icon">📧</span>
-                  <a href={`mailto:${currentUser.email}`}>{currentUser.email}</a>
+                  <a href={`mailto:${currentUser.email}`}>
+                    {currentUser.email}
+                  </a>
                 </li>
                 {currentUser.website && (
                   <li>
                     <span className="icon">🌐</span>
-                    <a href={currentUser.website} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={currentUser.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Website
                     </a>
                   </li>
@@ -395,67 +468,116 @@ const Profile = () => {
           </div>
 
           <div className="profile-section">
-            <h3>
-              🔗 Social Links
-            </h3>
+            <h3>🔗 Social Links</h3>
             {isEditing ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.75rem",
+                }}
+              >
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     📷 Instagram
                   </label>
                   <input
                     type="url"
                     value={editForm.socials.instagram}
-                    onChange={(e) => handleSocialChange("instagram", e.target.value)}
+                    onChange={(e) =>
+                      handleSocialChange("instagram", e.target.value)
+                    }
                     placeholder="https://instagram.com/yourusername"
                     className="form-input"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     🐦 Twitter
                   </label>
                   <input
                     type="url"
                     value={editForm.socials.twitter}
-                    onChange={(e) => handleSocialChange("twitter", e.target.value)}
+                    onChange={(e) =>
+                      handleSocialChange("twitter", e.target.value)
+                    }
                     placeholder="https://twitter.com/yourusername"
                     className="form-input"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     📘 Facebook
                   </label>
                   <input
                     type="url"
                     value={editForm.socials.facebook}
-                    onChange={(e) => handleSocialChange("facebook", e.target.value)}
+                    onChange={(e) =>
+                      handleSocialChange("facebook", e.target.value)
+                    }
                     placeholder="https://facebook.com/yourusername"
                     className="form-input"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     📺 YouTube
                   </label>
                   <input
                     type="url"
                     value={editForm.socials.youtube}
-                    onChange={(e) => handleSocialChange("youtube", e.target.value)}
+                    onChange={(e) =>
+                      handleSocialChange("youtube", e.target.value)
+                    }
                     placeholder="https://youtube.com/@yourusername"
                     className="form-input"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.9rem", marginBottom: "0.25rem", color: "var(--color-text-secondary)" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      fontSize: "0.9rem",
+                      marginBottom: "0.25rem",
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     💼 LinkedIn
                   </label>
                   <input
                     type="url"
                     value={editForm.socials.linkedin}
-                    onChange={(e) => handleSocialChange("linkedin", e.target.value)}
+                    onChange={(e) =>
+                      handleSocialChange("linkedin", e.target.value)
+                    }
                     placeholder="https://linkedin.com/in/yourusername"
                     className="form-input"
                   />
@@ -466,7 +588,11 @@ const Profile = () => {
                 {currentUser.socials.instagram && (
                   <div className="social-link-item">
                     <span className="social-icon">📷</span>
-                    <a href={currentUser.socials.instagram} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={currentUser.socials.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {currentUser.socials.instagram}
                     </a>
                   </div>
@@ -474,7 +600,11 @@ const Profile = () => {
                 {currentUser.socials.twitter && (
                   <div className="social-link-item">
                     <span className="social-icon">🐦</span>
-                    <a href={currentUser.socials.twitter} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={currentUser.socials.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {currentUser.socials.twitter}
                     </a>
                   </div>
@@ -482,7 +612,11 @@ const Profile = () => {
                 {currentUser.socials.facebook && (
                   <div className="social-link-item">
                     <span className="social-icon">📘</span>
-                    <a href={currentUser.socials.facebook} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={currentUser.socials.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {currentUser.socials.facebook}
                     </a>
                   </div>
@@ -490,7 +624,11 @@ const Profile = () => {
                 {currentUser.socials.youtube && (
                   <div className="social-link-item">
                     <span className="social-icon">📺</span>
-                    <a href={currentUser.socials.youtube} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={currentUser.socials.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {currentUser.socials.youtube}
                     </a>
                   </div>
@@ -498,13 +636,22 @@ const Profile = () => {
                 {currentUser.socials.linkedin && (
                   <div className="social-link-item">
                     <span className="social-icon">💼</span>
-                    <a href={currentUser.socials.linkedin} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={currentUser.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {currentUser.socials.linkedin}
                     </a>
                   </div>
                 )}
-                {!Object.values(currentUser.socials).some(link => link) && (
-                  <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem" }}>
+                {!Object.values(currentUser.socials).some((link) => link) && (
+                  <p
+                    style={{
+                      color: "var(--color-text-secondary)",
+                      fontSize: "0.9rem",
+                    }}
+                  >
                     No social links yet
                   </p>
                 )}
@@ -513,10 +660,14 @@ const Profile = () => {
           </div>
 
           <div className="profile-section">
-            <h3>
-              ⚙️ Account
-            </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <h3>⚙️ Account</h3>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.75rem",
+              }}
+            >
               <button className="btn btn--outline" onClick={handleEditProfile}>
                 Edit Profile
               </button>

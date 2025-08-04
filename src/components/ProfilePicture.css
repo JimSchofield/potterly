@@ -1,0 +1,86 @@
+.profile-picture-component {
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-clay-brown);
+  color: white;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-picture-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-picture-fallback {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-picture-interactive {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-picture-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.profile-picture-interactive:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Size variants */
+.profile-picture-thumbnail {
+  border-width: 1px;
+}
+
+.profile-picture-thumbnail .profile-picture-fallback {
+  font-size: 1rem;
+}
+
+.profile-picture-small .profile-picture-fallback {
+  font-size: 1.5rem;
+}
+
+.profile-picture-medium {
+  border-width: 3px;
+}
+
+.profile-picture-medium .profile-picture-fallback {
+  font-size: 2rem;
+}
+
+.profile-picture-large {
+  border-width: 4px;
+}
+
+.profile-picture-large .profile-picture-fallback {
+  font-size: 3rem;
+}
+
+.profile-picture-extra_large {
+  border-width: 4px;
+}
+
+.profile-picture-extra_large .profile-picture-fallback {
+  font-size: 4rem;
+}
+
+.profile-picture-avatar {
+  border-width: 4px;
+}
+
+.profile-picture-avatar .profile-picture-fallback {
+  font-size: 5rem;
+}

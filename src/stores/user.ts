@@ -2,6 +2,7 @@ import { atom } from "nanostores";
 import { User } from "../types/User";
 import { createUserAPI, getUserProfileAPI, updateUserProfileAPI, getUserByGoogleIdAPI } from "../network/users";
 import { loadUserPieces, piecesStore } from "./pieces";
+import { saveUserState, loadUserState, clearUserState, isStorageAvailable } from "../utils/storage";
 
 // User store state
 interface UserState {
@@ -11,13 +12,66 @@ interface UserState {
   error: string | null;
 }
 
-// Initialize user store
-export const userStore = atom<UserState>({
-  user: null,
-  isAuthenticated: false,
-  loading: false,
-  error: null,
-});
+// Validate that the restored user data has required fields
+const isValidUser = (user: unknown): user is User => {
+  return (
+    typeof user === 'object' &&
+    user !== null &&
+    'id' in user &&
+    'email' in user &&
+    'firstName' in user &&
+    'lastName' in user
+  );
+};
+
+// Initialize user store with data from localStorage if available
+const getInitialUserState = (): UserState => {
+  if (isStorageAvailable()) {
+    try {
+      const savedState = loadUserState();
+      if (savedState && savedState.user && savedState.isAuthenticated && isValidUser(savedState.user)) {
+        console.log('Restored user session from localStorage');
+        return {
+          user: savedState.user,
+          isAuthenticated: true,
+          loading: false,
+          error: null,
+        };
+      } else if (savedState) {
+        console.warn('Invalid user data in localStorage, clearing...');
+        clearUserState();
+      }
+    } catch (error) {
+      console.error('Error restoring user session:', error);
+      clearUserState();
+    }
+  }
+  
+  return {
+    user: null,
+    isAuthenticated: false,
+    loading: false,
+    error: null,
+  };
+};
+
+export const userStore = atom<UserState>(getInitialUserState());
+
+// Helper to update store and persist to localStorage
+const updateUserStore = (newState: UserState) => {
+  userStore.set(newState);
+  
+  // Only persist authenticated states
+  if (newState.isAuthenticated && newState.user) {
+    saveUserState({
+      user: newState.user as unknown as Record<string, unknown>, // Type cast for storage
+      isAuthenticated: newState.isAuthenticated,
+      timestamp: Date.now(), // Add timestamp for session expiry
+    });
+  } else {
+    clearUserState();
+  }
+};
 
 // Actions
 export const setLoading = (loading: boolean) => {
@@ -38,7 +92,7 @@ export const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'upda
     const newUser = await createUserAPI(userData);
     
     // Set user as authenticated
-    userStore.set({
+    updateUserStore({
       user: newUser,
       isAuthenticated: true,
       loading: false,
@@ -70,7 +124,7 @@ export const loginUser = async (userId: string) => {
     const userProfile = await getUserProfile(userId);
     
     if (userProfile) {
-      userStore.set({
+      updateUserStore({
         user: userProfile,
         isAuthenticated: true,
         loading: false,
@@ -105,7 +159,7 @@ export const loginUserByGoogleId = async (googleId: string) => {
     const userProfile = await getUserByGoogleIdAPI(googleId);
     
     if (userProfile) {
-      userStore.set({
+      updateUserStore({
         user: userProfile,
         isAuthenticated: true,
         loading: false,
@@ -150,7 +204,7 @@ export const updateUserProfile = async (userId: string, updates: Partial<Omit<Us
     
     // Update user in store
     const currentState = userStore.get();
-    userStore.set({
+    updateUserStore({
       ...currentState,
       user: updatedUser,
       loading: false,
@@ -167,7 +221,7 @@ export const updateUserProfile = async (userId: string, updates: Partial<Omit<Us
 };
 
 export const logoutUser = () => {
-  userStore.set({
+  updateUserStore({
     user: null,
     isAuthenticated: false,
     loading: false,
@@ -192,4 +246,22 @@ export const isUserAuthenticated = (): boolean => {
 export const getCurrentUserId = (): string | null => {
   const user = getCurrentUser();
   return user ? user.id : null;
+};
+
+// Initialize user session on app startup (load pieces if user is restored from localStorage)
+export const initializeUserSession = async () => {
+  const currentState = userStore.get();
+  
+  if (currentState.isAuthenticated && currentState.user) {
+    console.log('Initializing session for restored user:', currentState.user.email);
+    
+    // Load user's pieces
+    try {
+      await loadUserPieces(currentState.user.id);
+      console.log('Successfully loaded user pieces from database');
+    } catch (error) {
+      console.error('Failed to load user pieces during session initialization:', error);
+      // Don't logout the user if pieces fail to load, just log the error
+    }
+  }
 };

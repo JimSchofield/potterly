@@ -35,13 +35,14 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 ### Project Structure
 - `src/main.tsx` - Application entry point with React Router setup and global styles import
 - `src/App.tsx` - Main app component with route definitions and sidebar layout
-- `src/components/` - Reusable UI components (Sidebar, PotteryCard, KanbanBoard)
+- `src/components/` - Reusable UI components (Sidebar, PotteryCard, KanbanBoard, ProfilePicture)
 - `src/pages/` - Route-specific page components (Home, Pieces, Profile, CreatePiece)
 - `src/pages/developer/` - Developer/admin pages not shown in sidebar navigation
 - `src/stores/` - Nanostores state management (pieces and user stores with CRUD actions)
 - `src/network/` - API layer for database communication (pieces.ts, users.ts)
 - `src/types/` - TypeScript type definitions (PotteryPiece, User interfaces)
 - `src/styles/` - Global CSS modules (button, badge, form, and card systems)
+- `src/utils/` - Utility functions (profile-picture.ts for Google SSO image handling, storage.ts for localStorage persistence)
 - `src/variables.css` - Global CSS variables for pottery color design system
 - `netlify/functions/` - Serverless API endpoints for database operations
 - `db/schema.ts` - Drizzle ORM database schema definitions
@@ -71,6 +72,7 @@ The application follows a component-based architecture with centralized state:
 - **KanbanBoard**: Stage-based workflow visualization using PotteryCard components
 - **Filters**: Advanced filtering by stage, type, priority, search, archived status, and starred pieces
 - **HamburgerMenu**: Mobile navigation toggle with animated hamburger icon
+- **ProfilePicture**: Reusable component for Google SSO profile pictures with flexible sizing, fallback to pottery emoji, and responsive design
 
 **Pages:**
 - **Home**: Dashboard with live statistics from piece store, time-based greetings, and navigation buttons to main app sections
@@ -87,11 +89,14 @@ The application follows a component-based architecture with centralized state:
   - Advanced filtering: stage, type, priority, search, archived status, starred pieces
   - Computed filteredPiecesStore for reactive UI updates
   - `getPieceById` function with fallback to database when not in memory store
-- **User Store**: User authentication and profile management
+- **User Store**: User authentication and profile management with persistent sessions
   - User state management with authentication status, loading, and error states
   - Actions: createUser, loginUser, getUserProfile, updateUserProfile, logoutUser
   - Helper functions: getCurrentUser, isUserAuthenticated, getCurrentUserId
   - Integration with pieces store for ownership tracking
+  - Persistent login state using localStorage with 30-day session expiry
+  - Automatic session restoration on app startup with data validation
+  - Seamless user experience across browser sessions and page refreshes
 
 ### Routes
 **Main Application Routes:**
@@ -132,6 +137,7 @@ interface PotteryPiece {
 
 interface User {
   id: string;              // UUID
+  googleId?: string;       // Google OAuth ID
   firstName: string;       // User's first name
   lastName: string;        // User's last name
   email: string;           // User's email address
@@ -141,6 +147,7 @@ interface User {
   website: string;         // User's website URL
   socials: UserSocials;    // Social media links
   username: string;        // Unique username
+  profilePicture?: string; // Profile picture URL from Google OAuth (base URL without size)
 }
 
 // Stage-specific data interfaces
@@ -166,6 +173,19 @@ interface StageDetails {
   finished: StageData;     // Final results and completion notes
 }
 ```
+
+### Utilities
+- **Profile Picture Utils** (`src/utils/profile-picture.ts`): Flexible Google profile picture handling
+  - `getProfilePictureUrl(baseUrl, size)` - Dynamically creates URLs with different sizes
+  - `getBaseProfilePictureUrl(fullUrl)` - Strips size parameters from Google URLs  
+  - `PROFILE_PICTURE_SIZES` - Predefined size constants for consistent sizing across app
+  - Supports both predefined sizes ("LARGE", "MEDIUM") and custom pixel values
+- **Storage Utils** (`src/utils/storage.ts`): Persistent data storage with localStorage
+  - `saveToStorage()`, `loadFromStorage()`, `removeFromStorage()` - Safe localStorage operations with error handling
+  - `saveUserState()`, `loadUserState()`, `clearUserState()` - User session persistence functions
+  - `isStorageAvailable()` - Storage capability detection
+  - Session expiry mechanism (30-day automatic logout)
+  - Data validation and corruption recovery
 
 ### Design System
 - **CSS Variables**: Comprehensive pottery-themed color palette in `variables.css`
@@ -234,3 +254,21 @@ interface StageDetails {
   - Archive operations show proper loading feedback
 - **Logout Functionality**: Added logout button to sidebar with proper session cleanup and navigation
 - **Error Handling**: Comprehensive error handling for all database operations with proper user feedback and graceful degradation
+- **Ownership Protection**: Added security feature to PieceDetail page - only piece owners can see and use edit buttons, preventing unauthorized editing of other users' pieces
+- **Database-Optimized Recent Work**: Created dedicated API endpoint for fetching 6 most recently edited pieces for profile page, replacing client-side filtering with efficient database queries
+- **Google Profile Pictures**: Complete profile picture integration from Google SSO:
+  - Stores base Google profile picture URLs without size parameters for flexibility
+  - Created utility functions for dynamic sizing (getProfilePictureUrl, getBaseProfilePictureUrl)
+  - Added PROFILE_PICTURE_SIZES constants (THUMBNAIL=48px, SMALL=96px, MEDIUM=120px, LARGE=200px, etc.)
+  - Built reusable ProfilePicture component with size variants, fallback to pottery emoji, and responsive design
+  - Updated Profile page to display Google profile pictures at 200px with proper mobile responsiveness
+  - Added profilePicture field to User interface and database schema with automatic population during Google login
+- **Persistent Login State**: Complete session persistence using localStorage for seamless user experience:
+  - Automatic session restoration on app startup with user data validation
+  - Persistent user state across browser sessions, page refreshes, and browser restarts
+  - 30-day session expiry with automatic cleanup of expired sessions
+  - Robust error handling for corrupted localStorage data with graceful fallback
+  - Safe localStorage operations with storage availability detection
+  - Automatic loading of user pieces when session is restored from localStorage
+  - Type-safe persistence with data validation to ensure session integrity
+  - Seamless user experience - login once every 30 days, stay logged in otherwise

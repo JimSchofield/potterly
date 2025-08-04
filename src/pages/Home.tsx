@@ -9,9 +9,15 @@ const Home = () => {
 
   // Calculate statistics
   const totalPieces = pieces.length; // All pieces including archived
-  const bisquePieces = pieces.filter(piece => piece.stage === 'bisque' && !piece.archived).length;
-  const starredPieces = pieces.filter(piece => piece.starred && !piece.archived).length;
-  const ideasPieces = pieces.filter(piece => piece.stage === 'ideas' && !piece.archived).length;
+  const bisquePieces = pieces.filter(
+    (piece) => piece.stage === "bisque" && !piece.archived,
+  ).length;
+  const starredPieces = pieces.filter(
+    (piece) => piece.starred && !piece.archived,
+  ).length;
+  const ideasPieces = pieces.filter(
+    (piece) => piece.stage === "ideas" && !piece.archived,
+  ).length;
 
   // Time-based greeting
   const getGreeting = () => {
@@ -30,9 +36,7 @@ const Home = () => {
       <div className="home-header">
         <h1>🏺 Welcome to Your Studio</h1>
         <p>Track your ceramic journey from clay to finished masterpiece</p>
-        <div className="welcome-time">
-          {getGreeting()}
-        </div>
+        <div className="welcome-time">{getGreeting()}</div>
       </div>
 
       <div className="home-main-content">
@@ -60,21 +64,21 @@ const Home = () => {
         </div>
 
         <div className="home-navigation btn-group btn-group-center">
-          <button 
-            className="btn btn-primary btn-lg" 
-            onClick={() => navigate('/pieces/kanban')}
+          <button
+            className="btn btn-primary btn-lg"
+            onClick={() => navigate("/pieces/kanban")}
           >
             📋 View Kanban Board
           </button>
-          <button 
-            className="btn btn-secondary btn-lg" 
-            onClick={() => navigate('/pieces/table')}
+          <button
+            className="btn btn-secondary btn-lg"
+            onClick={() => navigate("/pieces/table")}
           >
             📊 View Table
           </button>
-          <button 
-            className="btn btn-secondary btn-lg" 
-            onClick={() => navigate('/create-piece')}
+          <button
+            className="btn btn-secondary btn-lg"
+            onClick={() => navigate("/create-piece")}
           >
             + Add New Piece
           </button>

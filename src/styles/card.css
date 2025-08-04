@@ -20,26 +20,13 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Card interactive (clickable/draggable) */
-.card.card-interactive {
-  cursor: pointer;
-}
-
 .card.card-interactive:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
 
-/* Card draggable (for kanban) */
-.card.card-draggable {
-  cursor: grab;
-}
-
-.card.card-draggable:active {
-  cursor: grabbing;
-}
-
 /* Card sizes */
+
 .card.card-sm {
   padding: var(--spacing-md);
   border-radius: var(--border-radius-sm);
@@ -178,23 +165,24 @@
   .card {
     padding: var(--spacing-md);
   }
-  
+
   .card.card-sm {
     padding: var(--spacing-sm);
   }
-  
+
   .card.card-lg {
     padding: var(--spacing-lg);
   }
-  
+
   .card-header {
     flex-direction: column;
     align-items: stretch;
     gap: var(--spacing-xs);
   }
-  
+
   .card-meta {
     flex-direction: column;
     gap: var(--spacing-xs);
   }
 }
+

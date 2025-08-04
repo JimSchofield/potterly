@@ -19,4 +19,5 @@ export interface User {
   website: string;
   socials: UserSocials;
   username: string;
+  profilePicture?: string; // Profile picture URL from Google OAuth
 }

@@ -1,10 +1,5 @@
 /* Card styles are now in styles/card.css */
 
-/* PotteryCard-specific overrides */
-.card.card-draggable:active {
-  cursor: grabbing;
-}
-
 /* Stage-specific border colors */
 .ideas .pottery-card {
   border-left-color: var(--color-stage-ideas);

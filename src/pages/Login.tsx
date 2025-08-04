@@ -9,6 +9,7 @@ import {
   loginUserByGoogleId,
   isUserAuthenticated,
 } from "../stores/user";
+import { getBaseProfilePictureUrl } from "../utils/profile-picture";
 import "./Login.css";
 
 interface GoogleJwtPayload {
@@ -70,6 +71,7 @@ const Login = () => {
           bio: `Welcome to Potterly! Joined via Google on ${new Date().toLocaleDateString()}`,
           website: "",
           username: decoded.email.split("@")[0], // Use email prefix as username
+          profilePicture: getBaseProfilePictureUrl(decoded.picture), // Store base URL without size
           socials: {
             instagram: "",
             twitter: "",
@@ -163,8 +165,8 @@ const Login = () => {
           <div className="security-note">
             <span>🔒</span>
             <span>
-              Your account is secured with Google authentication. We never
-              store your password.
+              Your account is secured with Google authentication. We never store
+              your password.
             </span>
           </div>
 
