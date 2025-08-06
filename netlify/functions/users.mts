@@ -20,6 +20,7 @@ export default async (req: Request, _context: Context) => {
   const id = url.searchParams.get("id");
   const googleId = url.searchParams.get("googleId");
   const username = url.searchParams.get("username");
+  const email = url.searchParams.get("email");
 
   try {
     switch (method) {
@@ -30,6 +31,21 @@ export default async (req: Request, _context: Context) => {
             .select()
             .from(users)
             .where(eq(users.googleId, googleId));
+          if (user.length === 0) {
+            return new Response(JSON.stringify({ error: "User not found" }), {
+              status: 404,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+          return new Response(JSON.stringify(user[0]), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else if (email) {
+          // Get user by email
+          const user = await db
+            .select()
+            .from(users)
+            .where(eq(users.email, email));
           if (user.length === 0) {
             return new Response(JSON.stringify({ error: "User not found" }), {
               status: 404,
@@ -76,11 +92,36 @@ export default async (req: Request, _context: Context) => {
 
       case "POST": {
         const newUser = await req.json();
-        const insertedUser = await db.insert(users).values(newUser).returning();
-        return new Response(JSON.stringify(insertedUser[0]), {
-          status: 201,
-          headers: { "Content-Type": "application/json" },
-        });
+        try {
+          const insertedUser = await db.insert(users).values(newUser).returning();
+          return new Response(JSON.stringify(insertedUser[0]), {
+            status: 201,
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (dbError: any) {
+          console.error("Database insert error:", dbError);
+          
+          // Check for unique constraint violations
+          if (dbError.code === '23505') { // PostgreSQL unique violation error code
+            let errorMessage = "User creation failed due to duplicate data";
+            
+            if (dbError.constraint?.includes('email')) {
+              errorMessage = "User with this email already exists";
+            } else if (dbError.constraint?.includes('username')) {
+              errorMessage = "Username is already taken";
+            } else if (dbError.constraint?.includes('google_id')) {
+              errorMessage = "User with this Google account already exists";
+            }
+            
+            return new Response(JSON.stringify({ error: errorMessage }), {
+              status: 409,
+              headers: { "Content-Type": "application/json" },
+            });
+          }
+          
+          // Re-throw for other database errors
+          throw dbError;
+        }
       }
 
       case "PUT": {

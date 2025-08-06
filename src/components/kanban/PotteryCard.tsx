@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./PotteryCard.css";
 import { Stages } from "../../types/Piece";
+import { useDrag } from "react-dnd";
 
 interface PotteryCardProps {
   id: string;
@@ -31,6 +32,14 @@ const PotteryCard = ({
   lastUpdated,
   dueDate,
 }: PotteryCardProps) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'pottery-piece',
+    item: { id, stage },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
   // Helper function to format dates
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -41,9 +50,12 @@ const PotteryCard = ({
       minute: "2-digit",
     });
   };
+  
   return (
     <div
-      className={`card card-accent card-interactive card-draggable card-flex accent-${stage}`}
+      ref={drag}
+      className={`card card-accent card-interactive card-draggable card-flex accent-${stage} ${isDragging ? 'dragging' : ''}`}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
     >
       <div className="card-header">
         <div>

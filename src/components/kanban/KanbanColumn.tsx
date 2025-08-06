@@ -1,7 +1,10 @@
 import PotteryCard from "./PotteryCard";
 import AddCardButton from "./AddCardButton";
-import { PotteryPiece } from "../../types/Piece";
+import { PotteryPiece, Stages } from "../../types/Piece";
 import "./KanbanColumn.css";
+import { useDrop } from "react-dnd";
+import { updatePiece } from "../../stores/pieces";
+import { setLoading } from "../../stores/loading";
 
 interface KanbanColumnProps {
   stage: string;
@@ -18,8 +21,34 @@ const KanbanColumn = ({
   pieces,
   addButtonText,
 }: KanbanColumnProps) => {
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
+    accept: 'pottery-piece',
+    drop: async (item: { id: string; stage: string }) => {
+      if (item.stage !== stage) {
+        try {
+          setLoading(true);
+          // Update the piece's stage when dropped on a different column
+          await updatePiece(item.id, { stage: stage as Stages });
+        } catch (error) {
+          console.error("Failed to update piece stage:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }));
+
+  const isActive = isOver && canDrop;
+
   return (
-    <div className={`column ${stage}`}>
+    <div 
+      ref={drop}
+      className={`column ${stage} ${isActive ? 'drop-active' : ''} ${isOver ? 'drop-over' : ''}`}
+    >
       <div className="column-header">
         <div className="column-title">
           <span className="stage-icon">{icon}</span>

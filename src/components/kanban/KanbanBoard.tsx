@@ -9,6 +9,8 @@ import {
   getStageIcon,
   getStageLabel,
 } from "../../utils/labels-and-icons";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 interface StageConfig {
   key: Stages;
@@ -40,21 +42,23 @@ const KanbanBoard = () => {
     }`,
   }));
   return (
-    <div className="kanban-container">
-      <Filters />
-      <div className="kanban-board">
-        {stages.map((stage) => (
-          <KanbanColumn
-            key={stage.key}
-            stage={stage.key}
-            icon={stage.icon}
-            title={stage.title}
-            pieces={getPiecesByStage(stage.key)}
-            addButtonText={stage.addButtonText}
-          />
-        ))}
+    <DndProvider backend={HTML5Backend}>
+      <div className="kanban-container">
+        <Filters />
+        <div className="kanban-board">
+          {stages.map((stage) => (
+            <KanbanColumn
+              key={stage.key}
+              stage={stage.key}
+              icon={stage.icon}
+              title={stage.title}
+              pieces={getPiecesByStage(stage.key)}
+              addButtonText={stage.addButtonText}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </DndProvider>
   );
 };
 

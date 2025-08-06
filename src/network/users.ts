@@ -42,6 +42,19 @@ export const getUserByGoogleIdAPI = async (googleId: string): Promise<User | nul
   return response.json();
 };
 
+export const getUserByEmailAPI = async (email: string): Promise<User | null> => {
+  const response = await fetch(`/api/users?email=${encodeURIComponent(email)}`);
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error(`Failed to fetch user by email: ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
 export const getUserByUsernameAPI = async (username: string): Promise<User | null> => {
   const response = await fetch(`/api/users?username=${encodeURIComponent(username)}`);
 

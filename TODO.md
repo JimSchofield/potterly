@@ -12,9 +12,10 @@
 - [x] Clean up styles and try to standardize/modularize
 - [x] Profile page/ user store
 - [x] Figure out BE stack (model, server, DB)
-- [ ] fix lifecycle bugs (pieces not showing up)
-    - [ ] If I reload on the home or piece page, pieces are not loaded
-- [ ] Create buttons on kan ban should go to specific create form with the stage
+- [x] fix lifecycle bugs (pieces not showing up)
+    - [x] If I reload on the home or piece page, pieces are not loaded
+- [x] Create buttons on kan ban should go to specific create form with the stage
+- [x] Figure out where to host pictures
 - [ ] Create toasts system?
-- [ ] Figure out where to host pictures
+- [ ] Fix main page spinner
 

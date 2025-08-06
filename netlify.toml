@@ -8,6 +8,7 @@
 [dev]
   command = "pnpm dev"
   targetPort = 5173
+  framework = "vite"
 
 [dev.https]
   certFile = "localhost.pem"

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import HamburgerMenu from "./components/HamburgerMenu";
 import Modal from "./components/Modal";
+import LoadingOverlay from "./components/LoadingOverlay";
 import { ModalProvider } from "./contexts/ModalContext";
 import { initializeUserSession } from "./stores/user";
 import Home from "./pages/Home";
@@ -57,6 +58,7 @@ function App() {
           </Routes>
         </div>
         <Modal />
+        <LoadingOverlay />
       </div>
     </ModalProvider>
   );

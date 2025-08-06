@@ -9,6 +9,7 @@ import {
   loginUserByGoogleId,
   isUserAuthenticated,
 } from "../stores/user";
+import { getUserByEmailAPI, updateUserProfileAPI } from "../network/users";
 import { getBaseProfilePictureUrl } from "../utils/profile-picture";
 import "./Login.css";
 
@@ -58,8 +59,28 @@ const Login = () => {
         navigate("/home");
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (_error) {
-        // If user doesn't exist, create a new user with Google data
-        console.log("User not found, creating new user with Google data");
+        // If user doesn't exist by Google ID, check if user exists by email
+        console.log("User not found by Google ID, checking by email...");
+        
+        try {
+          // Try to find user by email and update their Google ID
+          const existingUserByEmail = await getUserByEmailAPI(decoded.email);
+          if (existingUserByEmail) {
+            console.log("Found existing user by email, updating Google ID");
+            await updateUserProfileAPI(existingUserByEmail.id, { 
+              googleId: decoded.sub,
+              profilePicture: getBaseProfilePictureUrl(decoded.picture)
+            });
+            // Now login with the Google ID
+            await loginUserByGoogleId(decoded.sub);
+            navigate("/home");
+            return;
+          }
+        } catch (emailError) {
+          console.log("No existing user found by email, creating new user");
+        }
+        
+        console.log("Creating new user with Google data");
 
         const googleUser = {
           googleId: decoded.sub,
