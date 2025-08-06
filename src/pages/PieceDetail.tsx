@@ -15,6 +15,7 @@ import { useModal } from "../contexts/ModalContext";
 import { showConfirmDialog } from "../components/ConfirmDialog";
 import { getCurrentUser } from "../stores/user";
 import { getUserProfileAPI } from "../network/users";
+import { uploadUserImageAPI } from "../network/user-images";
 import "./PieceDetail.css";
 
 const PieceDetail = () => {
@@ -29,6 +30,7 @@ const PieceDetail = () => {
   const [creator, setCreator] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadingImages, setUploadingImages] = useState<Record<string, boolean>>({});
 
   // Find piece in store or fetch from database
   useEffect(() => {
@@ -171,6 +173,26 @@ const PieceDetail = () => {
           }
         : null,
     );
+  };
+
+  const handleImageUpload = async (stageName: string, file: File) => {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !file) return;
+
+    setUploadingImages(prev => ({ ...prev, [stageName]: true }));
+
+    try {
+      const result = await uploadUserImageAPI(currentUser.id, file);
+      
+      // Update the stage with the new image URL
+      handleStageFieldUpdate(stageName, "imageUrl", result.url);
+      
+    } catch (error) {
+      console.error("Failed to upload image:", error);
+      // Could add user notification here
+    } finally {
+      setUploadingImages(prev => ({ ...prev, [stageName]: false }));
+    }
   };
 
   const handleRemovePiece = () => {
@@ -546,27 +568,60 @@ const PieceDetail = () => {
                       )}
                     </div>
                     <div className="stage-image">
-                      <strong>Image URL:</strong>
+                      <strong>Image:</strong>
                       {canEdit ? (
-                        <input
-                          type="url"
-                          value={stageData.imageUrl || ""}
-                          onChange={(e) =>
-                            handleStageFieldUpdate(
-                              stageName,
-                              "imageUrl",
-                              e.target.value,
-                            )
-                          }
-                          className="form-input edit-mode"
-                          placeholder="Image URL"
-                          disabled={isSubmitting}
-                        />
+                        <div className="image-upload-section">
+                          <div className="image-upload-controls">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  handleImageUpload(stageName, file);
+                                  // Clear the input so the same file can be uploaded again
+                                  e.target.value = '';
+                                }
+                              }}
+                              className="form-input file-input"
+                              disabled={isSubmitting || uploadingImages[stageName]}
+                            />
+                            {uploadingImages[stageName] && (
+                              <span className="upload-status">Uploading...</span>
+                            )}
+                          </div>
+                          <input
+                            type="url"
+                            value={stageData.imageUrl || ""}
+                            onChange={(e) =>
+                              handleStageFieldUpdate(
+                                stageName,
+                                "imageUrl",
+                                e.target.value,
+                              )
+                            }
+                            className="form-input edit-mode image-url-input"
+                            placeholder="Or paste image URL"
+                            disabled={isSubmitting}
+                          />
+                          {stageData.imageUrl && (
+                            <div className="image-preview">
+                              <img
+                                src={stageData.imageUrl}
+                                alt={`${stageName} stage preview`}
+                                className="stage-image-preview"
+                              />
+                            </div>
+                          )}
+                        </div>
                       ) : stageData.imageUrl ? (
-                        <img
-                          src={stageData.imageUrl}
-                          alt={`${stageName} stage`}
-                        />
+                        <div className="image-display">
+                          <img
+                            src={stageData.imageUrl}
+                            alt={`${stageName} stage`}
+                            className="stage-image-display"
+                          />
+                        </div>
                       ) : (
                         <p>No image</p>
                       )}

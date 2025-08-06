@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nanostores/react": "^1.0.0",
+    "@netlify/blobs": "^10.0.8",
     "@netlify/neon": "^0.1.0",
     "@react-oauth/google": "^0.12.2",
     "@types/uuid": "^10.0.0",

@@ -222,12 +222,66 @@
   margin-bottom: var(--spacing-md);
 }
 
-.stage-image img {
+.stage-image strong {
+  color: var(--color-dark-clay);
+  font-weight: var(--font-weight-semibold);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.image-upload-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.file-input {
+  flex: 1;
+}
+
+.upload-status {
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.image-url-input {
+  font-size: var(--font-size-sm);
+}
+
+.image-preview,
+.image-display {
+  margin-top: var(--spacing-sm);
+}
+
+.stage-image-preview,
+.stage-image-display {
   width: 100%;
+  max-width: 300px;
   height: 200px;
   object-fit: cover;
   border-radius: var(--border-radius);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.stage-image-preview {
+  opacity: 0.9;
+}
+
+.stage-image-display {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.stage-image-display:hover {
+  transform: scale(1.02);
 }
 
 .piece-not-found {

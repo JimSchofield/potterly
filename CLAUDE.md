@@ -291,3 +291,13 @@ interface StageDetails {
   - Other profiles: username links refresh current profile page for consistency
   - Added dedicated `.username-link` styling with pottery theme colors and hover effects
   - Enhanced user discoverability and navigation throughout the platform
+- **User Image Blob Storage**: Implemented comprehensive image storage system using Netlify Blobs:
+  - Created `/api/user-images/*` endpoint supporting POST (upload), GET (retrieve/list), and DELETE operations
+  - Secure user-scoped storage with automatic permission validation based on userId
+  - Image validation: content-type checking, 5MB size limit, and proper file extension handling
+  - Metadata storage including userId, contentType, size, and upload timestamp
+  - Organized storage structure: `{userId}/{imageId}.{extension}` for efficient retrieval
+  - RESTful API with proper HTTP status codes and comprehensive error handling
+  - Frontend API layer (`src/network/user-images.ts`) with TypeScript interfaces and error handling
+  - Support for image listing (sorted by upload date), individual image retrieval, and deletion
+  - Built-in caching headers for optimal performance and CDN integration

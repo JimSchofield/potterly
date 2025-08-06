@@ -11,6 +11,9 @@ importers:
       '@nanostores/react':
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.0.1)(react@18.3.1)
+      '@netlify/blobs':
+        specifier: ^10.0.8
+        version: 10.0.8
       '@netlify/neon':
         specifier: ^0.1.0
         version: 0.1.0
