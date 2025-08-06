@@ -4,7 +4,7 @@ import postgres from "postgres";
 import { pieces } from "../../db/schema";
 import { eq, and, count } from "drizzle-orm";
 
-const databaseUrl = Netlify.env.DATABASE_URL || process.env.DATABASE_URL;
+const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error("DATABASE_URL environment variable is not set");
@@ -61,19 +61,7 @@ export default async (req: Request, _context: Context) => {
       .from(pieces)
       .where(eq(pieces.ownerId, userId));
 
-    // Get active pieces (not finished and not archived) 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _activePiecesResult = await db
-      .select({ count: count() })
-      .from(pieces)
-      .where(
-        and(
-          eq(pieces.ownerId, userId),
-          eq(pieces.archived, false),
-          // Not finished stage
-          // Using SQL NOT operator since drizzle doesn't have a direct ne() for this case
-        )
-      );
+    // Active pieces are calculated as total - archived - completed
 
     // Get completed pieces (finished stage)
     const completedPiecesResult = await db

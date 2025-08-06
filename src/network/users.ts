@@ -71,26 +71,6 @@ export const updateUserProfileAPI = async (userId: string, updates: Partial<Omit
   return response.json();
 };
 
-export const deleteUserAPI = async (userId: string): Promise<void> => {
-  const response = await fetch(`/api/users?id=${userId}`, {
-    method: 'DELETE',
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to delete user: ${response.statusText}`);
-  }
-};
-
-export const getAllUsersAPI = async (): Promise<User[]> => {
-  const response = await fetch('/api/users');
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch users: ${response.statusText}`);
-  }
-
-  return response.json();
-};
-
 export interface UserStats {
   totalPieces: number;
   activePieces: number;

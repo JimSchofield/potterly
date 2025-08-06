@@ -351,6 +351,31 @@
 /* Footer styles */
 .piece-detail-footer {
   margin-top: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Archive section */
+.archive-section {
+  background: #f8f9fa;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xl);
+}
+
+.archive-section h3 {
+  color: var(--color-dark-clay);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.archive-section p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+  line-height: var(--line-height-relaxed);
 }
 
 .danger-zone {
@@ -387,6 +412,10 @@
   }
 
   /* Title input mobile styles handled in styles/form.css */
+
+  .archive-section {
+    padding: var(--spacing-lg);
+  }
 
   .danger-zone {
     padding: var(--spacing-lg);

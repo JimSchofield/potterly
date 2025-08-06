@@ -4,7 +4,7 @@ import postgres from "postgres";
 import { pieces, stageDetails } from "../../db/schema";
 import { eq } from "drizzle-orm";
 
-const databaseUrl = Netlify.env.DATABASE_URL || process.env.DATABASE_URL;
+const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error("DATABASE_URL environment variable is not set");
@@ -88,7 +88,7 @@ export default async (req: Request, _context: Context) => {
         // Create stageDetails object with proper structure
         const stageDetailsObj = {
           ideas: { notes: "", imageUrl: "" },
-          throw: { notes: "", imageUrl: "", weight: undefined },
+          throw: { notes: "", imageUrl: "", weight: null as number | null },
           trim: { notes: "", imageUrl: "" },
           bisque: { notes: "", imageUrl: "" },
           glaze: { notes: "", imageUrl: "", glazes: "" },
@@ -99,12 +99,24 @@ export default async (req: Request, _context: Context) => {
         insertedStageDetails.forEach((stageDetail) => {
           const stageKey = stageDetail.stage as keyof typeof stageDetailsObj;
           if (stageKey in stageDetailsObj) {
-            stageDetailsObj[stageKey] = {
-              notes: stageDetail.notes || "",
-              imageUrl: stageDetail.imageUrl || "",
-              ...(stageKey === "throw" && { weight: stageDetail.weight }),
-              ...(stageKey === "glaze" && { glazes: stageDetail.glazes || "" }),
-            };
+            if (stageKey === "throw") {
+              stageDetailsObj[stageKey] = {
+                notes: stageDetail.notes || "",
+                imageUrl: stageDetail.imageUrl || "",
+                weight: stageDetail.weight as number | null,
+              };
+            } else if (stageKey === "glaze") {
+              stageDetailsObj[stageKey] = {
+                notes: stageDetail.notes || "",
+                imageUrl: stageDetail.imageUrl || "",
+                glazes: stageDetail.glazes || "",
+              };
+            } else {
+              stageDetailsObj[stageKey] = {
+                notes: stageDetail.notes || "",
+                imageUrl: stageDetail.imageUrl || "",
+              };
+            }
           }
         });
 

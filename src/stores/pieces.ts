@@ -143,15 +143,6 @@ export const archivePiece = async (id: string) => {
   }
 };
 
-export const unarchivePiece = async (id: string) => {
-  try {
-    await updatePiece(id, { archived: false });
-  } catch (error) {
-    console.error("Error unarchiving piece:", error);
-    throw error;
-  }
-};
-
 export const getPiecesByStage = (stage: string) => {
   const pieces = piecesStore.get();
   return pieces.filter((piece) => piece.stage === stage);

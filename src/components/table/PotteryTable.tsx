@@ -4,7 +4,7 @@ import { getStageIcon, getStageLabel } from "../../utils/labels-and-icons";
 import { useModal } from "../../contexts/ModalContext";
 import { showStageUpdateDialog } from "../StageUpdateDialog";
 import { showConfirmDialog } from "../ConfirmDialog";
-import { archivePiece } from "../../stores/pieces";
+import { archivePiece, updatePiece } from "../../stores/pieces";
 
 interface PotteryTableProps {
   pieces: PotteryPiece[];
@@ -37,6 +37,23 @@ const PotteryTable = ({ pieces }: PotteryTableProps) => {
           await archivePiece(piece.id);
         } catch (error) {
           console.error("Failed to archive piece:", error);
+        }
+      },
+    });
+  };
+
+  const handleUnarchive = (piece: PotteryPiece) => {
+    showConfirmDialog(openModal, {
+      title: "Unarchive Pottery Piece",
+      message: `Are you sure you want to unarchive "${piece.title}"? This will make it visible in your active projects again.`,
+      confirmText: "Unarchive",
+      cancelText: "Cancel",
+      type: "info",
+      onConfirm: async () => {
+        try {
+          await updatePiece(piece.id, { archived: false });
+        } catch (error) {
+          console.error("Failed to unarchive piece:", error);
         }
       },
     });
@@ -108,15 +125,17 @@ const PotteryTable = ({ pieces }: PotteryTableProps) => {
                   {!piece.archived && (
                     <button
                       className="action-btn"
-                      onClick={() =>
-                        piece.stage === "finished"
-                          ? handleArchive(piece)
-                          : handleMove(piece)
-                      }
+                      onClick={() => handleMove(piece)}
                     >
-                      {piece.stage === "finished" ? "Archive" : "Move"}
+                      Move
                     </button>
                   )}
+                  <button
+                    className="action-btn"
+                    onClick={() => piece.archived ? handleUnarchive(piece) : handleArchive(piece)}
+                  >
+                    {piece.archived ? "Unarchive" : "Archive"}
+                  </button>
                 </div>
               </td>
             </tr>

@@ -7,6 +7,7 @@ import {
   removePiece,
   getPieceById,
   updateStageDetail,
+  archivePiece,
 } from "../stores/pieces";
 
 import { PotteryPiece } from "../types/Piece";
@@ -97,43 +98,48 @@ const PieceDetail = () => {
     setIsEditMode(!isEditMode);
   };
 
+  // Helper function to save changes without UI state management
+  const savePieceChanges = async (pieceToSave: PotteryPiece, originalPiece: PotteryPiece) => {
+    // Compare original and edited stage details to find changes
+    const stageNames = [
+      "ideas",
+      "throw",
+      "trim",
+      "bisque",
+      "glaze",
+      "finished",
+    ] as const;
+
+    for (const stageName of stageNames) {
+      const originalStage = originalPiece.stageDetails[stageName];
+      const editedStage = pieceToSave.stageDetails[stageName];
+
+      // Check if stage details have changed
+      const hasChanged =
+        JSON.stringify(originalStage) !== JSON.stringify(editedStage);
+
+      if (hasChanged) {
+        await updateStageDetail(pieceToSave.id, stageName, editedStage);
+      }
+    }
+
+    // Update the main piece data (excluding stageDetails since we handled those separately)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { stageDetails: _, ...pieceWithoutStages } = pieceToSave;
+    await updatePiece(pieceToSave.id, {
+      ...pieceWithoutStages,
+      lastUpdated: new Date().toISOString(),
+    });
+  };
+
   const handleSave = async () => {
     if (!editedPiece || !piece || isSubmitting) return;
 
     setIsSubmitting(true);
 
     try {
-      // Compare original and edited stage details to find changes
-      const stageNames = [
-        "ideas",
-        "throw",
-        "trim",
-        "bisque",
-        "glaze",
-        "finished",
-      ] as const;
-
-      for (const stageName of stageNames) {
-        const originalStage = piece.stageDetails[stageName];
-        const editedStage = editedPiece.stageDetails[stageName];
-
-        // Check if stage details have changed
-        const hasChanged =
-          JSON.stringify(originalStage) !== JSON.stringify(editedStage);
-
-        if (hasChanged) {
-          await updateStageDetail(editedPiece.id, stageName, editedStage);
-        }
-      }
-
-      // Update the main piece data (excluding stageDetails since we handled those separately)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { stageDetails: _, ...pieceWithoutStages } = editedPiece;
-      await updatePiece(editedPiece.id, {
-        ...pieceWithoutStages,
-        lastUpdated: new Date().toISOString(),
-      });
-
+      await savePieceChanges(editedPiece, piece);
+      
       setIsEditMode(false);
       setEditedPiece(null);
       setSearchParams({});
@@ -193,6 +199,61 @@ const PieceDetail = () => {
     } finally {
       setUploadingImages(prev => ({ ...prev, [stageName]: false }));
     }
+  };
+
+  const handleArchivePiece = () => {
+    if (!piece) return;
+
+    const isCurrentlyArchived = piece.archived;
+    const action = isCurrentlyArchived ? "unarchive" : "archive";
+    const actionTitle = isCurrentlyArchived ? "Unarchive" : "Archive";
+
+    showConfirmDialog(openModal, {
+      title: `${actionTitle} Pottery Piece`,
+      message: `Are you sure you want to ${action} "${piece.title}"?${
+        isCurrentlyArchived 
+          ? editedPiece
+            ? " Any unsaved changes will be saved automatically, and the piece will be made visible in your active projects again."
+            : " This will make the piece visible in your active projects again."
+          : editedPiece 
+            ? " Any unsaved changes will be saved automatically, and the piece will be moved to your archived items."
+            : " This will move the piece to your archived items."
+      }`,
+      confirmText: actionTitle,
+      cancelText: "Cancel",
+      type: isCurrentlyArchived ? "info" : "warning",
+      onConfirm: async () => {
+        try {
+          if (isCurrentlyArchived) {
+            // For unarchiving, first save any pending changes, then unarchive and exit edit mode
+            if (editedPiece) {
+              // Save all pending changes first
+              await savePieceChanges(editedPiece, piece);
+            }
+            await updatePiece(piece.id, { archived: false });
+            // Exit edit mode for consistency with archive behavior
+            setIsEditMode(false);
+            setEditedPiece(null);
+            setSearchParams({});
+          } else {
+            // For archiving, first save any pending changes, then archive and exit edit mode
+            if (editedPiece) {
+              // Save all pending changes first
+              await savePieceChanges(editedPiece, piece);
+            }
+            await archivePiece(piece.id);
+            // Exit edit mode since archived pieces shouldn't remain in edit mode
+            setIsEditMode(false);
+            setEditedPiece(null);
+            setSearchParams({});
+          }
+          // No need to navigate, the piece will update in place
+        } catch (error) {
+          console.error(`Failed to ${action} piece:`, error);
+          // Could add user notification here
+        }
+      },
+    });
   };
 
   const handleRemovePiece = () => {
@@ -634,6 +695,18 @@ const PieceDetail = () => {
 
         {isEditMode && isOwner && (
           <div className="piece-detail-footer">
+            <div className="archive-section">
+              <h3>Archive</h3>
+              <p>
+                {piece.archived 
+                  ? "This piece is currently archived. You can unarchive it to make it visible in your active projects again."
+                  : "Archive this piece to move it out of your active projects while keeping it saved."}
+              </p>
+              <button onClick={handleArchivePiece} className={`btn ${piece.archived ? 'btn-primary' : 'btn-secondary'}`}>
+                {piece.archived ? '📂 Unarchive Piece' : '📦 Archive Piece'}
+              </button>
+            </div>
+            
             <div className="danger-zone">
               <h3>Danger Zone</h3>
               <p>

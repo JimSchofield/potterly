@@ -46,15 +46,6 @@ export const removeFromStorage = (key: string): boolean => {
 };
 
 /**
- * Clear all Potterly data from localStorage
- */
-export const clearPotterlyStorage = (): void => {
-  Object.values(STORAGE_KEYS).forEach(key => {
-    removeFromStorage(key);
-  });
-};
-
-/**
  * Types for persisted user state
  */
 interface PersistedUserState {

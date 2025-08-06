@@ -35,7 +35,7 @@ const KanbanBoard = () => {
       stage === "ideas"
         ? "new idea"
         : stage === "finished"
-          ? "Archive completed piece"
+          ? "Finished Piece"
           : `piece to ${stage}`
     }`,
   }));

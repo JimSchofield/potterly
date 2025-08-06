@@ -3,8 +3,9 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { pieces, stageDetails } from "../../db/schema";
 import { eq } from "drizzle-orm";
+import type { StageDetails } from "../../src/types/Piece";
 
-const databaseUrl = Netlify.env.DATABASE_URL || process.env.DATABASE_URL;
+const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error("DATABASE_URL environment variable is not set");
@@ -51,7 +52,7 @@ export default async (req: Request, _context: Context) => {
       .where(eq(stageDetails.pieceId, id));
 
     // Assemble stageDetails object in the format expected by PotteryPiece interface
-    const assembledStageDetails = {
+    const assembledStageDetails: StageDetails = {
       ideas: { notes: "", imageUrl: "" },
       throw: { notes: "", imageUrl: "", weight: null },
       trim: { notes: "", imageUrl: "" },
@@ -62,19 +63,40 @@ export default async (req: Request, _context: Context) => {
 
     // Populate with actual data from database
     stages.forEach((stage) => {
-      const stageData: Record<string, unknown> = {
-        notes: stage.notes || "",
-        imageUrl: stage.imageUrl || "",
-      };
-
-      // Add stage-specific fields
+      // Add stage-specific fields and assign properly
       if (stage.stage === "throw") {
-        stageData.weight = stage.weight;
+        assembledStageDetails.throw = {
+          notes: stage.notes || "",
+          imageUrl: stage.imageUrl || "",
+          weight: stage.weight,
+        };
       } else if (stage.stage === "glaze") {
-        stageData.glazes = stage.glazes || "";
+        assembledStageDetails.glaze = {
+          notes: stage.notes || "",
+          imageUrl: stage.imageUrl || "",
+          glazes: stage.glazes || "",
+        };
+      } else if (stage.stage === "ideas") {
+        assembledStageDetails.ideas = {
+          notes: stage.notes || "",
+          imageUrl: stage.imageUrl || "",
+        };
+      } else if (stage.stage === "trim") {
+        assembledStageDetails.trim = {
+          notes: stage.notes || "",
+          imageUrl: stage.imageUrl || "",
+        };
+      } else if (stage.stage === "bisque") {
+        assembledStageDetails.bisque = {
+          notes: stage.notes || "",
+          imageUrl: stage.imageUrl || "",
+        };
+      } else if (stage.stage === "finished") {
+        assembledStageDetails.finished = {
+          notes: stage.notes || "",
+          imageUrl: stage.imageUrl || "",
+        };
       }
-
-      assembledStageDetails[stage.stage as keyof typeof assembledStageDetails] = stageData;
     });
 
     // Combine piece with assembled stage details

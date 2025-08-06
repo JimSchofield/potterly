@@ -301,3 +301,14 @@ interface StageDetails {
   - Frontend API layer (`src/network/user-images.ts`) with TypeScript interfaces and error handling
   - Support for image listing (sorted by upload date), individual image retrieval, and deletion
   - Built-in caching headers for optimal performance and CDN integration
+- **Stage Image Upload System**: Complete image upload functionality for pottery workflow stages:
+  - Dual upload interface: file input for local images and URL input for external images
+  - Stage-specific image storage integrated with user blob storage system
+  - Real-time upload progress indicators with disabled states during uploads
+  - Image preview in edit mode and display in view mode with proper styling
+  - Automatic database persistence of image URLs with stage detail updates
+  - Mobile-responsive image display with consistent aspect ratios and shadows
+  - Error handling for upload failures with graceful user feedback
+  - File input clearing after successful uploads to allow re-uploading same files
+  - Integration with existing pottery piece edit/save workflow for seamless user experience
+  - Production-ready blob storage system (note: local development uses Netlify Blobs sandbox mode)

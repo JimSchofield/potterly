@@ -1,17 +1,17 @@
 import { StageDetails, StageData, ThrowStageData, GlazeStageData } from '../types/Piece';
 
-export const createDefaultStageData = (): StageData => ({
+const createDefaultStageData = (): StageData => ({
   notes: '',
   imageUrl: ''
 });
 
-export const createDefaultThrowStageData = (): ThrowStageData => ({
+const createDefaultThrowStageData = (): ThrowStageData => ({
   notes: '',
   imageUrl: '',
   weight: null
 });
 
-export const createDefaultGlazeStageData = (): GlazeStageData => ({
+const createDefaultGlazeStageData = (): GlazeStageData => ({
   notes: '',
   imageUrl: '',
   glazes: ''

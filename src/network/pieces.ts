@@ -55,16 +55,6 @@ export const getPieceWithStagesAPI = async (id: string): Promise<PotteryPiece | 
   return response.json();
 };
 
-export const getAllPiecesAPI = async (): Promise<PotteryPiece[]> => {
-  const response = await fetch("/api/pieces");
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch pieces: ${response.statusText}`);
-  }
-
-  return response.json();
-};
-
 export const getUserPiecesAPI = async (userId: string): Promise<PotteryPiece[]> => {
   const response = await fetch(`/api/user-pieces?userId=${userId}`);
 

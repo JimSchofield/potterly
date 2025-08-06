@@ -1,6 +1,6 @@
 import { Stages } from "../types/Piece";
 
-export const STAGE_CONFIG: Record<Stages, { icon: string; label: string }> = {
+const STAGE_CONFIG: Record<Stages, { icon: string; label: string }> = {
   ideas: {
     icon: "💡",
     label: "Ideas",
@@ -38,8 +38,3 @@ export const getStageLabel = (stage: Stages): string => {
 export const getAllStages = (): Stages[] => {
   return Object.keys(STAGE_CONFIG) as Stages[];
 };
-
-export const getStageConfig = (stage: Stages) => {
-  return STAGE_CONFIG[stage];
-};
-
