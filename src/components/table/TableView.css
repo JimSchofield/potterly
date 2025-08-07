@@ -174,6 +174,27 @@
   color: var(--color-clay-brown);
 }
 
+.star-action.starred {
+  color: #ffd700;
+  border-color: #ffd700;
+}
+
+.star-action.starred:hover {
+  background: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  border-color: #ffd700;
+}
+
+.star-action.unstarred {
+  color: var(--color-text-muted);
+}
+
+.star-action.unstarred:hover {
+  color: #ffd700;
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.05);
+}
+
 .stats-bar {
   background: var(--color-warm-beige);
   padding: var(--spacing-md) var(--spacing-xl);

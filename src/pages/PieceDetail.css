@@ -399,6 +399,62 @@
   line-height: var(--line-height-relaxed);
 }
 
+/* Star toggle functionality */
+.title-with-star {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.star-toggle {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+}
+
+.star-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.star-toggle:active {
+  transform: scale(0.95);
+}
+
+.star-toggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.star-toggle.starred {
+  color: #ffd700;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.5);
+}
+
+.star-toggle.unstarred {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.star-toggle.unstarred:hover {
+  color: #ffd700;
+}
+
+.star-display {
+  color: #ffd700;
+  margin-left: var(--spacing-sm);
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.5);
+}
+
 /* Mobile adjustments for edit mode */
 @media (max-width: 768px) {
   .piece-detail-header {

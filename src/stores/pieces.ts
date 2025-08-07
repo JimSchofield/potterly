@@ -1,6 +1,6 @@
 import { atom, computed } from "nanostores";
 import { PotteryPiece, StageData, ThrowStageData, GlazeStageData } from "../types/Piece";
-import { createPieceAPI, getPieceWithStagesAPI, getUserPiecesAPI, updateStageDetailAPI, updatePieceAPI } from "../network/pieces";
+import { createPieceAPI, getPieceWithStagesAPI, getUserPiecesAPI, updateStageDetailAPI, updatePieceAPI, deletePieceAPI } from "../network/pieces";
 
 // Initialize the store with empty array - will be populated with user data
 export const piecesStore = atom<PotteryPiece[]>([]);
@@ -128,10 +128,19 @@ export const updateStageDetail = async (
   }
 };
 
-export const removePiece = (id: string) => {
-  const currentPieces = piecesStore.get();
-  const filteredPieces = currentPieces.filter((piece) => piece.id !== id);
-  piecesStore.set(filteredPieces);
+export const removePiece = async (id: string) => {
+  try {
+    // Delete from database first
+    await deletePieceAPI(id);
+    
+    // Remove from local store
+    const currentPieces = piecesStore.get();
+    const updatedPieces = currentPieces.filter((piece) => piece.id !== id);
+    piecesStore.set(updatedPieces);
+  } catch (error) {
+    console.error("Error removing piece:", error);
+    throw error;
+  }
 };
 
 export const archivePiece = async (id: string) => {

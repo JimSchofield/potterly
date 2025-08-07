@@ -59,6 +59,14 @@ const PotteryTable = ({ pieces }: PotteryTableProps) => {
     });
   };
 
+  const handleToggleStar = async (piece: PotteryPiece) => {
+    try {
+      await updatePiece(piece.id, { starred: !piece.starred });
+    } catch (error) {
+      console.error("Failed to toggle starred status:", error);
+    }
+  };
+
   return (
     <div className="table-content">
       <table className="pottery-table">
@@ -116,6 +124,13 @@ const PotteryTable = ({ pieces }: PotteryTableProps) => {
               </td>
               <td>
                 <div className="actions">
+                  <button
+                    className={`action-btn star-action ${piece.starred ? 'starred' : 'unstarred'}`}
+                    onClick={() => handleToggleStar(piece)}
+                    title={piece.starred ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    {piece.starred ? '⭐' : '☆'}
+                  </button>
                   <button
                     className="action-btn"
                     onClick={() => handleEdit(piece)}

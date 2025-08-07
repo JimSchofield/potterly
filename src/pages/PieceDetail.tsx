@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, useSearchParams, useNavigate, Link } from "react-router-dom";
+import {
+  useParams,
+  useSearchParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 import { useStore } from "@nanostores/react";
 import {
   piecesStore,
@@ -31,7 +36,9 @@ const PieceDetail = () => {
   const [creator, setCreator] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadingImages, setUploadingImages] = useState<Record<string, boolean>>({});
+  const [uploadingImages, setUploadingImages] = useState<
+    Record<string, boolean>
+  >({});
 
   // Find piece in store or fetch from database
   useEffect(() => {
@@ -99,7 +106,10 @@ const PieceDetail = () => {
   };
 
   // Helper function to save changes without UI state management
-  const savePieceChanges = async (pieceToSave: PotteryPiece, originalPiece: PotteryPiece) => {
+  const savePieceChanges = async (
+    pieceToSave: PotteryPiece,
+    originalPiece: PotteryPiece,
+  ) => {
     // Compare original and edited stage details to find changes
     const stageNames = [
       "ideas",
@@ -139,7 +149,7 @@ const PieceDetail = () => {
 
     try {
       await savePieceChanges(editedPiece, piece);
-      
+
       setIsEditMode(false);
       setEditedPiece(null);
       setSearchParams({});
@@ -185,19 +195,37 @@ const PieceDetail = () => {
     const currentUser = getCurrentUser();
     if (!currentUser || !file) return;
 
-    setUploadingImages(prev => ({ ...prev, [stageName]: true }));
+    setUploadingImages((prev) => ({ ...prev, [stageName]: true }));
 
     try {
       const result = await uploadUserImageAPI(currentUser.id, file);
-      
+
       // Update the stage with the new image URL
       handleStageFieldUpdate(stageName, "imageUrl", result.url);
-      
     } catch (error) {
       console.error("Failed to upload image:", error);
       // Could add user notification here
     } finally {
-      setUploadingImages(prev => ({ ...prev, [stageName]: false }));
+      setUploadingImages((prev) => ({ ...prev, [stageName]: false }));
+    }
+  };
+
+  const toggleStarred = async () => {
+    if (!piece) return;
+
+    try {
+      const newStarredValue = !piece.starred;
+      await updatePiece(piece.id, { starred: newStarredValue });
+
+      // Update the editedPiece state if in edit mode to reflect the change immediately
+      if (editedPiece) {
+        setEditedPiece((prev) =>
+          prev ? { ...prev, starred: newStarredValue } : null,
+        );
+      }
+    } catch (error) {
+      console.error("Failed to toggle starred status:", error);
+      // You could add a toast notification here
     }
   };
 
@@ -211,11 +239,11 @@ const PieceDetail = () => {
     showConfirmDialog(openModal, {
       title: `${actionTitle} Pottery Piece`,
       message: `Are you sure you want to ${action} "${piece.title}"?${
-        isCurrentlyArchived 
+        isCurrentlyArchived
           ? editedPiece
             ? " Any unsaved changes will be saved automatically, and the piece will be made visible in your active projects again."
             : " This will make the piece visible in your active projects again."
-          : editedPiece 
+          : editedPiece
             ? " Any unsaved changes will be saved automatically, and the piece will be moved to your archived items."
             : " This will move the piece to your archived items."
       }`,
@@ -308,19 +336,39 @@ const PieceDetail = () => {
         <div className="header-content">
           <h1>
             {canEdit ? (
-              <input
-                type="text"
-                value={currentPiece.title}
-                onChange={(e) =>
-                  setEditedPiece((prev) =>
-                    prev ? { ...prev, title: e.target.value } : null,
-                  )
-                }
-                className="form-input title-input"
-                disabled={isSubmitting}
-              />
+              <div className="title-with-star">
+                <input
+                  type="text"
+                  value={currentPiece.title}
+                  onChange={(e) =>
+                    setEditedPiece((prev) =>
+                      prev ? { ...prev, title: e.target.value } : null,
+                    )
+                  }
+                  className="form-input title-input"
+                  disabled={isSubmitting}
+                />
+                <button
+                  type="button"
+                  className={`star-toggle ${currentPiece.starred ? "starred" : "unstarred"}`}
+                  onClick={() => toggleStarred()}
+                  disabled={isSubmitting}
+                  title={
+                    currentPiece.starred
+                      ? "Remove from favorites"
+                      : "Add to favorites"
+                  }
+                >
+                  {currentPiece.starred ? "⭐" : "☆"}
+                </button>
+              </div>
             ) : (
-              currentPiece.title
+              <div className="title-with-star">
+                {currentPiece.title}
+                {currentPiece.starred && (
+                  <span className="star-display">⭐</span>
+                )}
+              </div>
             )}
           </h1>
           <div className="piece-meta">
@@ -330,9 +378,6 @@ const PieceDetail = () => {
             <span className={`stage-badge stage-${currentPiece.stage}`}>
               {currentPiece.stage}
             </span>
-            {currentPiece.starred && (
-              <span className="badge starred-indicator">⭐ Starred</span>
-            )}
             {currentPiece.archived && (
               <span className="badge archived-indicator">📦 Archived</span>
             )}
@@ -341,15 +386,12 @@ const PieceDetail = () => {
             <div className="piece-creator">
               <span className="creator-label">Created by:</span>
               {isOwner ? (
-                <Link 
-                  to="/profile" 
-                  className="creator-link creator-link--self"
-                >
+                <Link to="/profile" className="creator-link creator-link--self">
                   👤 You ({creator.firstName} {creator.lastName})
                 </Link>
               ) : (
-                <Link 
-                  to={`/profile/${creator.username}`} 
+                <Link
+                  to={`/profile/${creator.username}`}
                   className="creator-link"
                 >
                   👤 {creator.firstName} {creator.lastName}
@@ -641,14 +683,18 @@ const PieceDetail = () => {
                                 if (file) {
                                   handleImageUpload(stageName, file);
                                   // Clear the input so the same file can be uploaded again
-                                  e.target.value = '';
+                                  e.target.value = "";
                                 }
                               }}
                               className="form-input file-input"
-                              disabled={isSubmitting || uploadingImages[stageName]}
+                              disabled={
+                                isSubmitting || uploadingImages[stageName]
+                              }
                             />
                             {uploadingImages[stageName] && (
-                              <span className="upload-status">Uploading...</span>
+                              <span className="upload-status">
+                                Uploading...
+                              </span>
                             )}
                           </div>
                           <input
@@ -698,15 +744,18 @@ const PieceDetail = () => {
             <div className="archive-section">
               <h3>Archive</h3>
               <p>
-                {piece.archived 
+                {piece.archived
                   ? "This piece is currently archived. You can unarchive it to make it visible in your active projects again."
                   : "Archive this piece to move it out of your active projects while keeping it saved."}
               </p>
-              <button onClick={handleArchivePiece} className={`btn ${piece.archived ? 'btn-primary' : 'btn-secondary'}`}>
-                {piece.archived ? '📂 Unarchive Piece' : '📦 Archive Piece'}
+              <button
+                onClick={handleArchivePiece}
+                className={`btn ${piece.archived ? "btn-primary" : "btn-secondary"}`}
+              >
+                {piece.archived ? "📂 Unarchive Piece" : "📦 Archive Piece"}
               </button>
             </div>
-            
+
             <div className="danger-zone">
               <h3>Danger Zone</h3>
               <p>
