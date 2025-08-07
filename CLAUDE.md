@@ -28,6 +28,8 @@ This is a React 18 + TypeScript + Vite application for pottery management called
 - **State Management**: Nanostores with React integration
 - **Backend**: Netlify Functions (serverless)
 - **Database**: PostgreSQL (Neon) with Drizzle ORM
+- **Image Processing**: Sharp for image resizing and WebP conversion
+- **File Storage**: Netlify Blobs for user image storage
 - **Styling**: CSS modules with BEM-like naming convention and global CSS systems
 - **Linting**: ESLint with TypeScript support
 - **UUID Generation**: uuid library for unique identifiers
@@ -312,3 +314,12 @@ interface StageDetails {
   - File input clearing after successful uploads to allow re-uploading same files
   - Integration with existing pottery piece edit/save workflow for seamless user experience
   - Production-ready blob storage system (note: local development uses Netlify Blobs sandbox mode)
+- **Image Optimization with Sharp**: Automated image processing pipeline for all uploaded images:
+  - Sharp library integration for high-performance image processing in Netlify Functions
+  - Automatic resizing to 800px width while maintaining aspect ratio (no upscaling for smaller images)
+  - Universal WebP conversion with 80% quality for optimal compression and performance
+  - File size reduction and consistent format across all uploaded images
+  - Enhanced metadata storage tracking both original and processed image information
+  - Backwards compatibility for existing images while processing all new uploads
+  - Significant storage and bandwidth savings with modern WebP format
+  - Improved loading performance across all pottery piece stage images

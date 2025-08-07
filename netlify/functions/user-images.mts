@@ -1,6 +1,7 @@
 import type { Context, Config } from "@netlify/functions";
 import { getStore } from "@netlify/blobs";
 import { v4 as uuidv4 } from "uuid";
+import sharp from "sharp";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async (req: Request, _context: Context) => {
@@ -78,22 +79,31 @@ export default async (req: Request, _context: Context) => {
         );
       }
 
-      // Generate unique key for the image
-      const imageId = uuidv4();
-      const fileExtension = contentType.split("/")[1] || "jpg";
-      const imageKey = `${actualUserId}/${imageId}.${fileExtension}`;
+      // Process image with Sharp: resize to 800px width and convert to WebP
+      const processedImageBuffer = await sharp(imageBuffer)
+        .resize(800, null, { 
+          fit: 'inside',
+          withoutEnlargement: true 
+        })
+        .webp({ quality: 80 })
+        .toBuffer();
 
-      // Create a File-like object from the ArrayBuffer (following Netlify example)
-      const imageFile = new File([imageBuffer], `${imageId}.${fileExtension}`, {
-        type: contentType,
+      // Generate unique key for the image (always .webp now)
+      const imageId = uuidv4();
+      const imageKey = `${actualUserId}/${imageId}.webp`;
+
+      // Create a File-like object from the processed buffer
+      const imageFile = new File([processedImageBuffer], `${imageId}.webp`, {
+        type: "image/webp",
       });
 
-      // Store the image blob directly as File (like the Netlify example)
+      // Store the processed image blob
       await store.set(imageKey, imageFile, {
         metadata: {
           userId: actualUserId,
-          contentType,
-          size: imageBuffer.byteLength,
+          contentType: "image/webp",
+          originalContentType: contentType, // Keep track of original format
+          size: processedImageBuffer.byteLength,
           uploadedAt: new Date().toISOString(),
         }
       });
@@ -103,8 +113,9 @@ export default async (req: Request, _context: Context) => {
           success: true,
           imageId,
           imageKey,
-          contentType,
-          size: imageBuffer.byteLength,
+          contentType: "image/webp",
+          originalContentType: contentType,
+          size: processedImageBuffer.byteLength,
           url: `/api/user-images/${imageKey}`,
         }),
         {
@@ -167,11 +178,11 @@ export default async (req: Request, _context: Context) => {
         const metadata = await store.getMetadata(imageKey);
         const imageMetadata = metadata?.metadata || {};
         
-        // Return the image
+        // Return the image (should always be WebP now, but fallback for older images)
         const contentType =
           imageMetadata && typeof imageMetadata === "object" && "contentType" in imageMetadata
             ? (imageMetadata.contentType as string)
-            : "image/jpeg";
+            : "image/webp";
 
         const headers: HeadersInit = {
           "Content-Type": contentType,
