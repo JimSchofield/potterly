@@ -5,10 +5,16 @@
 [functions]
   directory = "netlify/functions"
 
+[functions."user-images"]
+  # Allow larger uploads for image function (10MB)
+  timeout = 30
+
 [dev]
   command = "pnpm dev"
   targetPort = 5173
   framework = "vite"
+  # Increase timeout and allow larger request bodies
+  functionsPort = 34567
 
 [dev.https]
   certFile = "localhost.pem"

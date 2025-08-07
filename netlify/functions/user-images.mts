@@ -66,10 +66,11 @@ export default async (req: Request, _context: Context) => {
         );
       }
 
-      // Check file size (limit to 5MB)
-      if (imageBuffer.byteLength > 5 * 1024 * 1024) {
+      // Check file size (limit to 1MB for dev, 5MB for production)
+      const maxSize = process.env.NETLIFY_DEV ? 1 * 1024 * 1024 : 5 * 1024 * 1024;
+      if (imageBuffer.byteLength > maxSize) {
         return new Response(
-          JSON.stringify({ error: "Image size must be less than 5MB" }),
+          JSON.stringify({ error: `Image size must be less than ${maxSize / 1024 / 1024}MB` }),
           {
             status: 413,
             headers: { "Content-Type": "application/json" },
@@ -82,16 +83,20 @@ export default async (req: Request, _context: Context) => {
       const fileExtension = contentType.split("/")[1] || "jpg";
       const imageKey = `${actualUserId}/${imageId}.${fileExtension}`;
 
-      // Store metadata about the image
-      const metadata = {
-        userId: actualUserId,
-        contentType,
-        size: imageBuffer.byteLength,
-        uploadedAt: new Date().toISOString(),
-      };
+      // Create a File-like object from the ArrayBuffer (following Netlify example)
+      const imageFile = new File([imageBuffer], `${imageId}.${fileExtension}`, {
+        type: contentType,
+      });
 
-      // Store the image blob
-      await store.set(imageKey, imageBuffer, { metadata });
+      // Store the image blob directly as File (like the Netlify example)
+      await store.set(imageKey, imageFile, {
+        metadata: {
+          userId: actualUserId,
+          contentType,
+          size: imageBuffer.byteLength,
+          uploadedAt: new Date().toISOString(),
+        }
+      });
 
       return new Response(
         JSON.stringify({
@@ -148,39 +153,33 @@ export default async (req: Request, _context: Context) => {
         const pathParts = url.pathname.split("/").filter((part) => part);
         const imageKey = pathParts.slice(2).join("/"); // Everything after /api/user-images/
 
-        const result = await store.getWithMetadata(imageKey);
+        // Get the image as a stream (following Netlify example)
+        const imageBlob = await store.get(imageKey, { type: "stream" });
 
-        if (!result) {
+        if (!imageBlob) {
           return new Response(JSON.stringify({ error: "Image not found" }), {
             status: 404,
             headers: { "Content-Type": "application/json" },
           });
         }
 
-        // Check if user has permission to view this image
-        const metadata = result.metadata?.metadata || result.metadata || {};
-        if (metadata && typeof metadata === 'object' && 'userId' in metadata && metadata.userId !== actualUserId) {
-          return new Response(JSON.stringify({ error: "Unauthorized" }), {
-            status: 403,
-            headers: { "Content-Type": "application/json" },
-          });
-        }
-
-        // Return the image
-        const contentType = (metadata && typeof metadata === 'object' && 'contentType' in metadata 
-          ? metadata.contentType as string 
-          : "image/jpeg");
+        // Get metadata for content type
+        const metadata = await store.getMetadata(imageKey);
+        const imageMetadata = metadata?.metadata || {};
         
+        // Return the image
+        const contentType =
+          imageMetadata && typeof imageMetadata === "object" && "contentType" in imageMetadata
+            ? (imageMetadata.contentType as string)
+            : "image/jpeg";
+
         const headers: HeadersInit = {
           "Content-Type": contentType,
           "Cache-Control": "public, max-age=31536000", // Cache for 1 year
         };
-        
-        if (result.etag) {
-          headers["ETag"] = result.etag;
-        }
-        
-        return new Response(result.data, { headers });
+
+        // Return the stream directly (following Netlify example)
+        return new Response(imageBlob, { headers });
       }
     }
 
@@ -213,7 +212,12 @@ export default async (req: Request, _context: Context) => {
       }
 
       const deleteMetadata = result.metadata?.metadata || result.metadata || {};
-      if (deleteMetadata && typeof deleteMetadata === 'object' && 'userId' in deleteMetadata && deleteMetadata.userId !== actualUserId) {
+      if (
+        deleteMetadata &&
+        typeof deleteMetadata === "object" &&
+        "userId" in deleteMetadata &&
+        deleteMetadata.userId !== actualUserId
+      ) {
         return new Response(JSON.stringify({ error: "Unauthorized" }), {
           status: 403,
           headers: { "Content-Type": "application/json" },
