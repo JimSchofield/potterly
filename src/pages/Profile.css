@@ -26,8 +26,39 @@
 }
 
 /* Custom styling for profile avatar in header */
+.profile-avatar-container {
+  position: relative;
+}
+
 .profile-avatar-custom {
   /* The ProfilePicture component handles most styling */
+}
+
+.image-upload-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(139, 69, 19, 0.9);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.image-upload-button {
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+.image-upload-button:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .profile-details h1 {

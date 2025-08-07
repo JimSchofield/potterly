@@ -11,7 +11,9 @@ import {
 import { PotteryPiece } from "../types/Piece";
 import { UserStats, getUserStatsAPI } from "../network/users";
 import { getUserRecentPiecesAPI } from "../network/pieces";
+import { uploadUserImageAPI } from "../network/user-images";
 import { getStageIcon } from "../utils/labels-and-icons";
+import { setLoading } from "../stores/loading";
 import ProfilePicture from "../components/ProfilePicture";
 import "./Profile.css";
 
@@ -38,6 +40,7 @@ const Profile = () => {
       linkedin: "",
     },
   });
+  const [imageUploadLoading, setImageUploadLoading] = useState(false);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -148,6 +151,61 @@ const Profile = () => {
     }));
   };
 
+  const handleImageUpload = async (file: File) => {
+    if (!user.user) return;
+
+    try {
+      setImageUploadLoading(true);
+      setLoading(true, "Uploading profile image..."); // Show global loading overlay
+      console.log("Starting image upload for file:", file.name);
+      
+      // Upload image to blob storage
+      const uploadResult = await uploadUserImageAPI(user.user.id, file);
+      console.log("Image upload successful:", uploadResult);
+      
+      // Update user profile with new image URL
+      const updatedUser = await updateUserProfile(user.user.id, {
+        image: uploadResult.url,
+      });
+      console.log("User profile updated:", updatedUser);
+      
+    } catch (error) {
+      console.error("Failed to upload profile image:", error);
+      
+      // Show user-friendly error message
+      let errorMessage = "Failed to upload image. Please try again.";
+      if (error instanceof Error) {
+        if (error.message.includes("413") || error.message.includes("size")) {
+          errorMessage = "Image is too large. Please use a smaller image (max 3MB).";
+        } else if (error.message.includes("400") || error.message.includes("Content-Type")) {
+          errorMessage = "Invalid image format. Please use JPG, PNG, or WebP.";
+        }
+      }
+      
+      alert(errorMessage);
+    } finally {
+      setImageUploadLoading(false);
+      setLoading(false); // Hide global loading overlay
+    }
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Check file size before upload (3MB limit for development)
+      const maxSize = 3 * 1024 * 1024; // 3MB
+      if (file.size > maxSize) {
+        alert(`Image size must be less than ${maxSize / 1024 / 1024}MB. Your image is ${(file.size / 1024 / 1024).toFixed(1)}MB. Please compress or resize your image.`);
+        e.target.value = '';
+        return;
+      }
+      
+      handleImageUpload(file);
+      // Clear the input to allow re-uploading the same file
+      e.target.value = '';
+    }
+  };
+
   if (user.loading) {
     return (
       <div className="profile-page">
@@ -212,12 +270,30 @@ const Profile = () => {
         </div>
 
         <div className="profile-info">
-          <ProfilePicture
-            profilePicture={currentUser.profilePicture}
-            userName={`${currentUser.firstName} ${currentUser.lastName}`}
-            size="LARGE"
-            className="profile-avatar-custom"
-          />
+          <div className="profile-avatar-container">
+            <ProfilePicture
+              profilePicture={currentUser.profilePicture}
+              customImage={currentUser.image}
+              userName={`${currentUser.firstName} ${currentUser.lastName}`}
+              size="LARGE"
+              className="profile-avatar-custom"
+            />
+            {isEditing && (
+              <div className="image-upload-overlay">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileInputChange}
+                  style={{ display: "none" }}
+                  id="profile-image-input"
+                  disabled={imageUploadLoading}
+                />
+                <label htmlFor="profile-image-input" className="image-upload-button">
+                  {imageUploadLoading ? "Uploading..." : "📷 Change Photo"}
+                </label>
+              </div>
+            )}
+          </div>
           <div className="profile-details">
             {isEditing ? (
               <div

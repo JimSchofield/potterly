@@ -52,6 +52,7 @@ export const users = pgTable("users", {
   socials: jsonb().notNull(), // UserSocials object
   username: varchar({ length: 50 }).notNull().unique(),
   profilePicture: varchar("profile_picture", { length: 500 }), // Profile picture URL from Google OAuth
+  image: varchar({ length: 500 }), // Custom uploaded profile image URL
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

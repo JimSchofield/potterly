@@ -147,6 +147,7 @@ const UserProfile = () => {
         <div className="profile-info">
           <ProfilePicture
             profilePicture={user.profilePicture}
+            customImage={user.image}
             userName={`${user.firstName} ${user.lastName}`}
             size="LARGE"
             className="profile-avatar-custom"

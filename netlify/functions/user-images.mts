@@ -67,8 +67,8 @@ export default async (req: Request, _context: Context) => {
         );
       }
 
-      // Check file size (limit to 1MB for dev, 5MB for production)
-      const maxSize = process.env.NETLIFY_DEV ? 1 * 1024 * 1024 : 5 * 1024 * 1024;
+      // Check file size (limit to 3MB for dev, 5MB for production)
+      const maxSize = process.env.NETLIFY_DEV ? 3 * 1024 * 1024 : 5 * 1024 * 1024;
       if (imageBuffer.byteLength > maxSize) {
         return new Response(
           JSON.stringify({ error: `Image size must be less than ${maxSize / 1024 / 1024}MB` }),

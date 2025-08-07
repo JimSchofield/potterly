@@ -26,7 +26,7 @@ const KanbanColumn = ({
     drop: async (item: { id: string; stage: string }) => {
       if (item.stage !== stage) {
         try {
-          setLoading(true);
+          setLoading(true, "Updating pottery piece...");
           // Update the piece's stage when dropped on a different column
           await updatePiece(item.id, { stage: stage as Stages });
         } catch (error) {

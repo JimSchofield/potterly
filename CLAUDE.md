@@ -151,6 +151,7 @@ interface User {
   socials: UserSocials;    // Social media links
   username: string;        // Unique username
   profilePicture?: string; // Profile picture URL from Google OAuth (base URL without size)
+  image?: string;          // Custom uploaded profile image URL
 }
 
 // Stage-specific data interfaces
@@ -323,3 +324,17 @@ interface StageDetails {
   - Backwards compatibility for existing images while processing all new uploads
   - Significant storage and bandwidth savings with modern WebP format
   - Improved loading performance across all pottery piece stage images
+- **Custom Profile Image Upload**: Complete profile picture customization system for user profiles:
+  - Added `image` column to user database schema for custom profile images
+  - Enhanced Profile page with image upload functionality in edit mode
+  - Elegant upload overlay that appears over profile picture during edit mode
+  - Client-side file size validation (3MB limit in development, 5MB in production)
+  - File type validation for image formats (JPG, PNG, WebP, etc.)
+  - ProfilePicture component enhanced to prioritize custom images over Google OAuth profile pictures
+  - Automatic Sharp processing: resize to 800px width, convert to WebP format at 80% quality
+  - Comprehensive error handling with user-friendly error messages for size/format issues
+  - Seamless integration with existing user profile update workflow
+  - Custom images display consistently across Profile page and UserProfile page (public profiles)
+  - Image upload with loading states, progress feedback, and file input clearing for re-uploads
+  - Database persistence with proper metadata tracking and backwards compatibility
+  - Professional styling with pottery-themed upload button and hover effects

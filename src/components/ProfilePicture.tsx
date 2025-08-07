@@ -5,6 +5,8 @@ import "./ProfilePicture.css";
 interface ProfilePictureProps {
   /** Base profile picture URL from user data */
   profilePicture?: string;
+  /** Custom uploaded image URL (takes priority over profilePicture) */
+  customImage?: string;
   /** User's name for alt text */
   userName: string;
   /** Size variant for the profile picture */
@@ -45,6 +47,7 @@ interface ProfilePictureProps {
  */
 export const ProfilePicture: React.FC<ProfilePictureProps> = ({
   profilePicture,
+  customImage,
   userName,
   size = "MEDIUM",
   className = "",
@@ -53,8 +56,8 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({
   // Convert size to pixel value
   const sizePixels = typeof size === "string" ? PROFILE_PICTURE_SIZES[size] : size;
   
-  // Get the appropriately sized profile picture URL
-  const imageUrl = getProfilePictureUrl(profilePicture, sizePixels);
+  // Prioritize custom uploaded image over Google profile picture
+  const imageUrl = customImage || getProfilePictureUrl(profilePicture, sizePixels);
 
   const baseClassName = `profile-picture-component ${className}`;
   const interactiveClassName = onClick ? "profile-picture-interactive" : "";

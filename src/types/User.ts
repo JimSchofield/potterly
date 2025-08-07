@@ -20,4 +20,5 @@ export interface User {
   socials: UserSocials;
   username: string;
   profilePicture?: string; // Profile picture URL from Google OAuth
+  image?: string; // Custom uploaded profile image URL
 }

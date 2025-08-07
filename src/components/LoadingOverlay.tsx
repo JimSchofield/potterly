@@ -1,9 +1,10 @@
 import { useStore } from "@nanostores/react";
-import { isLoadingStore } from "../stores/loading";
+import { isLoadingStore, loadingMessageStore } from "../stores/loading";
 import "./LoadingOverlay.css";
 
 const LoadingOverlay = () => {
   const isLoading = useStore(isLoadingStore);
+  const loadingMessage = useStore(loadingMessageStore);
 
   if (!isLoading) return null;
 
@@ -11,7 +12,7 @@ const LoadingOverlay = () => {
     <div className="loading-overlay">
       <div className="loading-content">
         <div className="loading-spinner"></div>
-        <p className="loading-text">Updating pottery piece...</p>
+        <p className="loading-text">{loadingMessage}</p>
       </div>
     </div>
   );
