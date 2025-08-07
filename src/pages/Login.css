@@ -168,30 +168,13 @@
   gap: 0.5rem;
 }
 
-.loading-spinner {
+.login-loading-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   color: #5d4037;
   font-size: 1.1rem;
-}
-
-.loading-spinner::after {
-  content: "";
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  padding: 2rem;
 }
 
 @media (max-width: 480px) {

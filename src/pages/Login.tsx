@@ -61,15 +61,15 @@ const Login = () => {
       } catch (_error) {
         // If user doesn't exist by Google ID, check if user exists by email
         console.log("User not found by Google ID, checking by email...");
-        
+
         try {
           // Try to find user by email and update their Google ID
           const existingUserByEmail = await getUserByEmailAPI(decoded.email);
           if (existingUserByEmail) {
             console.log("Found existing user by email, updating Google ID");
-            await updateUserProfileAPI(existingUserByEmail.id, { 
+            await updateUserProfileAPI(existingUserByEmail.id, {
               googleId: decoded.sub,
-              profilePicture: getBaseProfilePictureUrl(decoded.picture)
+              profilePicture: getBaseProfilePictureUrl(decoded.picture),
             });
             // Now login with the Google ID
             await loginUserByGoogleId(decoded.sub);
@@ -79,7 +79,7 @@ const Login = () => {
         } catch (emailError) {
           console.log("No existing user found by email, creating new user");
         }
-        
+
         console.log("Creating new user with Google data");
 
         const googleUser = {
@@ -127,7 +127,7 @@ const Login = () => {
             <p className="tagline">Track your ceramic journey</p>
           </div>
           <div className="login-content">
-            <div className="loading-spinner">Loading...</div>
+            <div className="login-loading-text">Loading...</div>
           </div>
         </div>
       </div>
